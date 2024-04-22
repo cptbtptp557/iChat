@@ -1,0 +1,29 @@
+{
+  "name": "i-chat",
+  "private": true,
+  "version": "0.0.0",
+  "typings": "vite-env.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "start": "nodemon src/backEnd/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "element-plus": "^2.7.1",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "electron": "^30.0.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}

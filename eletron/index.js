@@ -5,7 +5,7 @@ let win;
 let win_child;
 const createWin = () => {
     win = new BrowserWindow({
-        width: 900,
+        width: 1000,
         height: 600,
         // frame: false, // 取消自带的边框栏
         resizable: false,
@@ -19,7 +19,7 @@ const createWin = () => {
             preload: path.join(__dirname, 'preload.js'),
         }
     });
-    win.loadURL('http://localhost:5173/').catch(console.error);
+    win.loadURL('http://localhost:5173/login').catch(console.error);
 }
 
 let tray;
@@ -43,7 +43,7 @@ app.whenReady()
                     preload: path.join(__dirname, 'preload.js'),
                 }
             });
-            win_child.loadURL('http://localhost:5173').catch(console.error);
+            win_child.loadURL('http://localhost:5173/login').catch(console.error);
         })
     })
 

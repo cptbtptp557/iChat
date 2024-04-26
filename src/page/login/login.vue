@@ -46,5 +46,5 @@ const {} = login();
 </script>
 
 <style scoped>
-@import "./login.less";
+@import "login.less";
 </style>

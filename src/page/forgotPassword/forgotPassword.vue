@@ -33,5 +33,5 @@ const {
 </script>
 
 <style scoped>
-@import "./forgotPassword.less";
+@import "forgotPassword.less";
 </style>

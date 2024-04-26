@@ -1,0 +1,178 @@
+@white: #f9f9f9;
+@neu-2: #d1d9e6;
+@gray: rgb(199, 199, 199);
+@light_gray: #efefef;
+@blue: #4B70E2;
+
+.outside {
+  width: 60px;
+  height: 650px;
+  padding-left: 13px;
+  padding-right: 10px;
+  background-color: @light_gray;
+}
+
+.avatar {
+  position: relative;
+  top: 30px;
+  right: 2px;
+
+  & button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: @light_gray;
+
+    & .avatar_image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid @gray;
+      cursor: pointer;
+    }
+  }
+}
+
+.personal_information_column {
+  height: 250px;
+
+  & .iid {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  & .signature {
+    font-size: 15px;
+  }
+
+  & .user_lists_button {
+    width: 250px;
+    height: 40px;
+    border-radius: 25px;
+    margin-top: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.15px;
+    background-color: @blue;
+    color: @white;
+    box-shadow: 8px 8px 16px @neu-2,
+      -8px -8px 16px @white;
+    border: none;
+    outline: none;
+    position: relative;
+    top: 100px;
+    margin-left: 12px;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 6px 6px 10px @neu-2,
+        -6px -6px 10px @white;
+      transform: scale(.985);
+      transition: .25s;
+    }
+  }
+}
+
+.action_bar_top {
+  position: relative;
+  top: 50px;
+
+  & img {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 5px;
+    left: 5px;
+  }
+
+  & label {
+    cursor: pointer;
+
+    & [type = radio] {
+      //display: none;
+    }
+  }
+}
+
+.action_bar_bottom {
+  position: absolute;
+  bottom: 20px;
+
+  & img {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 5px;
+    left: 5px;
+  }
+}
+
+.button_background {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  left: -5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  & button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      border-radius: 10px;
+      background-color: rgb(220, 220, 220);
+    }
+
+    & .setup {
+      position: absolute;
+    }
+  }
+
+  &:hover {
+    border-radius: 10px;
+    background-color: rgb(220, 220, 220);
+  }
+
+  &:active {
+    background-color: @gray;
+  }
+}
+
+.setup_bottom {
+  height: 200px;
+  cursor: pointer;
+
+  & .sign_out {
+    width: 190px;
+    position: absolute;
+    left: 4px;
+    bottom: 10px;
+    border-radius: 5px;
+    padding: 5px;
+
+    &:hover {
+      background-color: @light_gray;
+    }
+
+    &:active {
+      background-color: @gray;
+    }
+
+    & img {
+      width: 25px;
+      height: 25px;
+      position: relative;
+      left: 10px;
+    }
+
+    &_p {
+      position: absolute;
+      top: 8px;
+      left: 50px;
+    }
+  }
+}

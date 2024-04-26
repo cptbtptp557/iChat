@@ -6,7 +6,7 @@ let win_child;
 const createWin = () => {
     win = new BrowserWindow({
         width: 1000,
-        height: 600,
+        height: 650,
         // frame: false, // 取消自带的边框栏
         resizable: false,
         useContentSize: true,

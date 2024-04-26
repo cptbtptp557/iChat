@@ -1,6 +1,3 @@
 export const home = () => {
-
-    return {
-
-    }
+    return {}
 }

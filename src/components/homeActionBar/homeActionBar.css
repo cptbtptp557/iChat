@@ -1,0 +1,142 @@
+.outside {
+  width: 60px;
+  height: 650px;
+  padding-left: 13px;
+  padding-right: 10px;
+  background-color: #efefef;
+}
+.avatar {
+  position: relative;
+  top: 30px;
+  right: 2px;
+}
+.avatar button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: #efefef;
+}
+.avatar button .avatar_image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #c7c7c7;
+  cursor: pointer;
+}
+.personal_information_column {
+  height: 250px;
+}
+.personal_information_column .iid {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.personal_information_column .signature {
+  font-size: 15px;
+}
+.personal_information_column .user_lists_button {
+  width: 250px;
+  height: 40px;
+  border-radius: 25px;
+  margin-top: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.15px;
+  background-color: #4B70E2;
+  color: #f9f9f9;
+  box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #f9f9f9;
+  border: none;
+  outline: none;
+  position: relative;
+  top: 100px;
+  margin-left: 12px;
+  cursor: pointer;
+}
+.personal_information_column .user_lists_button:hover {
+  box-shadow: 6px 6px 10px #d1d9e6, -6px -6px 10px #f9f9f9;
+  transform: scale(0.985);
+  transition: 0.25s;
+}
+.action_bar_top {
+  position: relative;
+  top: 50px;
+}
+.action_bar_top img {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 5px;
+  left: 5px;
+}
+.action_bar_top label {
+  cursor: pointer;
+}
+.action_bar_bottom {
+  position: absolute;
+  bottom: 20px;
+}
+.action_bar_bottom img {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 5px;
+  left: 5px;
+}
+.button_background {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  left: -5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.button_background button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+}
+.button_background button:hover {
+  border-radius: 10px;
+  background-color: #dcdcdc;
+}
+.button_background button .setup {
+  position: absolute;
+}
+.button_background:hover {
+  border-radius: 10px;
+  background-color: #dcdcdc;
+}
+.button_background:active {
+  background-color: #c7c7c7;
+}
+.setup_bottom {
+  height: 200px;
+  cursor: pointer;
+}
+.setup_bottom .sign_out {
+  width: 190px;
+  position: absolute;
+  left: 4px;
+  bottom: 10px;
+  border-radius: 5px;
+  padding: 5px;
+}
+.setup_bottom .sign_out:hover {
+  background-color: #efefef;
+}
+.setup_bottom .sign_out:active {
+  background-color: #c7c7c7;
+}
+.setup_bottom .sign_out img {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  left: 10px;
+}
+.setup_bottom .sign_out_p {
+  position: absolute;
+  top: 8px;
+  left: 50px;
+}
+/*# sourceMappingURL=homeActionBar.css.map */

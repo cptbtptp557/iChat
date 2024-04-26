@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import home from "../components/home/home.vue";
-import login from "../components/login/login.vue";
-import forgotPassword from "../components/forgotPassword/forgotPassword.vue";
+import home from "../page/home/home.vue";
+import login from "../page/login/login.vue";
+import forgotPassword from "../page/forgotPassword/forgotPassword.vue";
 
 export const vueRouter = () => {
     const routes = [

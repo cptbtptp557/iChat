@@ -19,7 +19,7 @@ const createWin = () => {
             preload: path.join(__dirname, 'preload.js'),
         }
     });
-    win.loadURL('http://localhost:5173/login').catch(console.error);
+    win.loadURL('http://localhost:5173/').catch(console.error);
 }
 
 let tray;
@@ -35,6 +35,8 @@ app.whenReady()
             // console.log(event);
             console.log(title);
             win_child = new BrowserWindow({
+                width: 1000,
+                height: 600,
                 parent: win,
                 webPreferences: {
                     sandbox: false,

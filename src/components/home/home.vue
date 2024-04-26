@@ -1,12 +1,13 @@
 <template>
-  home
-  <input type="button" @click="click" value="click">
+  <div>
+
+  </div>
 </template>
 
 <script setup lang="ts">
 import {home} from "./home.ts";
 
-const {click} = home();
+const {} = home();
 </script>
 
 <style scoped>

@@ -5,7 +5,7 @@
         <h2 class="form_title title">Create Account</h2>
         <div class="form__icons"></div>
         <span class="form__span">或使用电子邮件进行注册</span>
-        <input class="form__input" type="text" placeholder="Name">
+        <input class="form__input" type="text" placeholder="Nickname">
         <input class="form__input" type="text" placeholder="Email">
         <input class="form__input" type="password" placeholder="Password">
         <button class="form__button button submit">SIGN UP</button>

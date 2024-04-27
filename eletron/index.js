@@ -8,6 +8,7 @@ const createWin = () => {
         width: 1000,
         height: 650,
         // frame: false, // 取消自带的边框栏
+        // transparent: true,
         resizable: false,
         useContentSize: true,
         autoHideMenuBar: true,

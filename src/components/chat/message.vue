@@ -1,6 +1,6 @@
 <template>
-  <chatChatBar></chatChatBar>
   <homeFriendsBar></homeFriendsBar>
+  <chatChatBar></chatChatBar>
 </template>
 
 <script setup lang="ts">

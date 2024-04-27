@@ -1,0 +1,10 @@
+.thisOutside {
+  width: 690px;
+  height: 100%;
+  background-color: #efefef;
+  position: absolute;
+  top: 0;
+  left: 310px;
+  z-index: 100;
+}
+/*# sourceMappingURL=homeChatBar.css.map */

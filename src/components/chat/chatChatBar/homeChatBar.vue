@@ -1,6 +1,14 @@
 <template>
-  <div class="outside">
-    home chat bar
+  <div class="thisOutside">
+    <header>
+      顶部按钮
+    </header>
+    <div>
+      显示对话框
+    </div>
+    <div>
+      底部输入框
+    </div>
   </div>
 </template>
 
@@ -9,11 +17,5 @@
 </script>
 
 <style scoped>
-.outside {
-  width: 687px;
-  position: relative;
-  top: -115px;
-  left: 298px;
-  background-color: #a0a5a8;
-}
+@import "./homeChatBar.less";
 </style>

@@ -1,0 +1,45 @@
+.top {
+  width: 250px;
+  height: 100%;
+  position: relative;
+  top: -207px;
+  left: 45px;
+  box-shadow: 1px 0 5px #d1d9e6;
+}
+header {
+  position: relative;
+  top: 5px;
+  left: 10px;
+}
+header label {
+  width: 200px;
+  background-color: #efefef;
+  border-radius: 3px;
+}
+header label .search {
+  width: 15px;
+  color: #969696;
+  position: relative;
+  top: 2px;
+  left: 5px;
+}
+header label [type=text] {
+  width: 180px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  position: relative;
+  top: -2px;
+  left: 10px;
+  color: #969696;
+  font-size: 13px;
+}
+header .add {
+  width: 20px;
+  position: relative;
+  top: -1px;
+  left: 8px;
+  transform: scale(0.75);
+  background-color: #efefef;
+}
+/*# sourceMappingURL=homefriendsBar.css.map */

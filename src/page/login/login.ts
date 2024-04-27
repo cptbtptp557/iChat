@@ -1,6 +1,9 @@
 import {ref} from "vue";
+import {ElNotification} from "element-plus";
 
 export const login = () => {
+    const account = ref(); // 账号
+    const password = ref(); // 密码
     const getButtons = (e: any) => e.preventDefault()
 
     const changeForm = () => {
@@ -38,5 +41,22 @@ export const login = () => {
 
     window.addEventListener("load", mainF);
 
-    return {}
+    const loginIn = () => {
+        if (account.value === "10001" && password.value === "10001") {
+            window.location.href = "/";
+        } else {
+            ElNotification({
+                title: '账号密码错误',
+                message: '请重新输入!!!',
+                type: 'error',
+                position: 'top-left',
+            })
+        }
+    }
+
+    return {
+        account,
+        password,
+        loginIn,
+    }
 }

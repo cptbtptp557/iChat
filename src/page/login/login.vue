@@ -13,13 +13,13 @@
     </div>
     <div class="container b-container" id="b-container">
       <form class="form" id="b-form" action="">
-        <h2 class="form_title title">Sign in</h2>
+        <h2 class="form_title title">Sign In</h2>
         <div class="form__icons"></div>
         <span class="form__span">输入账号密码登录</span>
-        <input class="form__input" type="text" placeholder="Account">
-        <input class="form__input" type="password" placeholder="Password">
+        <input class="form__input" type="text" v-model="account" placeholder="Account">
+        <input class="form__input" type="password" v-model="password" placeholder="Password">
         <a href="/forgotPassword" class="form__link">忘记密码</a>
-        <button class="form__button button submit">SIGN IN</button>
+        <button class="form__button button submit" @click="loginIn">SIGN IN</button>
       </form>
     </div>
     <div class="switch" id="switch-cnt">
@@ -42,7 +42,11 @@
 <script setup lang="ts">
 import {login} from "./login.ts";
 
-const {} = login();
+const {
+  account,
+  password,
+  loginIn,
+} = login();
 </script>
 
 <style scoped>

@@ -1,0 +1,55 @@
+@white: #f9f9f9;
+@neu-2: #d1d9e6;
+@gray: rgb(199, 199, 199);
+@light_gray: #efefef;
+@blue: #4B70E2;
+
+.top {
+  width: 250px;
+  height: 100%;
+  position: relative;
+  top: -207px;
+  left: 45px;
+  box-shadow: 1px 0 5px @neu-2;
+}
+
+header {
+  position: relative;
+  top: 5px;
+  left: 10px;
+
+  & label {
+    width: 200px;
+    background-color: @light_gray;
+    border-radius: 3px;
+
+    & .search {
+      width: 15px;
+      color: rgb(150, 150, 150);
+      position: relative;
+      top: 2px;
+      left: 5px;
+    }
+
+    & [type = text] {
+      width: 180px;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      position: relative;
+      top: -2px;
+      left: 10px;
+      color: rgb(150, 150, 150);
+      font-size: 13px;
+    }
+  }
+
+  & .add {
+    width: 20px;
+    position: relative;
+    top: -1px;
+    left: 8px;
+    transform: scale(.75);
+    background-color: @light_gray;
+  }
+}

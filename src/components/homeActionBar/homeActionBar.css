@@ -246,6 +246,8 @@
   width: 440px;
   border: none;
   border-bottom: 1px solid #000;
+  font-size: 15px;
+  outline: none;
 }
 .change_signature {
   position: absolute;
@@ -254,8 +256,10 @@
   font-size: 20px;
 }
 .change_signature input {
-  width: 400px;
+  width: 440px;
   border: none;
   border-bottom: 1px solid #000;
+  font-size: 15px;
+  outline: none;
 }
 /*# sourceMappingURL=homeActionBar.css.map */

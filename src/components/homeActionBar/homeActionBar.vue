@@ -73,7 +73,7 @@
           <input type="text" class="nickname_input" value="Nickname" placeholder="Nickname">
         </label>
         <label class="change_signature">
-          个性签名
+          签名
           <input type="text" class="signature_input" value="Signature" placeholder="Signature">
         </label>
         <button>保存</button>

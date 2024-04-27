@@ -20,7 +20,7 @@ const createWin = () => {
             preload: path.join(__dirname, 'preload.js'),
         }
     });
-    win.loadURL('http://localhost:5173/').catch(console.error);
+    win.loadURL('http://localhost:5173/login').catch(console.error);
 }
 
 let tray;

@@ -7,4 +7,113 @@
   left: 310px;
   z-index: 100;
 }
+header {
+  height: 38px;
+  letter-spacing: 1px;
+  background-color: #efefef;
+}
+header h4 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+header .shat_control {
+  position: absolute;
+  top: 5px;
+  left: 570px;
+}
+header .shat_control .el-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+header .shat_control .el-icon:hover {
+  color: #557ffc;
+}
+header .shat_control .el-icon:active {
+  transform: scale(0.9);
+}
+.dialog_box {
+  padding: 10px;
+}
+.dialog_box .to_user {
+  position: relative;
+}
+.dialog_box .to_user img {
+  width: 40px;
+  border-radius: 50%;
+}
+.dialog_box .to_user p {
+  width: 100px;
+  font-size: 10px;
+  color: rgba(0, 0, 0);
+  position: relative;
+  top: -45px;
+  left: 45px;
+}
+.dialog_box .from_user {
+  position: relative;
+  float: right;
+}
+.dialog_box .from_user img {
+  width: 40px;
+  border-radius: 50%;
+}
+.dialog_box .from_user p {
+  font-size: 10px;
+  color: #c7c7c7;
+}
+footer {
+  width: 665px;
+  position: absolute;
+  top: 435px;
+  left: 15px;
+}
+footer .shat_control .el-icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+footer .shat_control .el-icon:hover {
+  color: #557ffc;
+}
+footer .shat_control .el-icon:active {
+  transform: scale(0.9);
+}
+footer textarea {
+  width: 665px;
+  height: 140px;
+  resize: none;
+  font-family: 'Montserrat', sans-serif;
+  background-color: transparent;
+  border: none;
+  outline: transparent;
+  margin: 5px 0 0 5px;
+  overflow: auto;
+  letter-spacing: 1px;
+}
+footer textarea::-webkit-scrollbar {
+  width: 10px;
+}
+footer textarea::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+footer textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+footer .send_box {
+  width: 90px;
+  height: 30px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #557ffc;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+footer .send_box:active {
+  background-color: rgba(139, 166, 246);
+}
 /*# sourceMappingURL=homeChatBar.css.map */

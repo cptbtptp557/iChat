@@ -4,8 +4,8 @@ export const homeChatBar = () => {
     const content = ref(); // 输入内容
     const button_disabled = ref(false);
 
+    // 打开语音通话界面
     const openVoiceCallWindow = () => {
-        console.log(window.electronAPI)
         window.electronAPI.openVoiceCallWindow("我被点击了!!!");
     }
 

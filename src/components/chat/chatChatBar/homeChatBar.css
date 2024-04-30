@@ -33,7 +33,23 @@ header .shat_control .el-icon:active {
   transform: scale(0.9);
 }
 .dialog_box {
+  height: 389px;
   padding: 10px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.dialog_box::-webkit-scrollbar {
+  width: 10px;
+}
+.dialog_box::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+.dialog_box::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px;
 }
 .dialog_box .to_user {
   position: relative;
@@ -42,25 +58,59 @@ header .shat_control .el-icon:active {
   width: 40px;
   border-radius: 50%;
 }
-.dialog_box .to_user p {
+.dialog_box .to_user > p:first-of-type {
   width: 100px;
   font-size: 10px;
-  color: rgba(0, 0, 0);
+  color: #505050;
   position: relative;
   top: -45px;
   left: 45px;
 }
+.dialog_box .to_user > p:nth-of-type(2) {
+  display: inline-block;
+  max-width: 570px;
+  background-color: #c7c7c7;
+  position: relative;
+  top: -40px;
+  left: 45px;
+  padding: 5px;
+  border-radius: 5px;
+  color: #000;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
 .dialog_box .from_user {
   position: relative;
+  top: -25px;
   float: right;
+  margin-bottom: 10px;
 }
 .dialog_box .from_user img {
   width: 40px;
   border-radius: 50%;
+  float: right;
 }
-.dialog_box .from_user p {
+.dialog_box .from_user > p:first-of-type {
   font-size: 10px;
-  color: #c7c7c7;
+  color: #505050;
+  position: relative;
+  top: 0;
+  right: 7px;
+  float: right;
+}
+.dialog_box .from_user > p:nth-of-type(2) {
+  display: inline-block;
+  max-width: 570px;
+  background-color: #557ffc;
+  position: relative;
+  top: 20px;
+  right: -45px;
+  float: right;
+  padding: 5px;
+  border-radius: 5px;
+  color: #f9f9f9;
+  font-size: 14px;
+  letter-spacing: 0.5px;
 }
 footer {
   width: 665px;

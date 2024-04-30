@@ -46,7 +46,27 @@ header {
 }
 
 .dialog_box {
+  height: 389px;
   padding: 10px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: @gray;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px;
+  }
+
   & .to_user {
     position: relative;
 
@@ -55,28 +75,64 @@ header {
       border-radius: 50%;
     }
 
-    & p {
+    & > p:first-of-type {
       width: 100px;
       font-size: 10px;
-      color: rgba(0, 0, 0);
+      color: #505050;
       position: relative;
       top: -45px;
       left: 45px;
+    }
+
+    & > p:nth-of-type(2) {
+      display: inline-block;
+      max-width: 570px;
+      background-color: @gray;
+      position: relative;
+      top: -40px;
+      left: 45px;
+      padding: 5px;
+      border-radius: 5px;
+      color: #000;
+      font-size: 14px;
+      letter-spacing: .5px;
     }
   }
 
   & .from_user {
     position: relative;
+    top: -25px;
     float: right;
+    margin-bottom: 10px;
 
     & img {
       width: 40px;
       border-radius: 50%;
+      float: right;
     }
 
-    & p {
+    & > p:first-of-type {
       font-size: 10px;
-      color: @gray;
+      color: #505050;
+      position: relative;
+      top: 0;
+      right: 7px;
+      float: right;
+    }
+
+    & > p:nth-of-type(2) {
+      display: inline-block;
+      max-width: 570px;
+      background-color: @blue;
+      position: relative;
+      top: 20px;
+      right: -45px;
+      float: right;
+      padding: 5px;
+      border-radius: 5px;
+      color: @white;
+      font-size: 14px;
+      letter-spacing: .5px;
     }
   }
 }

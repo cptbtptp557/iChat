@@ -10,6 +10,7 @@ header {
   position: relative;
   top: 5px;
   left: 10px;
+  background-color: #f9f9f9;
 }
 header label {
   width: 200px;
@@ -41,5 +42,71 @@ header .add {
   left: 8px;
   transform: scale(0.75);
   background-color: #efefef;
+}
+.chat_friends {
+  height: 610px;
+  cursor: pointer;
+  position: relative;
+  top: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.chat_friends::-webkit-scrollbar {
+  width: 7px;
+}
+.chat_friends::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+.chat_friends::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat_friends .friends {
+  width: 100%;
+  height: 70px;
+  padding-top: 10px;
+}
+.chat_friends .friends:hover {
+  background-color: #efefef;
+}
+.chat_friends .friends img {
+  width: 50px;
+  border-radius: 50%;
+}
+.chat_friends .friends .information {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  top: -55px;
+  left: 60px;
+}
+.chat_friends .friends .information > p:first-of-type {
+  position: relative;
+}
+.chat_friends .friends .information > p:nth-of-type(2) {
+  position: relative;
+  top: -18px;
+  right: 65px;
+  margin-left: auto;
+  font-size: 12px;
+}
+.chat_friends .friends .information > p:nth-of-type(3) {
+  width: 145px;
+  height: 20px;
+  position: relative;
+  top: -4px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #606060;
+}
+.chat_friends .friends .information .el-badge {
+  position: relative;
+  top: -25px;
+  right: 65px;
+  margin-left: auto;
+  font-size: 10px;
 }
 /*# sourceMappingURL=homefriendsBar.css.map */

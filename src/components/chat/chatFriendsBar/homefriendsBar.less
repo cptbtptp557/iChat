@@ -17,6 +17,7 @@ header {
   position: relative;
   top: 5px;
   left: 10px;
+  background-color: @white;
 
   & label {
     width: 200px;
@@ -51,5 +52,83 @@ header {
     left: 8px;
     transform: scale(.75);
     background-color: @light_gray;
+  }
+}
+
+.chat_friends {
+  height: 610px;
+  cursor: pointer;
+  position: relative;
+  top: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: @gray;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  & .friends {
+    width: 100%;
+    height: 70px;
+    padding-top: 10px;
+
+    &:hover {
+      background-color: @light_gray;
+    }
+
+    & img {
+      width: 50px;
+      border-radius: 50%;
+    }
+
+    & .information {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      position: relative;
+      top: -55px;
+      left: 60px;
+
+      & > p:first-of-type {
+        position: relative;
+      }
+
+      & > p:nth-of-type(2) {
+        position: relative;
+        top: -18px;
+        right: 65px;
+        margin-left: auto;
+        font-size: 12px;
+      }
+
+      & > p:nth-of-type(3) {
+        width: 145px;
+        height: 20px;
+        position: relative;
+        top: -4px;
+        font-size: 14px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: rgb(96, 96, 96);
+      }
+
+      & .el-badge {
+        position: relative;
+        top: -25px;
+        right: 65px;
+        margin-left: auto;
+        font-size: 10px;
+      }
+    }
   }
 }

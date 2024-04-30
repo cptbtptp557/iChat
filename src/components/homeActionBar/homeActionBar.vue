@@ -10,7 +10,7 @@
       >
         <template #reference>
           <button>
-            <img src="../../../public/avatar.png" class="avatar_image" alt="头像">
+            <img src="../../../public/chat-avatar/to-user.jpg" class="avatar_image" alt="头像">
           </button>
         </template>
         <div class="personal_information_column">
@@ -64,7 +64,7 @@
       <Close class="close" onclick="dialog.close()"/>
       <div>
         <label class="change_image">
-          <img src="../../../public/avatar.png" alt="头像">
+          <img src="../../../public/chat-avatar/to-user.jpg" alt="头像">
           <Camera class="camera"/>
           <input type="file" style="display: none">
         </label>

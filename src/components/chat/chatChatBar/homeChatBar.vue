@@ -10,7 +10,7 @@
             placement="bottom"
         >
           <el-icon size="25">
-            <Microphone/>
+            <Microphone @click="openVoiceCallWindow"/>
           </el-icon>
         </el-tooltip>
         <el-tooltip
@@ -127,6 +127,7 @@ import {Microphone, VideoCamera, More, Picture, Files, Position} from "@element-
 const {
   content,
   button_disabled,
+  openVoiceCallWindow,
 } = homeChatBar();
 </script>
 

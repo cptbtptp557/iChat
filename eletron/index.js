@@ -32,12 +32,14 @@ app.whenReady()
 
         tray.setToolTip('electron托盘');
 
-        ipcMain.on('setTitle', (event, title) => {
+        ipcMain.on('openVoiceCallWindow', (event, title) => {
             // console.log(event);
             console.log(title);
             win_child = new BrowserWindow({
-                width: 1000,
-                height: 600,
+                width: 400,
+                height: 650,
+                useContentSize: true,
+                autoHideMenuBar: true,
                 parent: win,
                 webPreferences: {
                     sandbox: false,
@@ -46,7 +48,7 @@ app.whenReady()
                     preload: path.join(__dirname, 'preload.js'),
                 }
             });
-            win_child.loadURL('http://localhost:5173/login').catch(console.error);
+            win_child.loadURL('http://localhost:5173/voiceCallWindow').catch(console.error);
         })
     })
 

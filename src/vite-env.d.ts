@@ -2,6 +2,7 @@
 
 export interface IElectronAPI {
     openVoiceCallWindow: (value) => Promise<void>,
+    mouseCoordinates: (x, y) => Promise<void>,
 }
 
 declare global {

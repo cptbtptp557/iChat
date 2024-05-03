@@ -1,62 +1,43 @@
 const {app, BrowserWindow, Tray, nativeImage, ipcMain} = require("electron");
-const path = require("path");
+const window = require("./window");
+
+const {mainWindow, audioWindow} = window;
 
 let win;
-let win_child;
+let audio_window;
 const createWin = () => {
-    win = new BrowserWindow({
-        width: 1000,
-        height: 650,
-        // frame: false, // 取消自带的边框栏
-        // transparent: true,
-        resizable: false,
-        useContentSize: true,
-        autoHideMenuBar: true,
-        icon: 'public/image-32x32.ico',
-        webPreferences: {
-            sandbox: false,
-            nodeIntegration: true,
-            contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js'),
-        }
-    });
+    win = new BrowserWindow(mainWindow);
     win.loadURL('http://localhost:5173/login').catch(console.error);
+}
+
+const createAudioWin = () => {
+    audio_window = new BrowserWindow(audioWindow);
+    audio_window.loadURL('http://localhost:5173/voiceCallWindow').catch(console.error);
 }
 
 let tray;
 app.whenReady()
     .then(() => {
-        createWin();
         const icon = nativeImage.createFromPath("public/image-32x32.ico");
         tray = new Tray(icon);
-
         tray.setToolTip('electron托盘');
 
-        ipcMain.on('openVoiceCallWindow', (event, title) => {
-            // console.log(event);
-            console.log(title);
-            win_child = new BrowserWindow({
-                width: 400,
-                height: 700,
-                frame: false,
-                transparent: true,
-                useContentSize: true,
-                autoHideMenuBar: true,
-                webPreferences: {
-                    sandbox: false,
-                    nodeIntegration: true,
-                    contextIsolation: true,
-                    preload: path.join(__dirname, 'preload.js'),
-                }
-            });
-            win_child.loadURL('http://localhost:5173/voiceCallWindow').catch(console.error);
+        createWin();
+
+        ipcMain.on('openVoiceCallWindow', () => {
+            createAudioWin();
         });
 
-        ipcMain.on('closeVoice', () => {
-            win_child.close();
+        ipcMain.on('closeWindow', (event, title) => {
+            if (title === "audio_window") {
+                audio_window.close();
+            }
+            //else if (title)
         })
-        ipcMain.on('miniVoice', () => {
-            win_child.minimize();
+        ipcMain.on('miniWindow', (event, title) => {
+            if (title === "audio_window") {
+                audio_window.minimize();
+            }
         })
     })
 

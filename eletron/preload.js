@@ -1,13 +1,13 @@
 const {contextBridge, ipcRenderer} = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
-    openVoiceCallWindow: (title) => {
-        ipcRenderer.send('openVoiceCallWindow', title);
+    openVoiceCallWindow: () => {
+        ipcRenderer.send('openVoiceCallWindow');
     },
-    closeVoice: () => {
-        ipcRenderer.send('closeVoice');
+    closeWindow: (window_name) => {
+        ipcRenderer.send('closeWindow', window_name);
     },
-    miniVoice: () => {
-        ipcRenderer.send('miniVoice');
+    miniWindow: (window_name) => {
+        ipcRenderer.send('miniWindow', window_name);
     }
 })

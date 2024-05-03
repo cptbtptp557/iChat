@@ -6,12 +6,12 @@ export const voiceCallWindow = () => {
 
     // 关闭窗口
     const closeVoice = () => {
-        window.electronAPI.closeVoice();
+        window.electronAPI.closeWindow("audio_window");
     }
 
     // 最小化窗口
     const miniVoice = () => {
-        window.electronAPI.miniVoice();
+        window.electronAPI.miniWindow("audio_window");
     }
 
     // 麦克风按钮

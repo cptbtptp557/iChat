@@ -1,10 +1,9 @@
 /// <reference types="vite/client" />
 
 export interface IElectronAPI {
-    openVoiceCallWindow: (value) => Promise<void>,
-    mouseCoordinates: (x, y) => Promise<void>,
-    closeVoice: () => void,
-    miniVoice: () => void,
+    openVoiceCallWindow: () => void,
+    closeWindow: (window_name) => Promise<void>,
+    miniWindow: (window_name) => Promise<void>,
 }
 
 declare global {

@@ -20,7 +20,7 @@
             placement="bottom"
         >
           <el-icon size="25">
-            <VideoCamera/>
+            <VideoCamera @click="openVideoCallWindow"/>
           </el-icon>
         </el-tooltip>
         <el-tooltip
@@ -128,6 +128,7 @@ const {
   content,
   button_disabled,
   openVoiceCallWindow,
+  openVideoCallWindow,
 } = homeChatBar();
 </script>
 

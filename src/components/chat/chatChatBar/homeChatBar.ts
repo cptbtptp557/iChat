@@ -6,7 +6,11 @@ export const homeChatBar = () => {
 
     // 打开语音通话界面
     const openVoiceCallWindow = () => {
-        window.electronAPI.openVoiceCallWindow("我被点击了!!!");
+        window.electronAPI.openVoiceCallWindow();
+    }
+
+    const openVideoCallWindow = () => {
+
     }
 
     watch(content, () => {
@@ -17,5 +21,6 @@ export const homeChatBar = () => {
         content,
         button_disabled,
         openVoiceCallWindow,
+        openVideoCallWindow,
     }
 }

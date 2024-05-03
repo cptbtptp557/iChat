@@ -4,10 +4,10 @@ contextBridge.exposeInMainWorld("electronAPI", {
     openVoiceCallWindow: (title) => {
         ipcRenderer.send('openVoiceCallWindow', title);
     },
-    mouseCoordinates: (x, y) => {
-        console.log(x)
-        console.log(y)
-        ipcRenderer.send('drag-start', {x, y});
+    closeVoice: () => {
+        ipcRenderer.send('closeVoice');
+    },
+    miniVoice: () => {
+        ipcRenderer.send('miniVoice');
     }
-
 })

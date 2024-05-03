@@ -1,19 +1,35 @@
-import {onMounted} from "vue";
+import {ref} from "vue";
 
 export const voiceCallWindow = () => {
+    const microphone_state = ref(true);
+    const horn_state = ref(true);
 
+    // 关闭窗口
+    const closeVoice = () => {
+        window.electronAPI.closeVoice();
+    }
 
-    onMounted(() => {
-        const draggableArea = document.getElementById("a");
+    // 最小化窗口
+    const miniVoice = () => {
+        window.electronAPI.miniVoice();
+    }
 
-        draggableArea?.addEventListener('mousedown', (e) => {
-            console.log(e)
-            // 获取鼠标相对于屏幕的坐标
-            const {screenX, screenY} = e;
+    // 麦克风按钮
+    const microphoneButton = () => {
+        microphone_state.value = !microphone_state.value;
+    }
 
-            window.electronAPI.mouseCoordinates(screenX, screenY);
-        });
-    })
+    // 扬声器按钮
+    const hornButton = () => {
+        horn_state.value = !horn_state.value;
+    }
 
-    return {}
+    return {
+        closeVoice,
+        miniVoice,
+        microphone_state,
+        microphoneButton,
+        horn_state,
+        hornButton,
+    }
 }

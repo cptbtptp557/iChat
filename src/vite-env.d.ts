@@ -2,8 +2,9 @@
 
 export interface IElectronAPI {
     openVoiceCallWindow: () => void,
-    closeWindow: (window_name) => Promise<void>,
-    miniWindow: (window_name) => Promise<void>,
+    openVideoWindow: () => void,
+    closeWindow: (windowName) => Promise<void>,
+    miniWindow: (windowName) => Promise<void>,
 }
 
 declare global {

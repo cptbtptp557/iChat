@@ -1,4 +1,3 @@
-const {join} = require("path");
 const path = require("path");
 const window = () => {
     const mainWindow = {
@@ -12,7 +11,7 @@ const window = () => {
             sandbox: false,
             nodeIntegration: true,
             contextIsolation: true,
-            preload: join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'preload.js'),
         }
     }
 
@@ -32,9 +31,26 @@ const window = () => {
         }
     }
 
+    const videoWindow = {
+        width: 850,
+        height: 600,
+        frame: false,
+        resizable: false,
+        transparent: true,
+        useContentSize: true,
+        autoHideMenuBar: true,
+        webPreferences: {
+            sandbox: false,
+            nodeIntegration: true,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js'),
+        }
+    }
+
     return {
         mainWindow,
         audioWindow,
+        videoWindow,
     }
 }
 

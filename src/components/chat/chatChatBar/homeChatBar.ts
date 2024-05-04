@@ -10,7 +10,7 @@ export const homeChatBar = () => {
     }
 
     const openVideoCallWindow = () => {
-
+        window.electronAPI.openVideoWindow();
     }
 
     watch(content, () => {

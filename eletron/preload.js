@@ -4,6 +4,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
     openVoiceCallWindow: () => {
         ipcRenderer.send('openVoiceCallWindow');
     },
+    openVideoWindow: () => {
+        ipcRenderer.send('openVideoWindow');
+    },
     closeWindow: (window_name) => {
         ipcRenderer.send('closeWindow', window_name);
     },

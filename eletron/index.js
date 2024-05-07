@@ -45,10 +45,19 @@ app.whenReady()
                     audio_window = null;
                 })
             }
+            if (title === "video_window") {
+                video_window.close();
+                video_window.on('closed', () => {
+                    video_window = null;
+                })
+            }
         })
         ipcMain.on('miniWindow', (event, title) => {
             if (title === "audio_window") {
                 audio_window.minimize();
+            }
+            if (title === "video_window") {
+                video_window.minimize();
             }
         })
     })

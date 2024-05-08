@@ -5,16 +5,50 @@
   top: -142px;
   left: 45px;
   box-shadow: 1px 0 5px #d1d9e6;
+  overflow: hidden;
+}
+.allFriendsBody header {
+  width: 270px;
+  height: 30px;
+  background-color: #efefef;
+  border-radius: 3px;
+  position: fixed;
+  z-index: 100;
+}
+.allFriendsBody header .search {
+  width: 15px;
+  color: #969696;
+  position: relative;
+  top: 4px;
+  left: 5px;
+}
+.allFriendsBody header [type=text] {
+  width: 240px;
+  height: 25px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  position: relative;
+  left: 10px;
+  color: #969696;
+  font-size: 13px;
+}
+.allFriendsBody main {
+  width: 270px;
+  height: 95.5%;
+  position: relative;
+  top: 30px;
+  box-shadow: 1px 0 5px #d1d9e6;
   overflow: auto;
 }
-.allFriendsBody::-webkit-scrollbar {
+.allFriendsBody main::-webkit-scrollbar {
   width: 10px;
 }
-.allFriendsBody::-webkit-scrollbar-thumb {
+.allFriendsBody main::-webkit-scrollbar-thumb {
   background: #c7c7c7;
   border-radius: 10px;
 }
-.allFriendsBody::-webkit-scrollbar-track {
+.allFriendsBody main::-webkit-scrollbar-track {
   background: transparent;
   margin: 5px;
 }

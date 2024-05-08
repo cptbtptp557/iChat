@@ -34,7 +34,7 @@
   border-radius: 50%;
 }
 .friends_introduce .friends_text_introduce {
-  width: 180px;
+  width: 140px;
   position: relative;
   left: 57px;
   bottom: 50px;
@@ -47,13 +47,57 @@
   white-space: nowrap;
 }
 .friends_introduce .friends_text_introduce p:nth-child(2) {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #787878;
+  position: relative;
+  top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.friends_introduce .friends_text_introduce p:nth-child(3) {
   font-size: 12px;
   letter-spacing: 1px;
   color: #787878;
   position: relative;
-  top: 5px;
+  top: -5px;
+  left: 45px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.SignIn_status::after {
+  content: '';
+  width: 1.5px;
+  height: 15px;
+  position: absolute;
+  left: 39px;
+  bottom: 5px;
+  background-color: #c7c7c7;
+}
+.SignIn_status .online {
+  display: flex;
+}
+.SignIn_status .online div {
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(#97e567, #51ce00);
+  border-radius: 50%;
+  position: relative;
+  top: 11px;
+  margin-right: 3px;
+}
+.SignIn_status .offline {
+  display: flex;
+}
+.SignIn_status .offline div {
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(#d5d5d5, #676767);
+  border-radius: 50%;
+  position: relative;
+  top: 11px;
+  margin-right: 3px;
 }
 /*# sourceMappingURL=allFriends.css.map */

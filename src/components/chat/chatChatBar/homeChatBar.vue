@@ -41,7 +41,7 @@
         <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
         <p>接收方用户</p>
         <p>
-          发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
+          发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
       </div>
       <div class="from_user">
         <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
@@ -64,11 +64,6 @@
         <p>接收方用户</p>
         <p>接收的内容</p>
       </div>
-      <div class="from_user">
-        <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
-        <p>发出方用户</p>
-        <p>发出的内容</p>
-      </div>
       <div class="to_user">
         <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
         <p>接收方用户</p>
@@ -78,11 +73,6 @@
         <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
         <p>发出方用户</p>
         <p>发出的内容</p>
-      </div>
-      <div class="to_user">
-        <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-        <p>接收方用户</p>
-        <p>接收的内容</p>
       </div>
       <div class="from_user">
         <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">

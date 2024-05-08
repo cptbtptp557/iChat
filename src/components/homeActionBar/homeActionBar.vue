@@ -21,18 +21,18 @@
       </el-popover>
     </div>
     <div class="action_bar_top">
-      <div class="button_background" id="selected_one" >
+      <div class="button_background" id="selected_one">
         <el-badge :value="10" :max="99" :offset="[0,10]" :hidden="message_badge">
           <label>
             <img src="../../../public/message.png" class="message" alt="消息">
-            <input type="radio" v-model="current" id="message" @click="selected" :value="message">
+            <input type="radio" id="message" @click="toMessage">
           </label>
         </el-badge>
       </div>
-      <div class="button_background" id="selected_two" >
+      <div class="button_background" id="selected_two">
         <label>
           <img src="../../../public/friends.png" class="friends" alt="好友">
-          <input type="radio" v-model="current" id="friends" @click="selected" :value="friends">
+          <input type="radio" id="friends" @click="toFriends">
         </label>
       </div>
     </div>
@@ -48,7 +48,7 @@
               <img src="../../../public/setup.png" class="setup" alt="设置">
             </button>
           </template>
-          <div class="setup_bottom" @click="goMessageHref">
+          <div class="setup_bottom">
             <div class="sign_out">
               <img src="../../../public/sign-out.png" alt="退出登录">
               <p class="sign_out_p">退出登录</p>
@@ -58,7 +58,7 @@
       </div>
     </div>
     <KeepAlive>
-      <component :is="current"/>
+      <component :is="songToBePlayedLists().current"/>
     </KeepAlive>
     <dialog id="dialog">
       <Close class="close" onclick="dialog.close()"/>
@@ -70,30 +70,43 @@
         </label>
         <label class="change_nickname">
           昵称
-          <input type="text" class="nickname_input" value="Nickname" placeholder="Nickname">
+          <input type="text" class="nickname_input" placeholder="Nickname" v-model="nickname">
         </label>
         <label class="change_signature">
           签名
-          <input type="text" class="signature_input" value="Signature" placeholder="Signature">
+          <input type="text" class="signature_input" placeholder="Signature" v-model="signature">
         </label>
-        <button>保存</button>
+        <div class="other">
+          <label>
+            性别
+            <input type="text" class="change_gender" placeholder="Gender" v-model="gender">
+          </label>
+          <label>
+            生日
+            <input type="date" class="change_birthday" placeholder="Birthday" v-model="data">
+          </label>
+        </div>
+        <button @click="commit">保存</button>
       </div>
     </dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import message from "../chat/message.vue";
-import friends from "../friends/friends.vue";
 import {homeActionBar} from "./homeActionBar.ts";
 import {Close, Camera} from "@element-plus/icons-vue";
+import {songToBePlayedLists} from "../../pinia";
 
 const {
   message_badge,
   user_lists,
-  selected,
-  current,
-  goMessageHref,
+  toMessage,
+  toFriends,
+  data,
+  nickname,
+  signature,
+  gender,
+  commit,
 } = homeActionBar();
 </script>
 

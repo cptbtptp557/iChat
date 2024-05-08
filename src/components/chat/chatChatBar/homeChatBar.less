@@ -52,6 +52,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -69,6 +70,7 @@ header {
 
   & .to_user {
     position: relative;
+    padding: 0 5px;
 
     & img {
       width: 40px;
@@ -101,9 +103,9 @@ header {
 
   & .from_user {
     position: relative;
-    top: -25px;
+    top: -50px;
     float: right;
-    margin-bottom: 10px;
+    margin-top: 20px;
 
     & img {
       width: 40px;

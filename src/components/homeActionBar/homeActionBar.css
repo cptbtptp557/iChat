@@ -235,7 +235,7 @@
 }
 .change_nickname {
   position: absolute;
-  top: 180px;
+  top: 150px;
   left: 30px;
   font-size: 20px;
 }
@@ -248,7 +248,7 @@
 }
 .change_signature {
   position: absolute;
-  top: 250px;
+  top: 200px;
   left: 30px;
   font-size: 20px;
 }
@@ -258,5 +258,13 @@
   border-bottom: 1px solid #000;
   font-size: 15px;
   outline: none;
+}
+.other {
+  position: absolute;
+  top: 280px;
+  left: 80px;
+}
+.other label {
+  margin-right: 50px;
 }
 /*# sourceMappingURL=homeActionBar.css.map */

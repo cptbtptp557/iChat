@@ -22,7 +22,7 @@ export const friendsList = () => {
     }
     // 打开聊天界面
     const openChatWindow = (): void => {
-        homeActionBar().goMessageHref()
+        homeActionBar().goMessageHref();
     }
 
     return {

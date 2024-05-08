@@ -2,7 +2,7 @@
 @neu-2: #d1d9e6;
 @gray: rgb(199, 199, 199);
 @light_gray: #f6f6f6;
-@blue: #4B70E2;
+@blue: #3499ff;
 
 .friendsListsBody {
   width: 670px;
@@ -90,7 +90,7 @@
         & div {
           width: 15px;
           height: 15px;
-          background: linear-gradient(#ff8686, #ff2222);
+          background: linear-gradient(#d5d5d5, #676767);
           border-radius: 50%;
           position: relative;
           top: 5px;
@@ -197,6 +197,46 @@
         &:focus {
           background-color: #e5e5e5;
         }
+      }
+    }
+  }
+
+  & footer {
+    position: fixed;
+    left: 510px;
+    bottom: 100px;
+
+    & [type = button] {
+      width: 100px;
+      height: 32px;
+      background-color: @white;
+      border: 1px solid @gray;
+      border-radius: 5px;
+      margin-right: 10px;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    & [type = button]:nth-child(-n+2) {
+      &:hover {
+        background-color: @light_gray;
+      }
+
+      &:active {
+        background-color: #e8e8e8;
+      }
+    }
+
+    & [type = button]:nth-child(3) {
+      background-color: @blue;
+      color: @white;
+
+      &:hover {
+        background-color: #0080FFFF;
+      }
+
+      &:active {
+        background-color: @blue;
       }
     }
   }

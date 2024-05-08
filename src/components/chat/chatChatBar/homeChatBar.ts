@@ -5,15 +5,15 @@ export const homeChatBar = () => {
     const button_disabled = ref(false);
 
     // 打开语音通话界面
-    const openVoiceCallWindow = () => {
+    const openVoiceCallWindow = (): void => {
         window.electronAPI.openVoiceCallWindow();
     }
-
-    const openVideoCallWindow = () => {
+    // 打开视频通话界面
+    const openVideoCallWindow = (): void => {
         window.electronAPI.openVideoWindow();
     }
 
-    watch(content, () => {
+    watch(content, (): void => {
         button_disabled.value = content.value !== "";
     })
 

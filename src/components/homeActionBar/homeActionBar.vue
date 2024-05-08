@@ -21,7 +21,7 @@
       </el-popover>
     </div>
     <div class="action_bar_top">
-      <div class="button_background" id="selected_one">
+      <div class="button_background" id="selected_one" >
         <el-badge :value="10" :max="99" :offset="[0,10]" :hidden="message_badge">
           <label>
             <img src="../../../public/message.png" class="message" alt="消息">
@@ -29,7 +29,7 @@
           </label>
         </el-badge>
       </div>
-      <div class="button_background" id="selected_two">
+      <div class="button_background" id="selected_two" >
         <label>
           <img src="../../../public/friends.png" class="friends" alt="好友">
           <input type="radio" v-model="current" id="friends" @click="selected" :value="friends">
@@ -48,7 +48,7 @@
               <img src="../../../public/setup.png" class="setup" alt="设置">
             </button>
           </template>
-          <div class="setup_bottom">
+          <div class="setup_bottom" @click="goMessageHref">
             <div class="sign_out">
               <img src="../../../public/sign-out.png" alt="退出登录">
               <p class="sign_out_p">退出登录</p>
@@ -87,14 +87,13 @@ import message from "../chat/message.vue";
 import friends from "../friends/friends.vue";
 import {homeActionBar} from "./homeActionBar.ts";
 import {Close, Camera} from "@element-plus/icons-vue";
-import {shallowRef} from "vue";
-
-const current = shallowRef(message);
 
 const {
   message_badge,
   user_lists,
   selected,
+  current,
+  goMessageHref,
 } = homeActionBar();
 </script>
 

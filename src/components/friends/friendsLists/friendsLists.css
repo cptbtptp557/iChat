@@ -75,7 +75,7 @@
 .friendsLists .name_id .SignIn_status .offline div {
   width: 15px;
   height: 15px;
-  background: linear-gradient(#ff8686, #ff2222);
+  background: linear-gradient(#d5d5d5, #676767);
   border-radius: 50%;
   position: relative;
   top: 5px;
@@ -165,5 +165,36 @@
 }
 .friend_private_information .friend_information div [type=text]:focus {
   background-color: #e5e5e5;
+}
+.friend_private_information footer {
+  position: fixed;
+  left: 510px;
+  bottom: 100px;
+}
+.friend_private_information footer [type=button] {
+  width: 100px;
+  height: 32px;
+  background-color: #f9f9f9;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+  margin-right: 10px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+.friend_private_information footer [type=button]:nth-child(-n+2):hover {
+  background-color: #f6f6f6;
+}
+.friend_private_information footer [type=button]:nth-child(-n+2):active {
+  background-color: #e8e8e8;
+}
+.friend_private_information footer [type=button]:nth-child(3) {
+  background-color: #3499ff;
+  color: #f9f9f9;
+}
+.friend_private_information footer [type=button]:nth-child(3):hover {
+  background-color: #0080FFFF;
+}
+.friend_private_information footer [type=button]:nth-child(3):active {
+  background-color: #3499ff;
 }
 /*# sourceMappingURL=friendsLists.css.map */

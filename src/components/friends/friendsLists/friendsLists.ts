@@ -1,3 +1,4 @@
+import {homeActionBar} from "../../homeActionBar/homeActionBar.ts";
 import {ref} from "vue";
 
 export const friendsList = () => {
@@ -8,8 +9,20 @@ export const friendsList = () => {
     const warn_show = ref(false);
 
     // 判断备注长度并上传
-    const changeRemark = () => {
+    const changeRemark = (): void => {
         warn_show.value = remark.value.length > 12;
+    }
+    // 打开语音通话界面
+    const openVoiceCallWindow = (): void => {
+        window.electronAPI.openVoiceCallWindow();
+    }
+    // 打开视频通话界面
+    const openVideoCallWindow = (): void => {
+        window.electronAPI.openVideoWindow();
+    }
+    // 打开聊天界面
+    const openChatWindow = (): void => {
+        homeActionBar().goMessageHref()
     }
 
     return {
@@ -19,5 +32,8 @@ export const friendsList = () => {
         remark,
         changeRemark,
         warn_show,
+        openVoiceCallWindow,
+        openVideoCallWindow,
+        openChatWindow,
     }
 }

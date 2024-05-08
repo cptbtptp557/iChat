@@ -48,6 +48,11 @@
             <p class="friend_signature">朋友签名(最大20字)</p>
           </div>
         </div>
+        <footer>
+          <input type="button" value="语音通话" @click="openVoiceCallWindow">
+          <input type="button" value="视频通话" @click="openVideoCallWindow">
+          <input type="button" value="发消息" @click="openChatWindow">
+        </footer>
       </div>
     </div>
   </div>
@@ -64,6 +69,9 @@ const {
   remark,
   changeRemark,
   warn_show,
+  openVoiceCallWindow,
+  openVideoCallWindow,
+  openChatWindow,
 } = friendsList();
 </script>
 

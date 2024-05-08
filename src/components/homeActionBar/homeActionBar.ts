@@ -1,8 +1,10 @@
-import {reactive, ref} from "vue";
+import {reactive, ref, shallowRef} from "vue";
+import message from "../chat/message.vue";
 
 export const homeActionBar = () => {
     const message_badge = ref(false); // 消息红点显示
     const user_lists = reactive({name: "蒸艾粉IKUN", iid: 10001, signature: "我爱鸽鸽!!!"});
+    const current = shallowRef(message);
 
     const selected = (event: any) => {
         const selected_one = document.getElementById("selected_one") as HTMLElement;
@@ -20,9 +22,17 @@ export const homeActionBar = () => {
         }
     }
 
+    const goMessageHref = () => {
+        current.value = message;
+        // window.location.reload();
+        console.log(current.value);
+    }
+
     return {
         message_badge,
         user_lists,
         selected,
+        current,
+        goMessageHref,
     }
 }

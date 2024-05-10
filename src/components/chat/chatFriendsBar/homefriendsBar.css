@@ -43,6 +43,139 @@ header .add {
   transform: scale(0.75);
   background-color: #efefef;
 }
+.add_input {
+  width: 100%;
+  height: 25px;
+  position: relative;
+  top: -10px;
+  border: 1px solid #c7c7c7;
+  background-color: #efefef;
+}
+.add_input:focus-within {
+  border: 1px solid #4B70E2;
+}
+.add_input .el-icon:first-child {
+  position: relative;
+  top: 3.5px;
+  right: 15px;
+}
+.add_input .el-icon:nth-child(3) {
+  position: relative;
+  top: 3.5px;
+  right: 5px;
+  cursor: pointer;
+}
+.add_input [type=text] {
+  width: 91%;
+  height: 20px;
+  background-color: transparent;
+  position: relative;
+  right: 10px;
+  border: none;
+  outline: none;
+}
+.inquire_classify {
+  width: 300px;
+  display: flex;
+  position: relative;
+  left: 10px;
+}
+.inquire_classify p {
+  margin-right: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  color: #000;
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
+  transition: 0.5s;
+}
+.inquire_classify p:nth-child(1) {
+  border-bottom: 1px solid #000;
+}
+.search_results {
+  height: 390px;
+  position: relative;
+}
+.search_results .el-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 120px;
+  margin: auto;
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 50%;
+}
+.search_results h2 {
+  position: absolute;
+  left: 34%;
+  bottom: 150px;
+  margin: auto;
+  letter-spacing: 2px;
+}
+.search_results .show_search_outcome {
+  max-height: 390px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 10px 0 5px 5px;
+}
+.search_results .show_search_outcome::-webkit-scrollbar {
+  width: 10px;
+}
+.search_results .show_search_outcome::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+.search_results .show_search_outcome::-webkit-scrollbar-track {
+  background: transparent;
+}
+.search_results .show_search_outcome .search_user {
+  width: 173px;
+  height: 67px;
+  box-sizing: border-box;
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.search_results .show_search_outcome .search_user:hover {
+  background-color: #efefef;
+}
+.search_results .show_search_outcome .search_user:nth-child(3n) {
+  margin-right: 0;
+}
+.search_results .show_search_outcome .search_user img {
+  width: 65px;
+  height: 65px;
+  border-radius: 10px;
+  position: relative;
+  float: left;
+  margin-right: 10px;
+}
+.search_results .show_search_outcome .search_user div {
+  position: relative;
+  text-align: left;
+  color: #000;
+}
+.search_results .show_search_outcome .search_user div p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.search_results .show_search_outcome .search_user div p:first-child {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.search_results .show_search_outcome .search_user div p:nth-child(2) {
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+.search_results .show_search_outcome .search_user div p:nth-child(3) {
+  font-size: 13px;
+}
 .chat_friends {
   height: 610px;
   cursor: pointer;

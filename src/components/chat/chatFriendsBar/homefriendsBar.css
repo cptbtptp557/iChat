@@ -90,7 +90,8 @@ header .add {
   transition: 0.5s;
 }
 .inquire_classify p:nth-child(1) {
-  border-bottom: 1px solid #000;
+  color: #4B70E2;
+  border-bottom: 1px solid #4B70E2;
 }
 .search_results {
   height: 390px;

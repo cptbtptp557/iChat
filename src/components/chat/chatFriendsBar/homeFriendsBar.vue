@@ -63,7 +63,7 @@
               <h2>输入搜索关键词</h2>
             </div>
             <div class="show_search_outcome" v-else>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -71,7 +71,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -79,7 +79,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -87,7 +87,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -95,7 +95,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -103,7 +103,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -111,7 +111,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -119,7 +119,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -127,7 +127,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -135,7 +135,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -143,7 +143,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -151,7 +151,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -159,7 +159,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -167,7 +167,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -175,7 +175,7 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -183,7 +183,31 @@
                   <p>个性签名</p>
                 </div>
               </div>
-              <div class="search_user">
+              <div class="search_user" @click="confirmAddFriend">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
+                <div>
+                  <p>昵称</p>
+                  <p>iId</p>
+                  <p>个性签名</p>
+                </div>
+              </div>
+              <div class="search_user" @click="confirmAddFriend">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
+                <div>
+                  <p>昵称</p>
+                  <p>iId</p>
+                  <p>个性签名</p>
+                </div>
+              </div>
+              <div class="search_user" @click="confirmAddFriend">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
+                <div>
+                  <p>昵称</p>
+                  <p>iId</p>
+                  <p>个性签名</p>
+                </div>
+              </div>
+              <div class="search_user" @click="confirmAddFriend">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div>
                   <p>昵称</p>
@@ -194,6 +218,43 @@
             </div>
           </div>
         </template>
+      </el-dialog>
+      <el-dialog
+          v-model="confirm_add_friend"
+          title="申请添加"
+          center
+          draggable
+          width="400">
+        <el-form label-position="top" class="confirm_add_friend">
+          <el-form-item>
+            <img src="../../../../public/chat-avatar/from-user.png" alt="被添加方头像">
+            <div>
+              <p>昵称</p>
+              <p>iId</p>
+            </div>
+          </el-form-item>
+          <el-form-item label="填写认证信息">
+            <el-input
+                type="text"
+                clearable
+                maxlength="15"
+                show-word-limit
+                v-model="introduce_yourself"/>
+          </el-form-item>
+          <el-form-item label="备注">
+            <el-input
+                type="text"
+                clearable
+                maxlength="15"
+                show-word-limit
+                v-model="receiver_remarks"
+            />
+          </el-form-item>
+          <el-form-item style="position:relative;float: right">
+            <el-button type="primary" @click="">发送</el-button>
+            <el-button @click="confirm_add_friend = false">取消</el-button>
+          </el-form-item>
+        </el-form>
       </el-dialog>
     </header>
     <div class="chat_friends">
@@ -292,6 +353,10 @@ const {
   find_logotype,
   empty,
   changeBorder,
+  confirm_add_friend,
+  confirmAddFriend,
+  introduce_yourself,
+  receiver_remarks,
 } = homeFriendsBar();
 </script>
 

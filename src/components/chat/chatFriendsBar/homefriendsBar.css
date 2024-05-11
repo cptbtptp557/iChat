@@ -94,7 +94,7 @@ header .add {
   border-bottom: 1px solid #4B70E2;
 }
 .search_results {
-  height: 390px;
+  height: 370px;
   position: relative;
 }
 .search_results .el-icon {
@@ -116,7 +116,7 @@ header .add {
   letter-spacing: 2px;
 }
 .search_results .show_search_outcome {
-  max-height: 390px;
+  max-height: 380px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
@@ -247,5 +247,32 @@ header .add {
   right: 65px;
   margin-left: auto;
   font-size: 10px;
+}
+.confirm_add_friend {
+  overflow: hidden;
+}
+.confirm_add_friend .el-form-item:nth-child(1) {
+  padding: 5px;
+}
+.confirm_add_friend .el-form-item:nth-child(1) img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 3px #c7c7c7;
+  margin-right: 15px;
+}
+.confirm_add_friend .el-form-item:nth-child(1) div {
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.confirm_add_friend .el-form-item:nth-child(1) div p:nth-child(1) {
+  font-size: 20px;
+  color: #000;
+}
+.confirm_add_friend .el-form-item:nth-child(1) div p:nth-child(2) {
+  font-size: 13px;
+  color: #737373;
 }
 /*# sourceMappingURL=homefriendsBar.css.map */

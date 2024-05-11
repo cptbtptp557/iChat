@@ -168,4 +168,72 @@ footer .send_box {
 footer .send_box:active {
   background-color: rgba(139, 166, 246);
 }
+.drawer main {
+  width: 310px;
+  height: 610px;
+  overflow: hidden auto;
+}
+.drawer main .group_chats_more header {
+  height: 70px;
+  display: flex;
+  position: relative;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #efefef;
+}
+.drawer main .group_chats_more header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.drawer main .group_chats_more header div {
+  width: 230px;
+  position: relative;
+  left: 10px;
+  color: #000000;
+}
+.drawer main .group_chats_more header div p:first-child {
+  font-size: 18px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drawer main .group_chats_more header div p:nth-child(2) {
+  font-size: 13px;
+}
+.drawer main .group_chats_more main {
+  height: 300px;
+  position: relative;
+  margin: 20px 0 20px 0;
+  border-radius: 10px;
+  background-color: #efefef;
+}
+.drawer main .group_chats_more main .group_main_top {
+  display: flex;
+  color: #000;
+  padding: 5px 10px 5px 10px;
+}
+.drawer main .group_chats_more main .group_main_top p:first-child {
+  font-size: 15px;
+}
+.drawer main .group_chats_more main .group_main_top p:nth-child(2) {
+  font-size: 12px;
+  color: #505050;
+  position: relative;
+  top: 2px;
+  left: 100px;
+  cursor: pointer;
+}
+.drawer main .group_chats_more main .group_main_top p:nth-child(2) .el-icon {
+  position: relative;
+  top: 3px;
+  right: 3px;
+}
+.drawer main .group_chats_more main .group_main_top p:nth-child(2):hover {
+  color: #557ffc;
+}
+.drawer main .group_chats_more main .group_main_top p:nth-child(2):active {
+  transform: scale(0.99);
+}
 /*# sourceMappingURL=homeChatBar.css.map */

@@ -3,6 +3,7 @@ const window = () => {
     const mainWindow = {
         width: 1000,
         height: 650,
+        // frame: false,
         resizable: false,
         useContentSize: true,
         autoHideMenuBar: true,

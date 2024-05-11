@@ -1,9 +1,27 @@
-# Vue 3 + TypeScript + Vite
+# iChat(桌面端)
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 项目介绍
+基于electron的聊天软件
+前端使用Vue3+Socket.io+Electron+Vite+Element-Plus+WebRTC
+后端使用Express+Socket.io
 
-## Recommended Setup
+## 实现功能
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+## 启动项目
+### 一、安装node
+```bash
+# 检查node版本 开发版本 v18.16.0
+node -v
+```
+### 二、安装依赖
+```bash
+# 安装依赖
+npm install
+```
+### 三、运行项目
+```bash
+# 运行项目
+npm run dev
+```
+### 四、打包

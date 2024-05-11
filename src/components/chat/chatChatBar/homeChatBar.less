@@ -2,6 +2,7 @@
 @neu-2: #d1d9e6;
 @gray: rgb(199, 199, 199);
 @light_gray: #efefef;
+@text_gray: #505050;
 @blue: #557ffc;
 
 .thisOutside {
@@ -80,7 +81,7 @@ header {
     & > p:first-of-type {
       width: 100px;
       font-size: 10px;
-      color: #505050;
+      color: @text_gray;
       position: relative;
       top: -45px;
       left: 45px;
@@ -115,7 +116,7 @@ header {
 
     & > p:first-of-type {
       font-size: 10px;
-      color: #505050;
+      color: @text_gray;
       position: relative;
       top: 0;
       right: 7px;
@@ -201,6 +202,92 @@ footer {
 
     &:active {
       background-color: rgba(139, 166, 246);
+    }
+  }
+}
+
+.drawer {
+  & main {
+    width: 310px;
+    height: 610px;
+    overflow: hidden auto;
+
+    & .group_chats_more {
+      & header {
+        height: 70px;
+        display: flex;
+        position: relative;
+        padding: 5px;
+        border-radius: 10px;
+        background-color: @light_gray;
+
+
+        & img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+        }
+
+        & div {
+          width: 230px;
+          position: relative;
+          left: 10px;
+          color: #000000;
+
+          & p:first-child {
+            font-size: 18px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          & p:nth-child(2) {
+            font-size: 13px;
+          }
+        }
+      }
+
+      & main {
+        height: 300px;
+        position: relative;
+        margin: 20px 0 20px 0;
+        border-radius: 10px;
+        background-color: @light_gray;
+
+        & .group_main_top {
+          display: flex;
+          color: #000;
+          padding: 5px 10px 5px 10px;
+
+          & p:first-child {
+            font-size: 15px;
+          }
+
+          & p:nth-child(2) {
+            font-size: 12px;
+            color: @text_gray;
+            position: relative;
+            top: 2px;
+            left: 100px;
+            cursor: pointer;
+
+            & .el-icon {
+              position: relative;
+              top: 3px;
+              right: 3px;
+            }
+
+            &:hover {
+              color: @blue;
+            }
+
+            &:active {
+              transform: scale(.99);
+            }
+          }
+        }
+      }
     }
   }
 }

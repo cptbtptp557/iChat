@@ -125,13 +125,14 @@
           <main>
             <div class="group_main_top">
               <p>群聊成员</p>
-              <p>查看114514命群成员
+              <p>
+                查看114514名群成员
                 <el-icon size="15">
                   <ArrowRight/>
                 </el-icon>
               </p>
             </div>
-            <div class="user_img">
+            <div class="group_users">
 
             </div>
           </main>

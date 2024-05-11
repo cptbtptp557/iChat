@@ -236,4 +236,9 @@ footer .send_box:active {
 .drawer main .group_chats_more main .group_main_top p:nth-child(2):active {
   transform: scale(0.99);
 }
+.drawer main .group_chats_more main .group_users {
+  height: 260px;
+  padding: 10px 5px 0 5px;
+  background-color: pink;
+}
 /*# sourceMappingURL=homeChatBar.css.map */

@@ -56,7 +56,7 @@
             <p @click="changeBorder" id="group_chats">群聊</p>
           </div>
           <div class="search_results">
-            <div v-if="find_logotype">
+            <div v-if="!find_logotype">
               <el-icon size="100">
                 <MessageBox/>
               </el-icon>

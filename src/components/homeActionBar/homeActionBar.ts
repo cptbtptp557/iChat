@@ -1,7 +1,7 @@
 import message from "../chat/message.vue";
 import friends from "../friends/friends.vue";
 import {reactive, ref} from "vue";
-import {songToBePlayedLists} from "../../pinia";
+import {songToBePlayedLists} from "../../pinia/friendsLists.ts";
 
 export const homeActionBar = () => {
     const message_badge = ref(false); // 消息红点显示

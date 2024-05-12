@@ -29,7 +29,7 @@ header {
   & .shat_control {
     position: absolute;
     top: 5px;
-    left: 570px;
+    right: 20px;
 
     & .el-icon {
       margin-left: 10px;
@@ -213,13 +213,15 @@ footer {
     overflow: hidden auto;
 
     & .group_chats_more {
+      height: 480px;
+
       & header {
         height: 70px;
         display: flex;
         position: relative;
         padding: 5px;
         border-radius: 10px;
-        background-color: @light_gray;
+        background-color: @white;
 
 
         & img {
@@ -249,11 +251,12 @@ footer {
       }
 
       & main {
-        height: 300px;
+        height: auto;
+        max-height: 300px;
         position: relative;
         margin: 20px 0 20px 0;
         border-radius: 10px;
-        background-color: @light_gray;
+        background-color: @white;
 
         & .group_main_top {
           display: flex;
@@ -289,11 +292,159 @@ footer {
         }
 
         & .group_users {
-          height: 260px;
-          padding: 10px 5px 0 5px;
-          background-color: pink;
+          width: 100%;
+          max-height: 260px;
+          display: flex;
+          flex-wrap: wrap;
+          padding: 10px;
+
+          & .group_user {
+            margin: 0 8px 15px 0;
+
+            & img {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              position: relative;
+              left: 5.5px;
+            }
+
+            & p {
+              width: 50px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              font-size: 10px;
+            }
+          }
+
+          & .group_user:last-child {
+            margin-right: 0;
+          }
+
+          & .invite {
+            & .el-icon {
+              background-color: @light_gray;
+              border-radius: 50%;
+              padding: 10px;
+              position: relative;
+              top: 1px;
+              left: 4px;
+              cursor: pointer;
+
+              &:active {
+                background-color: #dedede;
+              }
+            }
+
+            & p {
+              font-size: 10px;
+              position: relative;
+              left: 12px;
+              letter-spacing: 2px;
+            }
+          }
+        }
+      }
+
+      & footer {
+        & .group_name {
+          position: relative;
+          left: 5px;
+          bottom: 110px;
+
+          & p {
+            position: relative;
+            margin: 0 0 5px 10px;
+            color: @text_gray;
+            letter-spacing: 1px;
+          }
+
+          & [type = text] {
+            width: 310px;
+            height: 40px;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            text-indent: 15px;
+            background-color: @white;
+          }
+        }
+
+        & .group_announcement {
+          position: relative;
+          left: 5px;
+          bottom: 110px;
+          margin-top: 10px;
+
+          & p {
+            position: relative;
+            margin: 0 0 5px 10px;
+            color: @text_gray;
+            letter-spacing: 1px;
+          }
+
+          & [type = text] {
+            width: 310px;
+            height: 40px;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            text-indent: 15px;
+            background-color: @white;
+          }
+        }
+      }
+    }
+
+    & .all_more {
+      position: relative;
+
+      & [value = "删除聊天记录"] {
+        width: 310px;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        letter-spacing: 2px;
+        background-color: @white;
+        cursor: pointer;
+
+        &:hover {
+          border: 1px solid @blue;
+          color: @blue;
+          background-color: rgba(85, 127, 252, 0.05);
+        }
+
+        &:active {
+          transform: scale(.99);
+        }
+      }
+
+      & [type = button]:nth-child(2) {
+        width: 310px;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        letter-spacing: 2px;
+        background-color: @white;
+        cursor: pointer;
+        margin-top: 20px;
+        color: red;
+
+        &:hover {
+          border: 1px solid red;
+          background-color: rgba(255, 0, 0, 0.1);
+        }
+
+        &:active {
+          transform: scale(.99);
         }
       }
     }
   }
+}
+
+// 修改el-drawer背景颜色
+/deep/ .el-drawer.rtl {
+  background-color: @light_gray;
 }

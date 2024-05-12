@@ -20,7 +20,7 @@ header h4 {
 header .shat_control {
   position: absolute;
   top: 5px;
-  left: 570px;
+  right: 20px;
 }
 header .shat_control .el-icon {
   margin-left: 10px;
@@ -173,13 +173,16 @@ footer .send_box:active {
   height: 610px;
   overflow: hidden auto;
 }
+.drawer main .group_chats_more {
+  height: 480px;
+}
 .drawer main .group_chats_more header {
   height: 70px;
   display: flex;
   position: relative;
   padding: 5px;
   border-radius: 10px;
-  background-color: #efefef;
+  background-color: #f9f9f9;
 }
 .drawer main .group_chats_more header img {
   width: 60px;
@@ -203,11 +206,12 @@ footer .send_box:active {
   font-size: 13px;
 }
 .drawer main .group_chats_more main {
-  height: 300px;
+  height: auto;
+  max-height: 300px;
   position: relative;
   margin: 20px 0 20px 0;
   border-radius: 10px;
-  background-color: #efefef;
+  background-color: #f9f9f9;
 }
 .drawer main .group_chats_more main .group_main_top {
   display: flex;
@@ -237,8 +241,130 @@ footer .send_box:active {
   transform: scale(0.99);
 }
 .drawer main .group_chats_more main .group_users {
-  height: 260px;
-  padding: 10px 5px 0 5px;
-  background-color: pink;
+  width: 100%;
+  max-height: 260px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.drawer main .group_chats_more main .group_users .group_user {
+  margin: 0 8px 15px 0;
+}
+.drawer main .group_chats_more main .group_users .group_user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  left: 5.5px;
+}
+.drawer main .group_chats_more main .group_users .group_user p {
+  width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+}
+.drawer main .group_chats_more main .group_users .group_user:last-child {
+  margin-right: 0;
+}
+.drawer main .group_chats_more main .group_users .invite .el-icon {
+  background-color: #efefef;
+  border-radius: 50%;
+  padding: 10px;
+  position: relative;
+  top: 1px;
+  left: 4px;
+  cursor: pointer;
+}
+.drawer main .group_chats_more main .group_users .invite .el-icon:active {
+  background-color: #dedede;
+}
+.drawer main .group_chats_more main .group_users .invite p {
+  font-size: 10px;
+  position: relative;
+  left: 12px;
+  letter-spacing: 2px;
+}
+.drawer main .group_chats_more footer .group_name {
+  position: relative;
+  left: 5px;
+  bottom: 110px;
+}
+.drawer main .group_chats_more footer .group_name p {
+  position: relative;
+  margin: 0 0 5px 10px;
+  color: #505050;
+  letter-spacing: 1px;
+}
+.drawer main .group_chats_more footer .group_name [type=text] {
+  width: 310px;
+  height: 40px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  text-indent: 15px;
+  background-color: #f9f9f9;
+}
+.drawer main .group_chats_more footer .group_announcement {
+  position: relative;
+  left: 5px;
+  bottom: 110px;
+  margin-top: 10px;
+}
+.drawer main .group_chats_more footer .group_announcement p {
+  position: relative;
+  margin: 0 0 5px 10px;
+  color: #505050;
+  letter-spacing: 1px;
+}
+.drawer main .group_chats_more footer .group_announcement [type=text] {
+  width: 310px;
+  height: 40px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  text-indent: 15px;
+  background-color: #f9f9f9;
+}
+.drawer main .all_more {
+  position: relative;
+}
+.drawer main .all_more [value="删除聊天记录"] {
+  width: 310px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  letter-spacing: 2px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+.drawer main .all_more [value="删除聊天记录"]:hover {
+  border: 1px solid #557ffc;
+  color: #557ffc;
+  background-color: rgba(85, 127, 252, 0.05);
+}
+.drawer main .all_more [value="删除聊天记录"]:active {
+  transform: scale(0.99);
+}
+.drawer main .all_more [type=button]:nth-child(2) {
+  width: 310px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  letter-spacing: 2px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  margin-top: 20px;
+  color: red;
+}
+.drawer main .all_more [type=button]:nth-child(2):hover {
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+.drawer main .all_more [type=button]:nth-child(2):active {
+  transform: scale(0.99);
+}
+ /deep/ .el-drawer.rtl {
+  background-color: #efefef;
 }
 /*# sourceMappingURL=homeChatBar.css.map */

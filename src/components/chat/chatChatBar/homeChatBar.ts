@@ -1,10 +1,15 @@
 import {ref, watch} from "vue";
+import {groupData} from "../../../pinia/groupData.ts";
 
 export const homeChatBar = () => {
     const content = ref(); // 输入内容
     const button_disabled = ref(false);
     const more_window = ref(false);
-    const more_window_model = ref(false);
+    const group_name = ref("群聊名称");
+    const group_announcement = ref("群公告");
+    const group_permissions = ref(true); // 群聊权限.true为不可修改，false为可修改
+
+    const {group_state} = groupData();
 
     // 打开语音通话界面
     const openVoiceCallWindow = (): void => {
@@ -18,6 +23,13 @@ export const homeChatBar = () => {
         more_window.value = true;
     }
 
+    const changeGroupName = () => {
+        console.log(group_name.value);
+    }
+    const changeGroupAnnouncement = () => {
+        console.log(group_announcement.value);
+    }
+
     watch(content, (): void => {
         button_disabled.value = content.value !== "";
     })
@@ -29,6 +41,11 @@ export const homeChatBar = () => {
         openVideoCallWindow,
         more_window,
         openMoreWindow,
-        more_window_model,
+        group_name,
+        group_permissions,
+        changeGroupName,
+        group_announcement,
+        changeGroupAnnouncement,
+        group_state,
     }
 }

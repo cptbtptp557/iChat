@@ -95,7 +95,7 @@
 <script setup lang="ts">
 import {homeActionBar} from "./homeActionBar.ts";
 import {Close, Camera} from "@element-plus/icons-vue";
-import {songToBePlayedLists} from "../../pinia";
+import {songToBePlayedLists} from "../../pinia/friendsLists.ts";
 
 const {
   message_badge,

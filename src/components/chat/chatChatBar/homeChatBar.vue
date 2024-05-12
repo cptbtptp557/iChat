@@ -6,6 +6,16 @@
         <el-tooltip
             class="box-item"
             effect="dark"
+            content="群公告"
+            placement="bottom"
+        >
+          <el-icon size="23" v-show="group_state">
+            <Suitcase/>
+          </el-icon>
+        </el-tooltip>
+        <el-tooltip
+            class="box-item"
+            effect="dark"
             content="语音通话"
             placement="bottom"
         >
@@ -114,11 +124,11 @@
         :with-header="false"
     >
       <main>
-        <div class="group_chats_more">
+        <div class="group_chats_more" v-show="group_state">
           <header>
             <img src="../../../../public/chat-avatar/from-user.png" alt="群头像">
             <div>
-              <p>群昵称</p>
+              <p>{{ group_name }}</p>
               <p>群Id</p>
             </div>
           </header>
@@ -133,12 +143,74 @@
               </p>
             </div>
             <div class="group_users">
-
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="group_user">
+                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <p>群成员昵称</p>
+              </div>
+              <div class="invite">
+                <el-icon size="40">
+                  <Plus/>
+                </el-icon>
+                <p>邀请</p>
+              </div>
             </div>
           </main>
+          <footer>
+            <div class="group_name">
+              <p>群聊名称</p>
+              <input
+                  type="text"
+                  :disabled="group_permissions"
+                  v-model="group_name"
+                  maxlength="15"
+                  @change="changeGroupName"/>
+            </div>
+            <div class="group_announcement">
+              <p>群公告</p>
+              <input
+                  type="text"
+                  :disabled="group_permissions"
+                  v-model="group_announcement"
+                  maxlength="20"
+                  @change="changeGroupAnnouncement"/>
+            </div>
+          </footer>
         </div>
         <div class="all_more">
-          asdasd
+          <input type="button" value="删除聊天记录">
+          <input type="button" :value="group_state? '退出群聊':'删除好友'">
         </div>
       </main>
     </el-drawer>
@@ -147,7 +219,17 @@
 
 <script setup lang="ts">
 import {homeChatBar} from "./homeChatBar.ts";
-import {Microphone, VideoCamera, More, Picture, Files, Position, ArrowRight} from "@element-plus/icons-vue";
+import {
+  Microphone,
+  VideoCamera,
+  More,
+  Picture,
+  Files,
+  Position,
+  ArrowRight,
+  Plus,
+  Suitcase
+} from "@element-plus/icons-vue";
 
 const {
   content,
@@ -156,7 +238,12 @@ const {
   openVideoCallWindow,
   more_window,
   openMoreWindow,
-  // more_window_model,
+  group_name,
+  group_permissions,
+  changeGroupName,
+  group_announcement,
+  changeGroupAnnouncement,
+  group_state,
 } = homeChatBar();
 </script>
 

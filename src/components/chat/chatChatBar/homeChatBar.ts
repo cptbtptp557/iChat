@@ -11,6 +11,8 @@ export const homeChatBar = () => {
     const group_permissions = ref(true); // 群聊权限.true为不可修改，false为可修改
     const group_add_users = ref(false);
     const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
+    const selected_users = ref([])
+    const invite_users = ref([1, 2, 3, 4]); // 邀请加入群聊的好友
 
     const {group_state} = groupData();
 
@@ -26,19 +28,23 @@ export const homeChatBar = () => {
         more_window.value = true;
     }
 
-    const changeGroupName = () => {
+    const changeGroupName = (): void => {
         console.log(group_name.value);
     }
-    const changeGroupAnnouncement = () => {
+    const changeGroupAnnouncement = (): void => {
         console.log(group_announcement.value);
     }
-    const openGroupAnnouncements = () => {
+    const openGroupAnnouncements = (): void => {
         ElNotification({
             title: '群公告',
             offset: 30,
             duration: 5000,
             message: h('i', {style: 'color: teal'}, group_announcement.value),
         })
+    }
+
+    const inviteUsersLists = (): void => {
+        console.log(selected_users.value)
     }
 
     watch(content, (): void => {
@@ -61,5 +67,8 @@ export const homeChatBar = () => {
         group_state,
         group_add_users,
         group_add_users_inquire,
+        invite_users,
+        selected_users,
+        inviteUsersLists,
     }
 }

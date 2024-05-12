@@ -227,6 +227,18 @@
               placeholder="查询"
               clearable/>
         </div>
+        <div>
+          <label v-for="(value, index) in invite_users" :key="index">
+            <input
+                type="checkbox"
+                :name="'invite_users' + value"
+                :value="value"
+                v-model="selected_users"
+                @change="inviteUsersLists"
+            >
+            邀请用户 {{ value }}
+          </label>
+        </div>
       </div>
     </el-dialog>
   </div>
@@ -263,6 +275,9 @@ const {
   group_state,
   group_add_users,
   group_add_users_inquire,
+  invite_users,
+  selected_users,
+  inviteUsersLists,
 } = homeChatBar();
 </script>
 

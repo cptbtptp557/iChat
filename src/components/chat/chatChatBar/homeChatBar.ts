@@ -1,5 +1,6 @@
-import {ref, watch} from "vue";
+import {h, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
+import {ElNotification} from "element-plus";
 
 export const homeChatBar = () => {
     const content = ref(); // 输入内容
@@ -8,6 +9,8 @@ export const homeChatBar = () => {
     const group_name = ref("群聊名称");
     const group_announcement = ref("群公告");
     const group_permissions = ref(true); // 群聊权限.true为不可修改，false为可修改
+    const group_add_users = ref(false);
+    const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
 
     const {group_state} = groupData();
 
@@ -29,6 +32,14 @@ export const homeChatBar = () => {
     const changeGroupAnnouncement = () => {
         console.log(group_announcement.value);
     }
+    const openGroupAnnouncements = () => {
+        ElNotification({
+            title: '群公告',
+            offset: 30,
+            duration: 5000,
+            message: h('i', {style: 'color: teal'}, group_announcement.value),
+        })
+    }
 
     watch(content, (): void => {
         button_disabled.value = content.value !== "";
@@ -46,6 +57,9 @@ export const homeChatBar = () => {
         changeGroupName,
         group_announcement,
         changeGroupAnnouncement,
+        openGroupAnnouncements,
         group_state,
+        group_add_users,
+        group_add_users_inquire,
     }
 }

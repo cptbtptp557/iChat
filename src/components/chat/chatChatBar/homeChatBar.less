@@ -213,7 +213,8 @@ footer {
     overflow: hidden auto;
 
     & .group_chats_more {
-      height: 480px;
+      height: 490px;
+      margin-bottom: 10px;
 
       & header {
         height: 70px;
@@ -360,7 +361,7 @@ footer {
             letter-spacing: 1px;
           }
 
-          & [type = text] {
+          & .el-input {
             width: 310px;
             height: 40px;
             outline: none;
@@ -372,6 +373,7 @@ footer {
         }
 
         & .group_announcement {
+          width: 310px;
           position: relative;
           left: 5px;
           bottom: 110px;
@@ -384,9 +386,8 @@ footer {
             letter-spacing: 1px;
           }
 
-          & [type = text] {
+          & .el-input {
             width: 310px;
-            height: 40px;
             outline: none;
             border: none;
             border-radius: 10px;
@@ -444,7 +445,26 @@ footer {
   }
 }
 
-// 修改el-drawer背景颜色
+.group_add_users_outside {
+  height: 400px;
+
+  & .group_add_users_left {
+    width: 50%;
+    height: 400px;
+    padding-right: 20px;
+    border-right: 1px solid @gray;
+
+    & .el-input {
+      background-color: @light_gray;
+    }
+  }
+}
+
+// 修改Element-plus组件样式
 /deep/ .el-drawer.rtl {
   background-color: @light_gray;
+}
+
+/deep/ .el-input__wrapper {
+  background-color: transparent;
 }

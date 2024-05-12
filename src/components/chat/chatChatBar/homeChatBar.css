@@ -174,7 +174,8 @@ footer .send_box:active {
   overflow: hidden auto;
 }
 .drawer main .group_chats_more {
-  height: 480px;
+  height: 490px;
+  margin-bottom: 10px;
 }
 .drawer main .group_chats_more header {
   height: 70px;
@@ -296,7 +297,7 @@ footer .send_box:active {
   color: #505050;
   letter-spacing: 1px;
 }
-.drawer main .group_chats_more footer .group_name [type=text] {
+.drawer main .group_chats_more footer .group_name .el-input {
   width: 310px;
   height: 40px;
   outline: none;
@@ -306,6 +307,7 @@ footer .send_box:active {
   background-color: #f9f9f9;
 }
 .drawer main .group_chats_more footer .group_announcement {
+  width: 310px;
   position: relative;
   left: 5px;
   bottom: 110px;
@@ -317,9 +319,8 @@ footer .send_box:active {
   color: #505050;
   letter-spacing: 1px;
 }
-.drawer main .group_chats_more footer .group_announcement [type=text] {
+.drawer main .group_chats_more footer .group_announcement .el-input {
   width: 310px;
-  height: 40px;
   outline: none;
   border: none;
   border-radius: 10px;
@@ -364,7 +365,22 @@ footer .send_box:active {
 .drawer main .all_more [type=button]:nth-child(2):active {
   transform: scale(0.99);
 }
+.group_add_users_outside {
+  height: 400px;
+}
+.group_add_users_outside .group_add_users_left {
+  width: 50%;
+  height: 400px;
+  padding-right: 20px;
+  border-right: 1px solid #c7c7c7;
+}
+.group_add_users_outside .group_add_users_left .el-input {
+  background-color: #efefef;
+}
  /deep/ .el-drawer.rtl {
   background-color: #efefef;
+}
+ /deep/ .el-input__wrapper {
+  background-color: transparent;
 }
 /*# sourceMappingURL=homeChatBar.css.map */

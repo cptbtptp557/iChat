@@ -9,8 +9,8 @@
             content="群公告"
             placement="bottom"
         >
-          <el-icon size="23" v-show="group_state">
-            <Suitcase/>
+          <el-icon size="23" @click="openGroupAnnouncements" v-show="group_state">
+            <DataBoard/>
           </el-icon>
         </el-tooltip>
         <el-tooltip
@@ -180,7 +180,7 @@
                 <p>群成员昵称</p>
               </div>
               <div class="invite">
-                <el-icon size="40">
+                <el-icon size="40" @click="group_add_users = true">
                   <Plus/>
                 </el-icon>
                 <p>邀请</p>
@@ -190,20 +190,24 @@
           <footer>
             <div class="group_name">
               <p>群聊名称</p>
-              <input
+              <el-input
                   type="text"
                   :disabled="group_permissions"
                   v-model="group_name"
                   maxlength="15"
+                  show-word-limit
                   @change="changeGroupName"/>
             </div>
             <div class="group_announcement">
               <p>群公告</p>
-              <input
-                  type="text"
+              <el-input
+                  type="textarea"
                   :disabled="group_permissions"
                   v-model="group_announcement"
-                  maxlength="20"
+                  maxlength="50"
+                  show-word-limit
+                  rows="3"
+                  resize="none"
                   @change="changeGroupAnnouncement"/>
             </div>
           </footer>
@@ -214,6 +218,17 @@
         </div>
       </main>
     </el-drawer>
+    <el-dialog v-model="group_add_users">
+      <div class="group_add_users_outside">
+        <div class="group_add_users_left">
+          <el-input
+              v-model="group_add_users_inquire"
+              :prefix-icon="Search"
+              placeholder="查询"
+              clearable/>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -228,7 +243,8 @@ import {
   Position,
   ArrowRight,
   Plus,
-  Suitcase
+  DataBoard,
+  Search,
 } from "@element-plus/icons-vue";
 
 const {
@@ -243,7 +259,10 @@ const {
   changeGroupName,
   group_announcement,
   changeGroupAnnouncement,
+  openGroupAnnouncements,
   group_state,
+  group_add_users,
+  group_add_users_inquire,
 } = homeChatBar();
 </script>
 

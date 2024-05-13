@@ -578,6 +578,108 @@ footer {
   }
 }
 
+.look_more_group_users {
+  & header {
+    width: 250px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    &:hover {
+      color: @blue;
+    }
+
+    &:active {
+      transform: scale(.99);
+    }
+
+    & .el-icon {
+      position: relative;
+      top: 3px;
+    }
+
+    & p {
+      font-size: 13px;
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  & .el-input {
+    position: relative;
+    background-color: @white;
+  }
+
+  & main {
+    width: 250px;
+    height: 530px;
+    margin-top: 10px;
+    overflow: hidden auto;
+    border-radius: 10px;
+    background-color: @white;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: @gray;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    & ul {
+      padding: 10px;
+
+      & li {
+        display: flex;
+        margin-bottom: 19px;
+
+        & img {
+          width: 40px;
+          border-radius: 50%;
+          margin-right: 5px;
+        }
+
+        & p:nth-child(2) {
+          font-size: 13px;
+          position: relative;
+          top: 12px;
+          color: @text_gray;
+        }
+
+        & p:nth-child(3) {
+          height: 20px;
+          font-size: 13px;
+          position: relative;
+          top: 12px;
+          margin-left: auto;
+          padding: 3px;
+          justify-content: flex-end;
+          color: @text_gray;
+          background-color: @light_gray;
+          border-radius: 3px;
+          text-align: center;
+        }
+      }
+
+      & li:first-child {
+        & p:nth-child(3) {
+          background-color: rgba(255, 0, 0, 0.25);
+        }
+      }
+
+      & li:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
 // 修改Element-plus组件样式
 /deep/ .el-drawer.rtl {
   background-color: @light_gray;

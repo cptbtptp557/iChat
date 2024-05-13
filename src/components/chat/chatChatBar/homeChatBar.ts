@@ -14,6 +14,7 @@ export const homeChatBar = () => {
     const selected_users = ref([]);
     const invite_users = ref([1, 2, 3, 4,5,6,7,8,9,10,11,12]); // 邀请加入群聊的好友
     const look_more_group_users = ref(false);
+    const look_more_group_users_inquire = ref(); // 更多群成员查询
 
     const {group_state} = groupData();
 
@@ -41,7 +42,7 @@ export const homeChatBar = () => {
             offset: 30,
             duration: 5000,
             message: h('i', {style: 'color: teal'}, group_announcement.value),
-        })
+        });
     }
 
     const inviteUsersLists = (): void => {
@@ -72,5 +73,6 @@ export const homeChatBar = () => {
         selected_users,
         inviteUsersLists,
         look_more_group_users,
+        look_more_group_users_inquire,
     }
 }

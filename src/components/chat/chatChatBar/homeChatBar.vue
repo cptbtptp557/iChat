@@ -226,12 +226,33 @@
         </div>
       </div>
     </el-dialog>
-    <el-drawer v-model="look_more_group_users" :with-header="false" class="look_more_group_users">
+    <el-drawer
+        v-model="look_more_group_users"
+        :modal="false"
+        :with-header="false"
+        class="look_more_group_users">
+      <header @click="look_more_group_users = false">
+        <el-icon>
+          <ArrowLeft/>
+        </el-icon>
+        <p>群聊成员 114514</p>
+      </header>
       <el-input
+          v-model="look_more_group_users_inquire"
           style="width: 240px"
-          placeholder="请输入..."
+          placeholder="搜索"
           clearable
+          :prefix-icon="Search"
       />
+      <main>
+        <ul>
+          <li v-for="a in 30" :key="a">
+            <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+            <p>群成员昵称</p>
+            <p>群成员权限</p>
+          </li>
+        </ul>
+      </main>
     </el-drawer>
   </div>
 </template>
@@ -248,7 +269,7 @@ import {
   ArrowRight,
   Plus,
   DataBoard,
-  Search,
+  Search, ArrowLeft,
 } from "@element-plus/icons-vue";
 
 const {
@@ -271,6 +292,7 @@ const {
   selected_users,
   inviteUsersLists,
   look_more_group_users,
+  look_more_group_users_inquire,
 } = homeChatBar();
 </script>
 

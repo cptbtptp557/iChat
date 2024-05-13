@@ -476,6 +476,87 @@ footer .send_box:active {
   height: 30px;
   letter-spacing: 1px;
 }
+.look_more_group_users header {
+  width: 250px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+.look_more_group_users header:hover {
+  color: #557ffc;
+}
+.look_more_group_users header:active {
+  transform: scale(0.99);
+}
+.look_more_group_users header .el-icon {
+  position: relative;
+  top: 3px;
+}
+.look_more_group_users header p {
+  font-size: 13px;
+  position: relative;
+  top: 2px;
+}
+.look_more_group_users .el-input {
+  position: relative;
+  background-color: #f9f9f9;
+}
+.look_more_group_users main {
+  width: 250px;
+  height: 530px;
+  margin-top: 10px;
+  overflow: hidden auto;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.look_more_group_users main::-webkit-scrollbar {
+  width: 10px;
+}
+.look_more_group_users main::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+.look_more_group_users main::-webkit-scrollbar-track {
+  background: transparent;
+}
+.look_more_group_users main ul {
+  padding: 10px;
+}
+.look_more_group_users main ul li {
+  display: flex;
+  margin-bottom: 19px;
+}
+.look_more_group_users main ul li img {
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.look_more_group_users main ul li p:nth-child(2) {
+  font-size: 13px;
+  position: relative;
+  top: 12px;
+  color: #505050;
+}
+.look_more_group_users main ul li p:nth-child(3) {
+  height: 20px;
+  font-size: 13px;
+  position: relative;
+  top: 12px;
+  margin-left: auto;
+  padding: 3px;
+  justify-content: flex-end;
+  color: #505050;
+  background-color: #efefef;
+  border-radius: 3px;
+  text-align: center;
+}
+.look_more_group_users main ul li:first-child p:nth-child(3) {
+  background-color: rgba(255, 0, 0, 0.25);
+}
+.look_more_group_users main ul li:last-child {
+  margin-bottom: 0;
+}
  /deep/ .el-drawer.rtl {
   background-color: #efefef;
 }

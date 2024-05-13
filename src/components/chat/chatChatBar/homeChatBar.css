@@ -367,6 +367,8 @@ footer .send_box:active {
 }
 .group_add_users_outside {
   height: 400px;
+  display: flex;
+  flex-direction: row;
 }
 .group_add_users_outside .group_add_users_left {
   width: 50%;
@@ -376,6 +378,103 @@ footer .send_box:active {
 }
 .group_add_users_outside .group_add_users_left .el-input {
   background-color: #efefef;
+}
+.group_add_users_outside .group_add_users_left div:nth-child(2) {
+  width: 230px;
+  height: 375px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  scroll-behavior: smooth;
+  overflow: auto;
+  margin-top: 5px;
+}
+.group_add_users_outside .group_add_users_left div:nth-child(2)::-webkit-scrollbar {
+  width: 10px;
+}
+.group_add_users_outside .group_add_users_left div:nth-child(2)::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+.group_add_users_outside .group_add_users_left div:nth-child(2)::-webkit-scrollbar-track {
+  background: transparent;
+}
+.group_add_users_outside .group_add_users_left div:nth-child(2) label {
+  position: relative;
+  bottom: 5px;
+}
+.group_add_users_outside .group_add_users_left div:nth-child(2) label [type=checkbox] {
+  border-radius: 50%;
+  margin-right: 5px;
+  position: relative;
+  top: 1px;
+}
+.group_add_users_outside .group_add_users_left div:nth-child(2) label img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  top: 8px;
+}
+.group_add_users_outside .group_add_users_right {
+  width: 50%;
+  height: 400px;
+  padding: 0 20px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+.group_add_users_outside .group_add_users_right .total_tip {
+  display: flex;
+}
+.group_add_users_outside .group_add_users_right .total_tip p {
+  font-size: 13px;
+}
+.group_add_users_outside .group_add_users_right .selected_users {
+  width: 220px;
+  height: 330px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 5px;
+}
+.group_add_users_outside .group_add_users_right .selected_users::-webkit-scrollbar {
+  width: 10px;
+}
+.group_add_users_outside .group_add_users_right .selected_users::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+.group_add_users_outside .group_add_users_right .selected_users::-webkit-scrollbar-track {
+  background: transparent;
+}
+.group_add_users_outside .group_add_users_right .selected_users div {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+}
+.group_add_users_outside .group_add_users_right .selected_users div img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+}
+.group_add_users_outside .group_add_users_right .selected_users div p {
+  position: relative;
+  top: 7px;
+  left: 5px;
+}
+.group_add_users_outside .group_add_users_right .button {
+  position: relative;
+  top: 15px;
+  left: 40px;
+}
+.group_add_users_outside .group_add_users_right .button .el-button {
+  width: 80px;
+  height: 30px;
+  letter-spacing: 1px;
 }
  /deep/ .el-drawer.rtl {
   background-color: #efefef;

@@ -226,18 +226,35 @@
               :prefix-icon="Search"
               placeholder="查询"
               clearable/>
+          <div>
+            <label v-for="(value, index) in invite_users" :key="index">
+              <input
+                  type="checkbox"
+                  :name="'invite_users' + value"
+                  :value="value"
+                  v-model="selected_users"
+                  @change="inviteUsersLists"
+              >
+              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              邀请用户 {{ value }}
+            </label>
+          </div>
         </div>
-        <div>
-          <label v-for="(value, index) in invite_users" :key="index">
-            <input
-                type="checkbox"
-                :name="'invite_users' + value"
-                :value="value"
-                v-model="selected_users"
-                @change="inviteUsersLists"
-            >
-            邀请用户 {{ value }}
-          </label>
+        <div class="group_add_users_right">
+          <div class="total_tip">
+            <p>添加成员</p>
+            <p>已添加{{ selected_users.length }}人</p>
+          </div>
+          <div class="selected_users">
+            <div v-for="(value, index) in selected_users" :key="index">
+              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              <p>邀请用户 {{ value }}</p>
+            </div>
+          </div>
+          <div class="button">
+            <el-button type="primary" size="default">确定</el-button>
+            <el-button size="default">取消</el-button>
+          </div>
         </div>
       </div>
     </el-dialog>

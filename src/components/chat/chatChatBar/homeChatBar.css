@@ -289,7 +289,7 @@ footer .send_box:active {
 .drawer main .group_chats_more footer .group_name {
   position: relative;
   left: 5px;
-  bottom: 110px;
+  bottom: 100px;
 }
 .drawer main .group_chats_more footer .group_name p {
   position: relative;

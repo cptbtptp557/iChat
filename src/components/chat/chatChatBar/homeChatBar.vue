@@ -135,7 +135,7 @@
           <main>
             <div class="group_main_top">
               <p>群聊成员</p>
-              <p>
+              <p @click="look_more_group_users = true">
                 查看114514名群成员
                 <el-icon size="15">
                   <ArrowRight/>
@@ -143,39 +143,7 @@
               </p>
             </div>
             <div class="group_users">
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
-              </div>
-              <div class="group_user">
+              <div class="group_user" v-for="group_user in 9" :key="group_user">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
                 <p>群成员昵称</p>
               </div>
@@ -258,6 +226,13 @@
         </div>
       </div>
     </el-dialog>
+    <el-drawer v-model="look_more_group_users" :with-header="false" class="look_more_group_users">
+      <el-input
+          style="width: 240px"
+          placeholder="请输入..."
+          clearable
+      />
+    </el-drawer>
   </div>
 </template>
 
@@ -295,6 +270,7 @@ const {
   invite_users,
   selected_users,
   inviteUsersLists,
+  look_more_group_users,
 } = homeChatBar();
 </script>
 

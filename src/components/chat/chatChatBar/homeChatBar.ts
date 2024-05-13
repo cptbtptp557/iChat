@@ -11,8 +11,9 @@ export const homeChatBar = () => {
     const group_permissions = ref(true); // 群聊权限.true为不可修改，false为可修改
     const group_add_users = ref(false);
     const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
-    const selected_users = ref([])
+    const selected_users = ref([]);
     const invite_users = ref([1, 2, 3, 4,5,6,7,8,9,10,11,12]); // 邀请加入群聊的好友
+    const look_more_group_users = ref(false);
 
     const {group_state} = groupData();
 
@@ -70,5 +71,6 @@ export const homeChatBar = () => {
         invite_users,
         selected_users,
         inviteUsersLists,
+        look_more_group_users,
     }
 }

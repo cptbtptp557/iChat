@@ -12,7 +12,7 @@
           :width="150"
           trigger="click"
       >
-        <el-button style="position: relative;left: 11px;margin-bottom: 10px">
+        <el-button style="position: relative;left: 11px;margin-bottom: 10px" @click="create_group = true">
           <el-icon style="position: relative; left: -5px">
             <DataAnalysis/>
           </el-icon>
@@ -124,6 +124,46 @@
         </div>
       </div>
     </div>
+    <el-dialog v-model="create_group">
+      <div class="group_add_users_outside">
+        <div class="group_add_users_left">
+          <el-input
+              v-model="group_add_users_inquire"
+              :prefix-icon="Search"
+              placeholder="查询"
+              clearable/>
+          <div>
+            <label v-for="(value, index) in invite_users" :key="index">
+              <input
+                  type="checkbox"
+                  :name="'invite_users' + value"
+                  :value="value"
+                  v-model="selected_users"
+                  @change="inviteUsersLists"
+              >
+              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              邀请用户 {{ value }}
+            </label>
+          </div>
+        </div>
+        <div class="group_add_users_right">
+          <div class="total_tip">
+            <p>添加成员</p>
+            <p>已添加{{ selected_users.length }}人</p>
+          </div>
+          <div class="selected_users">
+            <div v-for="(value, index) in selected_users" :key="index">
+              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              <p>邀请用户 {{ value }}</p>
+            </div>
+          </div>
+          <div class="button">
+            <el-button type="primary" size="default">确定</el-button>
+            <el-button size="default">取消</el-button>
+          </div>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -141,9 +181,14 @@ const {
   confirmAddFriend,
   introduce_yourself,
   receiver_remarks,
+  create_group,
+  group_add_users_inquire,
+  invite_users,
+  selected_users,
+  inviteUsersLists,
 } = homeFriendsBar();
 </script>
 
 <style scoped>
-@import "./homefriendsBar.less";
+@import "homeFriendsBar.less";
 </style>

@@ -6,6 +6,10 @@ export const homeFriendsBar = () => {
     const confirm_add_friend = ref(false); // 确认添加好友框
     const introduce_yourself = ref("发起方昵称"); // 添加好友时的自我介绍
     const receiver_remarks = ref("给被添加方的备注"); // 添加好友时给被添加方的备注
+    const create_group = ref(false); // 创建群聊窗口
+    const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
+    const invite_users = ref([1, 2, 3, 4,5,6,7,8,9,10,11,12]); // 邀请加入群聊的好友
+    const selected_users = ref([]);
 
     const find = () => {
         console.log(find_logotype.value);
@@ -37,6 +41,10 @@ export const homeFriendsBar = () => {
         confirm_add_friend.value = true;
     }
 
+    const inviteUsersLists = (): void => {
+        console.log(selected_users.value)
+    }
+
     return {
         add_friend,
         find,
@@ -47,5 +55,10 @@ export const homeFriendsBar = () => {
         confirmAddFriend,
         introduce_yourself,
         receiver_remarks,
+        create_group,
+        group_add_users_inquire,
+        invite_users,
+        selected_users,
+        inviteUsersLists,
     }
 }

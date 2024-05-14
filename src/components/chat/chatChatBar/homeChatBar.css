@@ -402,6 +402,8 @@ footer .send_box:active {
 .group_add_users_outside .group_add_users_left div:nth-child(2) label {
   position: relative;
   bottom: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 .group_add_users_outside .group_add_users_left div:nth-child(2) label [type=checkbox] {
   border-radius: 50%;

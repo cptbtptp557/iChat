@@ -1,10 +1,13 @@
 import {ref} from "vue";
 import {ElNotification} from "element-plus";
+import {api} from "../../pinia/api.ts";
 
 export const login = () => {
-    const account = ref(); // 账号
-    const password = ref(); // 密码
-    const getButtons = (e: any) => e.preventDefault()
+    const account = ref(); // 输入的账号
+    const password = ref(); // 输入的密码
+
+    const {login,} = api();
+    const getButtons = (e: any) => e.preventDefault();
 
     const changeForm = () => {
         const switchCtn = document.querySelector("#switch-cnt");
@@ -42,16 +45,22 @@ export const login = () => {
     window.addEventListener("load", mainF);
 
     const loginIn = () => {
-        if (account.value === "10001" && password.value === "10001") {
-            window.location.href = "/";
-        } else {
-            ElNotification({
-                title: '账号密码错误',
-                message: '请重新输入!!!',
-                type: 'error',
-                position: 'top-left',
-            })
-        }
+        let token: string;
+        login(account.value, password.value)
+            .then(data => {
+                token = data.data;
+                if (token) {
+                    localStorage.token = token;
+                    window.location.href = "/";
+                } else {
+                    ElNotification({
+                        title: '账号密码错误',
+                        message: '请重新输入!!!',
+                        type: 'error',
+                        position: 'top-left',
+                    })
+                }
+            }).catch(console.error);
     }
 
     return {

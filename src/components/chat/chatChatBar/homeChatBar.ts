@@ -54,7 +54,7 @@ export const homeChatBar = () => {
     });
     onMounted(() => {
         const dialogBox = document.getElementById("dialogBox") as HTMLElement;
-        dialogBox.scrollTop = dialogBox.scrollHeight;
+        dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'})
     });
 
     return {

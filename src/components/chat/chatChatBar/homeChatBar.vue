@@ -46,48 +46,64 @@
       </div>
     </header>
     <el-divider style="position: absolute; top: 15px"/>
-    <div class="dialog_box">
+    <div id="dialogBox" class="dialog_box">
       <div class="to_user">
-        <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-        <p>接收方用户</p>
-        <p>
-          发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
+        <div>
+          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+          <div>
+            <p>接收方用户</p>
+            <p>
+              发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容
+            </p>
+          </div>
+        </div>
       </div>
       <div class="from_user">
-        <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
-        <p>发出方用户</p>
-        <p>发出的内容</p>
+        <div>
+          <div>
+            <p>发出方用户</p>
+            <p>发出的内容</p>
+          </div>
+          <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
+        </div>
       </div>
       <div class="to_user">
-        <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-        <p>接收方用户</p>
-        <p>接收的内容</p>
-      </div>
-      <div class="from_user">
-        <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
-        <p>发出方用户</p>
-        <p>
-          发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
-      </div>
-      <div class="to_user">
-        <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-        <p>接收方用户</p>
-        <p>接收的内容</p>
+        <div>
+          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+          <div>
+            <p>接收方用户</p>
+            <p>
+              发出的内容
+            </p>
+          </div>
+        </div>
       </div>
       <div class="to_user">
-        <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-        <p>接收方用户</p>
-        <p>接收的内容</p>
+        <div>
+          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+          <div>
+            <p>接收方用户</p>
+            <p>发出的内容</p>
+          </div>
+        </div>
       </div>
       <div class="from_user">
-        <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
-        <p>发出方用户</p>
-        <p>发出的内容</p>
+        <div>
+          <div>
+            <p>发出方用户</p>
+            <p>发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
+          </div>
+          <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
+        </div>
       </div>
       <div class="from_user">
-        <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
-        <p>发出方用户</p>
-        <p>发出的内容</p>
+        <div>
+          <div>
+            <p>发出方用户</p>
+            <p>发出的内容</p>
+          </div>
+          <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
+        </div>
       </div>
     </div>
     <el-divider style="position: absolute; bottom: 200px"/>

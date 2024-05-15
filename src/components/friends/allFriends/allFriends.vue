@@ -4,7 +4,7 @@
       <el-icon class="search">
         <Search/>
       </el-icon>
-      <input type="text" placeholder="搜索">
+      <input type="text" placeholder="搜索" v-model="search_friend" @input="searchFriend">
     </header>
     <main>
       <div class="friends_introduce" v-for=" users in 10" :key="users">
@@ -32,7 +32,10 @@
 import {allFriends} from "./allFriends.ts";
 import {Search} from "@element-plus/icons-vue";
 
-const {} = allFriends();
+const {
+  search_friend,
+  searchFriend,
+} = allFriends();
 </script>
 
 <style scoped>

@@ -34,7 +34,7 @@ header .shat_control .el-icon:active {
 }
 .dialog_box {
   height: 389px;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -54,65 +54,89 @@ header .shat_control .el-icon:active {
 }
 .dialog_box .to_user {
   position: relative;
+  top: 10px;
   padding: 0 5px;
+  margin: 5px 10px 10px 0;
 }
-.dialog_box .to_user img {
+.dialog_box .to_user div {
+  display: flex;
+  flex-direction: row;
+}
+.dialog_box .to_user div img {
   width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
-.dialog_box .to_user > p:first-of-type {
-  width: 100px;
+.dialog_box .to_user div div {
+  position: relative;
+  top: -10px;
+  left: 10px;
+  margin: 10px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  scroll-behavior: smooth;
+}
+.dialog_box .to_user div div p:nth-child(1) {
   font-size: 10px;
   color: #505050;
   position: relative;
-  top: -45px;
-  left: 45px;
 }
-.dialog_box .to_user > p:nth-of-type(2) {
-  display: inline-block;
-  max-width: 570px;
+.dialog_box .to_user div div p:nth-child(2) {
+  max-width: 550px;
   background-color: #c7c7c7;
   position: relative;
-  top: -40px;
-  left: 45px;
+  top: 10px;
   padding: 5px;
   border-radius: 5px;
   color: #000;
   font-size: 14px;
   letter-spacing: 0.5px;
+  text-align: left;
 }
 .dialog_box .from_user {
   position: relative;
-  top: -50px;
+  top: 10px;
   float: right;
-  margin-top: 20px;
+  margin: 5px 10px 10px 0;
 }
-.dialog_box .from_user img {
+.dialog_box .from_user div {
+  display: flex;
+  justify-content: flex-end;
+}
+.dialog_box .from_user div img {
   width: 40px;
+  height: 40px;
   border-radius: 50%;
   float: right;
 }
-.dialog_box .from_user > p:first-of-type {
+.dialog_box .from_user div div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  scroll-behavior: smooth;
+}
+.dialog_box .from_user div div p:nth-child(1) {
   font-size: 10px;
   color: #505050;
   position: relative;
-  top: 0;
-  right: 7px;
+  right: 10px;
   float: right;
+  text-align: right;
 }
-.dialog_box .from_user > p:nth-of-type(2) {
-  display: inline-block;
-  max-width: 570px;
+.dialog_box .from_user div div p:nth-child(2) {
+  max-width: 550px;
   background-color: #557ffc;
   position: relative;
-  top: 20px;
-  right: -45px;
+  right: 10px;
   float: right;
+  margin-top: 10px;
   padding: 5px;
   border-radius: 5px;
   color: #f9f9f9;
   font-size: 14px;
   letter-spacing: 0.5px;
+  text-align: left;
 }
 footer {
   width: 665px;

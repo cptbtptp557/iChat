@@ -1,4 +1,4 @@
-import {h, ref, watch} from "vue";
+import {h, onMounted, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
 import {ElNotification} from "element-plus";
 
@@ -12,7 +12,7 @@ export const homeChatBar = () => {
     const group_add_users = ref(false);
     const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
     const selected_users = ref([]);
-    const invite_users = ref([1, 2, 3, 4,5,6,7,8,9,10,11,12]); // 邀请加入群聊的好友
+    const invite_users = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]); // 邀请加入群聊的好友
     const look_more_group_users = ref(false);
     const look_more_group_users_inquire = ref(); // 更多群成员查询
 
@@ -51,7 +51,11 @@ export const homeChatBar = () => {
 
     watch(content, (): void => {
         button_disabled.value = content.value !== "";
-    })
+    });
+    onMounted(() => {
+        const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+        dialogBox.scrollTop = dialogBox.scrollHeight;
+    });
 
     return {
         content,

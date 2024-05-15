@@ -1,0 +1,34 @@
+const mysql = require("mysql");
+const mySqlFunction = () => {
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '123456',
+        port: '3366',
+        database: 'ichatdatabase',
+    });
+
+    connection.connect(err => {
+        if (err) console.log("无法连接到数据库:", err);
+        console.log("数据库连接成功!!!")
+    });
+
+    const getFunction = (sql) => {
+        return new Promise((resolve, reject) => {
+            connection.query(sql, (err, result) => {
+                if (err) {
+                    console.error("执行获取用户数据时出错:", err);
+                    reject(err)
+                } else {
+                    resolve(result);
+                }
+            })
+        });
+    };
+
+    return {
+        getFunction,
+    }
+}
+
+module.exports = mySqlFunction();

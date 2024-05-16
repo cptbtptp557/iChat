@@ -34,6 +34,21 @@ export const vueRouter = () => {
         routes,
     });
 
+    router.beforeEach((to, from, next) => {
+        let token = localStorage.getItem('token');
+        console.log(from);
+        
+        if (to.path !== '/login' && to.path !== '/forgotPassword') {
+            if (token) {
+                next();
+            } else {
+                next('/login');
+            }
+        } else {
+            next();
+        }
+    });
+
     return {
         router,
     };

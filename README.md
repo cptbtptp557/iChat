@@ -2,7 +2,7 @@
 
 ## 项目介绍
 
-基于electron的聊天软件<br/>
+基于Electron的聊天软件<br/>
 前端使用Vue3+Socket.io+Electron+Vite+Element-Plus+WebRTC<br/>
 后端使用Express+Socket.io
 

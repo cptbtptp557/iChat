@@ -45,7 +45,6 @@ export const login = () => {
     }
 
     window.addEventListener("load", mainF);
-
     // 登录
     const loginIn = () => {
         let token: string;

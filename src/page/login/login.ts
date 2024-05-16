@@ -9,6 +9,7 @@ export const login = () => {
     const nickname = ref(); // 输入的昵称
 
     const {login, createAccount} = api();
+
     const getButtons = (e: any) => e.preventDefault();
 
     const changeForm = () => {
@@ -76,7 +77,7 @@ export const login = () => {
                             message: data.data,
                             type: 'error',
                         })
-                    }else {
+                    } else {
                         ElMessageBox.alert(
                             '<strong>账号:</strong>' + data.data.iID + '<br>' +
                             '<strong>密码:</strong>' + data.data.data.password + '<br>' +

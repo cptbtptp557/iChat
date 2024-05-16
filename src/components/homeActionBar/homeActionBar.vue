@@ -49,7 +49,7 @@
             </button>
           </template>
           <div class="setup_bottom">
-            <div class="sign_out" @click="signOut">
+            <div class="sign_out" @click="signOutAccount">
               <img src="../../../public/sign-out.png" alt="退出登录">
               <p class="sign_out_p">退出登录</p>
             </div>
@@ -58,7 +58,7 @@
       </div>
     </div>
     <KeepAlive>
-      <component :is="songToBePlayedLists().current"/>
+      <component :is="usersLists().current"/>
     </KeepAlive>
     <dialog id="dialog">
       <Close class="close" onclick="dialog.close()"/>
@@ -83,7 +83,7 @@
           </label>
           <label>
             生日
-            <input type="date" class="change_birthday" placeholder="Birthday" v-model="data">
+            <input type="date" class="change_birthday" placeholder="Birthday" v-model="birthday">
           </label>
         </div>
         <button @click="commit">保存</button>
@@ -95,19 +95,19 @@
 <script setup lang="ts">
 import {homeActionBar} from "./homeActionBar.ts";
 import {Close, Camera} from "@element-plus/icons-vue";
-import {songToBePlayedLists} from "../../pinia/friendsLists.ts";
+import {usersLists} from "../../pinia/usersLists.ts";
 
 const {
   message_badge,
   user_lists,
   toMessage,
   toFriends,
-  data,
+  birthday,
   nickname,
   signature,
   gender,
   commit,
-  signOut,
+  signOutAccount,
 } = homeActionBar();
 </script>
 

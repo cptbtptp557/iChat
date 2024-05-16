@@ -26,7 +26,7 @@ const mySqlFunction = () => {
     };
 
     return {
-        sqlFunction
+        sqlFunction,
     }
 }
 

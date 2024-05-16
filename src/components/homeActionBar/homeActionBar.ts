@@ -1,15 +1,21 @@
 import message from "../chat/message.vue";
 import friends from "../friends/friends.vue";
-import {reactive, ref} from "vue";
-import {songToBePlayedLists} from "../../pinia/friendsLists.ts";
+import {onMounted, reactive, ref} from "vue";
+import {usersLists} from "../../pinia/usersLists.ts";
+import {api} from "../../pinia/api.ts";
+import {ElNotification} from "element-plus";
 
 export const homeActionBar = () => {
+    const userLists = ref(); // 登录账户信息
     const message_badge = ref(false); // 消息红点显示
     const user_lists = reactive({name: "蒸艾粉IKUN", iid: 10001, signature: "我爱鸽鸽!!!"});
-    const data = ref(); // 生日
+    const userAccount = ref(); // 当前登陆账户账号
+    const birthday = ref("2002-11-24"); // 生日
     const nickname = ref(); // 昵称
     const signature = ref(); // 个性签名
     const gender = ref(); // 性别
+
+    const {signOut, getUserLists, changeUserLists} = api();
 
     const selected = (event: any) => {
         const selected_one = document.getElementById("selected_one") as HTMLElement;
@@ -25,18 +31,19 @@ export const homeActionBar = () => {
             selected_two.style.backgroundColor = "rgb(220, 220, 220)";
             selected_two.style.borderRadius = "10px";
         }
-    }
+    };
+
     const toMessage = () => {
         selected('message');
-        songToBePlayedLists().current = message
-    }
+        usersLists().current = message
+    };
 
     const toFriends = () => {
         selected('friends');
-        songToBePlayedLists().current = friends
-    }
+        usersLists().current = friends
+    };
 
-    const {inData} = songToBePlayedLists();
+    const {inData} = usersLists();
     const goMessageHref = () => {
         const selected_one = document.getElementById("selected_one") as HTMLElement;
         const selected_two = document.getElementById("selected_two") as HTMLElement;
@@ -45,17 +52,43 @@ export const homeActionBar = () => {
         selected_two.style.backgroundColor = "transparent";
         selected_one.style.borderRadius = "10px";
         inData(10001);
-    }
+    };
 
     const commit = () => {
-        console.log(data.value)
-    }
+        changeUserLists(nickname.value, signature.value, gender.value, birthday.value, userAccount.value)
+            .then(() => {
+                ElNotification({
+                    message: '修改成功!!!',
+                    type: 'success',
+                });
+                location.reload();
+            }).catch(console.error);
+    };
 
     // 退出登录
-    const signOut = () => {
-        localStorage.removeItem('token');
-        location.reload();
-    }
+    const signOutAccount = () => {
+        let token = localStorage.getItem('token') as string;
+
+        signOut(token)
+            .then(() => {
+                localStorage.removeItem('token');
+                location.reload();
+            }).catch(console.error);
+    };
+
+    onMounted(() => {
+        let token = localStorage.getItem('token') as string;
+        getUserLists(token)
+            .then((data) => {
+                userLists.value = data.data.result[0];
+                nickname.value = data.data.result[0].nickname;
+                signature.value = data.data.result[0].signature;
+                birthday.value = data.data.result[0].birthday;
+                gender.value = data.data.result[0].gender;
+                userAccount.value = data.data.this_account;
+                usersLists().thisUserAccount = data.data.this_account;
+            }).catch(console.error);
+    });
 
     return {
         message_badge,
@@ -63,11 +96,11 @@ export const homeActionBar = () => {
         toMessage,
         toFriends,
         goMessageHref,
-        data,
+        birthday,
         nickname,
         signature,
         gender,
         commit,
-        signOut,
+        signOutAccount,
     }
 }

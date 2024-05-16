@@ -16,6 +16,7 @@ const {
     change_onlinepresence_sql,
     create_account_sql,
     change_password,
+    change_user_lists_sql,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -35,7 +36,7 @@ app.post("/captcha", (req, res) => {
     const data = req.query;
 
     try {
-        res.json(sendCaptcha(data.to_email));
+        res.status(200).json(sendCaptcha(data.to_email));
     } catch (err) {
         console.error(err);
     }
@@ -43,10 +44,13 @@ app.post("/captcha", (req, res) => {
 
 // 获取用户数据
 app.get('/getUserLists', (req, res) => {
-    sqlFunction(getUserLists_sql)
+    const data = req.query;
+    const this_account = jwt.decode(data.token).thisAccount;
+
+    sqlFunction(getUserLists_sql + this_account)
         .then(result => {
             res.setHeader('Content-Type', 'application/json');
-            res.json(result);
+            res.status(200).json({result, this_account});
         })
 });
 
@@ -61,7 +65,7 @@ app.get('/login', (req, res) => {
                     exp: Math.floor((Date.now() / 1000) + 86400),
                     thisAccount: data.account,
                 }, data.account);
-                res.json(token);
+                res.status(200).json(token);
             } else {
                 res.json(null);
                 res.status(401).json({err: '账号或密码出错'});
@@ -77,6 +81,18 @@ app.get('/login', (req, res) => {
         });
 });
 
+// 退出登录
+app.post('/signOut', (req, res) => {
+    const data = req.query;
+    const this_account = jwt.decode(data.token).thisAccount;
+
+    sqlFunction(change_onlinepresence_sql("false", this_account))
+        .then(() => {
+            res.status(200).json("退出成功!!!");
+        })
+        .catch(console.error);
+})
+
 // 注册
 app.post('/createAccount', (req, res) => {
     const data = req.query;
@@ -90,7 +106,7 @@ app.post('/createAccount', (req, res) => {
                 sqlFunction(create_account_sql(data.nickname, data.mailbox, data.password))
                     .then(result => {
                         const iID = result.insertId;
-                        res.json({data, iID});
+                        res.status(200).json({data, iID});
                     }).catch(console.error)
             }
         }).catch(console.error);
@@ -99,13 +115,22 @@ app.post('/createAccount', (req, res) => {
 // 修改密码
 app.post('/changePassword', (req, res) => {
     const data = req.query;
-    console.log(data)
 
     sqlFunction(change_password(data.email, data.new_password))
         .then(result => {
             console.log(result)
-            res.json("密码修改成功!!!")
-        })
+            res.status(200).json("密码修改成功!!!")
+        }).catch(console.error);
+})
+
+// 修改用户信息
+app.post('/changeUserLists', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(change_user_lists_sql(data.nickname, data.signature, data.gender, data.birthday, data.account))
+        .then(() => {
+            res.status(200).json("数据修改成功!!!")
+        }).catch(console.error);
 })
 
 app.listen(port, () => {

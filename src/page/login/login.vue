@@ -16,10 +16,10 @@
         <h2 class="form_title title">Create Account</h2>
         <div class="form__icons"></div>
         <span class="form__span">或使用电子邮件进行注册</span>
-        <input class="form__input" type="text" placeholder="Nickname">
-        <input class="form__input" type="text" placeholder="Email">
-        <input class="form__input" type="password" placeholder="Password">
-        <button class="form__button button submit">SIGN UP</button>
+        <input class="form__input" type="text" v-model="nickname" placeholder="Nickname">
+        <input class="form__input" type="email" v-model="mailbox" placeholder="Email">
+        <input class="form__input" type="password" v-model="password" placeholder="Password">
+        <button class="form__button button submit" @click="createNewAccount">SIGN UP</button>
       </form>
     </div>
     <div class="switch" id="switch-cnt">
@@ -45,7 +45,10 @@ import {login} from "./login.ts";
 const {
   account,
   password,
+  mailbox,
+  nickname,
   loginIn,
+  createNewAccount,
 } = login();
 </script>
 

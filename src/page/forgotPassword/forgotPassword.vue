@@ -4,7 +4,7 @@
     <div class="background_round_bottom"></div>
     <div class="form">
       <h2>重置密码</h2>
-      <input type="text" class="email" v-model="to_email" placeholder="Email">
+      <input type="email" class="email" v-model="to_email" placeholder="Email">
       <input type="text" class="email" v-model="new_password" placeholder="New Password">
       <div class="captcha_column">
         <input type="text" class="captcha" v-model="input_captcha" placeholder="Captcha">

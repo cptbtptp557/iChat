@@ -13,11 +13,10 @@ const mySqlFunction = () => {
         console.log("数据库连接成功!!!")
     });
 
-    const getFunction = (sql) => {
+    const sqlFunction = (sql) => {
         return new Promise((resolve, reject) => {
             connection.query(sql, (err, result) => {
                 if (err) {
-                    console.error("执行获取用户数据时出错:", err);
                     reject(err)
                 } else {
                     resolve(result);
@@ -27,7 +26,7 @@ const mySqlFunction = () => {
     };
 
     return {
-        getFunction,
+        sqlFunction
     }
 }
 

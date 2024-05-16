@@ -8,8 +8,15 @@ const mySqlFunction = require("./mySql/mySqlFunction");
 const port = 3000;
 const app = express();
 const {sendCaptcha} = expressIndex;
-const {getUserLists_sql, login_sql, change_onlinepresence_sql} = mySqlQueryStatements;
-const {getFunction} = mySqlFunction;
+const {sqlFunction} = mySqlFunction;
+const {
+    getUserLists_sql,
+    login_sql,
+    search_email,
+    change_onlinepresence_sql,
+    create_account_sql,
+    change_password,
+} = mySqlQueryStatements;
 
 // 跨域
 app.use((req, res, next) => {
@@ -25,8 +32,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // 发送验证码
 app.post("/captcha", (req, res) => {
+    const data = req.query;
+
     try {
-        res.json(sendCaptcha(req.query.to_email));
+        res.json(sendCaptcha(data.to_email));
     } catch (err) {
         console.error(err);
     }
@@ -34,7 +43,7 @@ app.post("/captcha", (req, res) => {
 
 // 获取用户数据
 app.get('/getUserLists', (req, res) => {
-    getFunction(getUserLists_sql)
+    sqlFunction(getUserLists_sql)
         .then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.json(result);
@@ -45,13 +54,13 @@ app.get('/getUserLists', (req, res) => {
 app.get('/login', (req, res) => {
     const data = req.query;
 
-    getFunction(login_sql + data.username)
+    sqlFunction(login_sql + data.account)
         .then(result => {
             if (data.password === result[0].password) {
                 const token = jwt.sign({
                     exp: Math.floor((Date.now() / 1000) + 86400),
-                    thisAccount: data.username,
-                }, data.username);
+                    thisAccount: data.account,
+                }, data.account);
                 res.json(token);
             } else {
                 res.json(null);
@@ -59,7 +68,7 @@ app.get('/login', (req, res) => {
             }
         })
         .then(() => {
-            getFunction(change_onlinepresence_sql("true", data.username))
+            sqlFunction(change_onlinepresence_sql("true", data.account))
                 .catch(console.error);
         })
         .catch(err => {
@@ -68,6 +77,36 @@ app.get('/login', (req, res) => {
         });
 });
 
+// 注册
+app.post('/createAccount', (req, res) => {
+    const data = req.query;
+    const warn = "此邮箱已绑定!!!";
+
+    sqlFunction(search_email(data.mailbox))
+        .then((result) => {
+            if (result.length !== 0) {
+                res.json(warn);
+            } else {
+                sqlFunction(create_account_sql(data.nickname, data.mailbox, data.password))
+                    .then(result => {
+                        const iID = result.insertId;
+                        res.json({data, iID});
+                    }).catch(console.error)
+            }
+        }).catch(console.error);
+})
+
+// 修改密码
+app.post('/changePassword', (req, res) => {
+    const data = req.query;
+    console.log(data)
+
+    sqlFunction(change_password(data.email, data.new_password))
+        .then(result => {
+            console.log(result)
+            res.json("密码修改成功!!!")
+        })
+})
 
 app.listen(port, () => {
     console.log(`服务器在端口${port}上运行!!!`);

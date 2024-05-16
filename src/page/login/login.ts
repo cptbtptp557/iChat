@@ -1,12 +1,14 @@
 import {ref} from "vue";
-import {ElNotification} from "element-plus";
+import {ElMessageBox, ElNotification} from "element-plus";
 import {api} from "../../pinia/api.ts";
 
 export const login = () => {
     const account = ref(); // 输入的账号
     const password = ref(); // 输入的密码
+    const mailbox = ref(); // 输入的邮箱
+    const nickname = ref(); // 输入的昵称
 
-    const {login,} = api();
+    const {login, createAccount} = api();
     const getButtons = (e: any) => e.preventDefault();
 
     const changeForm = () => {
@@ -44,6 +46,7 @@ export const login = () => {
 
     window.addEventListener("load", mainF);
 
+    // 登录
     const loginIn = () => {
         let token: string;
         login(account.value, password.value)
@@ -61,11 +64,55 @@ export const login = () => {
                     })
                 }
             }).catch(console.error);
-    }
+    };
+
+    // 注册
+    const createNewAccount = () => {
+        if (nickname.value && mailbox.value && password.value.length >= 5 && password.value.length <= 12) {
+            createAccount(nickname.value, mailbox.value, password.value)
+                .then(data => {
+                    console.log(data.data)
+                    if (typeof data.data === "string") {
+                        ElNotification({
+                            message: data.data,
+                            type: 'error',
+                        })
+                    }else {
+                        ElMessageBox.alert(
+                            '<strong>账号:</strong>' + data.data.iID + '<br>' +
+                            '<strong>密码:</strong>' + data.data.data.password + '<br>' +
+                            '<strong>邮箱:</strong>' + data.data.data.mailbox + '',
+                            '请保存',
+                            {
+                                confirmButtonText: '确定',
+                                draggable: true,
+                                dangerouslyUseHTMLString: true,
+                            }
+                        )
+                        password.value = '';
+                    }
+                }).catch(console.error);
+        } else if (!password.value || password.value.length < 5 || password.value.length > 12) {
+            ElNotification({
+                title: 'Error',
+                message: '密码长度应大于等于5位小于12位!!!',
+                type: 'error',
+            })
+        } else {
+            ElNotification({
+                title: 'Error',
+                message: '请输入!!!',
+                type: 'error',
+            })
+        }
+    };
 
     return {
         account,
         password,
+        mailbox,
+        nickname,
         loginIn,
+        createNewAccount,
     }
 }

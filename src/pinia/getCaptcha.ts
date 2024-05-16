@@ -1,7 +1,7 @@
 import axios from "axios";
 import {ref} from "vue";
 
-export const api = () => {
+export const getCaptcha = () => {
     const captcha = ref([]);
     const lastRequestTime = ref(0);
 

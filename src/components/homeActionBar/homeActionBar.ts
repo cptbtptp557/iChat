@@ -51,6 +51,12 @@ export const homeActionBar = () => {
         console.log(data.value)
     }
 
+    // 退出登录
+    const signOut = () => {
+        localStorage.removeItem('token');
+        location.reload();
+    }
+
     return {
         message_badge,
         user_lists,
@@ -62,5 +68,6 @@ export const homeActionBar = () => {
         signature,
         gender,
         commit,
+        signOut,
     }
 }

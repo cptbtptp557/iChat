@@ -49,7 +49,7 @@
             </button>
           </template>
           <div class="setup_bottom">
-            <div class="sign_out">
+            <div class="sign_out" @click="signOut">
               <img src="../../../public/sign-out.png" alt="退出登录">
               <p class="sign_out_p">退出登录</p>
             </div>
@@ -107,6 +107,7 @@ const {
   signature,
   gender,
   commit,
+  signOut,
 } = homeActionBar();
 </script>
 

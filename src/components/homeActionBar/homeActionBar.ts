@@ -1,6 +1,7 @@
 import message from "../chat/message.vue";
 import friends from "../friends/friends.vue";
-import {onMounted, reactive, ref} from "vue";
+import raidenShogun from "../raidenShogun/raidenShogun.vue";
+import {onMounted, ref} from "vue";
 import {usersLists} from "../../pinia/usersLists.ts";
 import {api} from "../../pinia/api.ts";
 import {ElNotification} from "element-plus";
@@ -8,7 +9,6 @@ import {ElNotification} from "element-plus";
 export const homeActionBar = () => {
     const userLists = ref(); // 登录账户信息
     const message_badge = ref(false); // 消息红点显示
-    const user_lists = reactive({name: "蒸艾粉IKUN", iid: 10001, signature: "我爱鸽鸽!!!"});
     const userAccount = ref(); // 当前登陆账户账号
     const birthday = ref("2002-11-24"); // 生日
     const nickname = ref(); // 昵称
@@ -35,12 +35,13 @@ export const homeActionBar = () => {
 
     const toMessage = () => {
         selected('message');
-        usersLists().current = message
+        usersLists().current = message;
+        usersLists().all_friends_show_components = raidenShogun;
     };
 
     const toFriends = () => {
         selected('friends');
-        usersLists().current = friends
+        usersLists().current = friends;
     };
 
     const {inData} = usersLists();
@@ -92,10 +93,10 @@ export const homeActionBar = () => {
 
     return {
         message_badge,
-        user_lists,
         toMessage,
         toFriends,
         goMessageHref,
+        userAccount,
         birthday,
         nickname,
         signature,

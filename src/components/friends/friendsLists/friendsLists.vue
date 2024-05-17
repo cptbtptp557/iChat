@@ -1,7 +1,6 @@
 <template>
   <div class="friendsListsBody">
-    <img src="../../../../public/RaidenShogun.png" draggable="false" alt="雷电" v-if="!friends_lists">
-    <div class="friendsLists" v-else>
+    <div class="friendsLists">
       <img src="../../../../public/chat-avatar/from-user.png" draggable="false" alt="朋友头像">
       <div class="name_id">
         <p>朋友昵称(最多不超过12字)</p>
@@ -63,7 +62,6 @@ import {friendsList} from "./friendsLists.ts";
 import {Male, Female, EditPen, Edit} from "@element-plus/icons-vue";
 
 const {
-  friends_lists,
   friend_signIn_status,
   gender,
   remark,

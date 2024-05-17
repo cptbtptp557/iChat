@@ -1,0 +1,88 @@
+.friendNotifications {
+  width: 670px;
+  height: 650px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #efefef;
+  padding: 30px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.friendNotifications::-webkit-scrollbar {
+  width: 10px;
+}
+.friendNotifications::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+.friendNotifications::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 5px;
+}
+.friendNotifications .p {
+  width: 620px;
+  height: 40px;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background-color: #efefef;
+}
+.friendNotifications .p p {
+  font-size: 18px;
+  letter-spacing: 1px;
+  position: absolute;
+  bottom: 10px;
+}
+.friendNotifications main {
+  width: 585px;
+  position: relative;
+  top: 20px;
+  left: 10px;
+}
+.friendNotifications main .apply_friends {
+  background-color: #f9f9f9;
+  padding: 15px 30px 15px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 1px 0.1px #c7c7c7;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+}
+.friendNotifications main .apply_friends img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.friendNotifications main .apply_friends .left {
+  margin: 5px 0 0 10px;
+}
+.friendNotifications main .apply_friends .left div {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+}
+.friendNotifications main .apply_friends .left div p:first-child {
+  margin-right: 10px;
+}
+.friendNotifications main .apply_friends .left div p:first-child span {
+  color: #3598ff;
+  margin-right: 10px;
+}
+.friendNotifications main .apply_friends .left div p:nth-child(2) {
+  color: #8f8f8f;
+}
+.friendNotifications main .apply_friends .left .message {
+  font-size: 13px;
+  margin-top: 5px;
+  color: #8f8f8f;
+}
+.friendNotifications main .apply_friends .el-button {
+  width: 80px;
+  position: absolute;
+  right: 20px;
+  margin-top: 10px;
+  letter-spacing: 5px;
+  background-color: transparent;
+}
+/*# sourceMappingURL=friendNotifications.css.map */

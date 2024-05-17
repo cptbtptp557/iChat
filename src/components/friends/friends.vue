@@ -1,11 +1,13 @@
 <template>
   <allFriends></allFriends>
-  <friendsLists></friendsLists>
+  <KeepAlive>
+    <component :is="usersLists().all_friends_show_components"></component>
+  </KeepAlive>
 </template>
 
 <script setup lang="ts">
 import allFriends from "./allFriends/allFriends.vue";
-import friendsLists from "./friendsLists/friendsLists.vue";
+import {usersLists} from "../../pinia/usersLists.ts";
 </script>
 
 <style scoped>

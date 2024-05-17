@@ -1,0 +1,110 @@
+@white: #f9f9f9;
+@neu-2: #d1d9e6;
+@gray: rgb(199, 199, 199);
+@light_gray: #efefef;
+@text_gray: #8f8f8f;
+@blue: #3598ff;
+
+.groupChatNotifications {
+  width: 670px;
+  height: 650px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: @light_gray;
+  padding: 30px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: @gray;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 5px;
+  }
+
+  & .p {
+    width: 620px;
+    height: 40px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background-color: @light_gray;
+
+    & p {
+      font-size: 18px;
+      letter-spacing: 1px;
+      position: absolute;
+      bottom: 10px;
+    }
+  }
+
+  & main {
+    width: 585px;
+    position: relative;
+    top: 20px;
+    left: 10px;
+
+    & .apply_friends {
+      background-color: @white;
+      padding: 15px 30px 15px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 1px .1px @gray;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: row;
+
+      & img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      & .left {
+        margin: 5px 0 0 10px;
+
+        & div {
+          display: flex;
+          flex-direction: row;
+          font-size: 15px;
+
+          & p:first-child {
+            color: @blue;
+            margin-right: 10px;
+          }
+
+          & p:nth-child(2) {
+            color: @text_gray;
+          }
+        }
+
+        & .message {
+          font-size: 13px;
+          margin-top: 5px;
+          color: #000;
+
+          & span {
+            color: @blue;
+            margin-left: 10px;
+          }
+        }
+      }
+
+      & .el-button {
+        width: 80px;
+        position: absolute;
+        right: 20px;
+        margin-top: 10px;
+        letter-spacing: 5px;
+        background-color: transparent;
+      }
+    }
+  }
+}

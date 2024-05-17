@@ -4,7 +4,7 @@
       <el-popover
           ref="popover"
           placement="right"
-          :title="user_lists.name"
+          :title="nickname"
           :width="300"
           trigger="focus"
       >
@@ -14,8 +14,8 @@
           </button>
         </template>
         <div class="personal_information_column">
-          <p class="iid">iid:{{ user_lists.iid }}</p>
-          <p class="signature">个性签名:{{ user_lists.signature }}</p>
+          <p class="iid">iid:{{ userAccount }}</p>
+          <p class="signature">个性签名:{{ signature }}</p>
           <input type="button" onclick="dialog.showModal()" class="user_lists_button" value="编辑资料">
         </div>
       </el-popover>
@@ -99,9 +99,9 @@ import {usersLists} from "../../pinia/usersLists.ts";
 
 const {
   message_badge,
-  user_lists,
   toMessage,
   toFriends,
+  userAccount,
   birthday,
   nickname,
   signature,

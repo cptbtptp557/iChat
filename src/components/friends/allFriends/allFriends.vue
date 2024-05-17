@@ -1,27 +1,57 @@
 <template>
   <div class="allFriendsBody">
     <header>
-      <el-icon class="search">
-        <Search/>
-      </el-icon>
-      <input type="text" placeholder="搜索" v-model="search_friend" @input="searchFriend">
+      <div>
+        <el-icon class="search">
+          <Search/>
+        </el-icon>
+        <input type="text" placeholder="搜索" v-model="search_friend" @input="searchFriend">
+      </div>
+      <div class="dating_notifications">
+        <div @click="friendNotifications">
+          <p>好友通知</p>
+          <el-icon>
+            <ArrowRight/>
+          </el-icon>
+        </div>
+        <div @click="groupChatNotifications">
+          <p>群聊通知</p>
+          <el-icon>
+            <ArrowRight/>
+          </el-icon>
+        </div>
+      </div>
     </header>
     <main>
-      <div class="friends_introduce" v-for=" users in 10" :key="users">
-        <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
-        <div class="friends_text_introduce">
-          <p>朋友昵称</p>
-          <div class="SignIn_status">
-            <div class="online" v-if="true">
-              <div></div>
-              <p>在线</p>
+      <div class="options">
+        <el-segmented
+            v-model="this_options"
+            :options="options"
+            size="default"
+            block
+            @change="changeOptions"/>
+      </div>
+      <div class="friends_introduce">
+        <div class="friends" v-for=" users in 10" :key="users" v-if="this_options === '好友'" @click="friendLists">
+          <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
+          <div class="friends_text_introduce">
+            <p>朋友昵称</p>
+            <div class="SignIn_status">
+              <div class="online" v-if="true">
+                <div></div>
+                <p>在线</p>
+              </div>
+              <div class="offline" v-else>
+                <div></div>
+                <p>离线</p>
+              </div>
             </div>
-            <div class="offline" v-else>
-              <div></div>
-              <p>离线</p>
-            </div>
+            <p>朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名</p>
           </div>
-          <p>朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名</p>
+        </div>
+        <div class="group_chats" v-for=" group in 10" :key="group" v-else-if="this_options === '群聊'">
+          <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
+          <p>群聊名称</p>
         </div>
       </div>
     </main>
@@ -30,11 +60,17 @@
 
 <script setup lang="ts">
 import {allFriends} from "./allFriends.ts";
-import {Search} from "@element-plus/icons-vue";
+import {ArrowRight, Search} from "@element-plus/icons-vue";
 
 const {
   search_friend,
   searchFriend,
+  options,
+  this_options,
+  changeOptions,
+  friendNotifications,
+  groupChatNotifications,
+  friendLists,
 } = allFriends();
 </script>
 

@@ -1,4 +1,5 @@
 import message from "../components/chat/message.vue";
+import raidenShogun from "../components/raidenShogun/raidenShogun.vue";
 import {defineStore} from "pinia";
 import {ref, shallowRef} from "vue";
 
@@ -6,10 +7,16 @@ export const usersLists = defineStore('usersLists', () => {
     const thisUserAccount = ref(); // 当前登陆账户的账号
     const new_chat_friend_iId = ref();
     const current = shallowRef(message);
+    const all_friends_show_components = shallowRef(raidenShogun);
 
     const inData = (lists: number): void => {
         new_chat_friend_iId.value = lists;
         current.value = message;
+        all_friends_show_components.value = raidenShogun;
+    };
+
+    const changeAllFriendsShowComponents = (components: any) => {
+        all_friends_show_components.value = components;
     };
 
     return {
@@ -17,5 +24,7 @@ export const usersLists = defineStore('usersLists', () => {
         inData,
         current,
         thisUserAccount,
+        all_friends_show_components,
+        changeAllFriendsShowComponents,
     }
 })

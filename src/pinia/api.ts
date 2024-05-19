@@ -43,11 +43,34 @@ export const api = defineStore('api', () => {
         })
     };
 
-    // 获取用户信息
-    const getUserLists = async (token: string) => {
+    // 获取登录用户信息
+    const getLoginUserLists = async (token: string) => {
         return await axios.get('http://127.0.0.1:3000/getUserLists', {
             params: {
+                'searchType': 'totalusers',
+                'parameter': 'iId',
                 'token': token,
+            }
+        })
+    };
+
+    // 获取用户信息
+    const getUserLists = async (search_type: string, value: number | string) => {
+        let this_parameter;
+
+        if (search_type === 'totalusers') {
+            if (!isNaN(Number(value))) this_parameter = 'iId';
+            else this_parameter = 'nickname';
+        } else if (search_type === 'grouplists') {
+            if (!isNaN(Number(value))) this_parameter = 'gId';
+            else this_parameter = 'group_name';
+        }
+
+        return await axios.get('http://127.0.0.1:3000/getUserLists', {
+            params: {
+                'searchType': search_type,
+                'parameter': this_parameter,
+                'value': value,
             }
         })
     };
@@ -65,12 +88,23 @@ export const api = defineStore('api', () => {
         })
     };
 
+    // 获取添加、加入、邀请好友或群聊记录
+    const getAddRecording = async (to_iId: number) => {
+        return await axios.get('http://127.0.0.1:3000/getAddRecording', {
+            params: {
+                'to_iId': to_iId,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
         changePassword,
         signOut,
-        getUserLists,
+        getLoginUserLists,
         changeUserLists,
+        getUserLists,
+        getAddRecording,
     }
 })

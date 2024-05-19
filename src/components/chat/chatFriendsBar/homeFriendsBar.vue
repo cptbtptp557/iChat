@@ -55,7 +55,7 @@
             <p @click="changeBorder" id="user">用户</p>
             <p @click="changeBorder" id="group_chats">群聊</p>
           </div>
-          <div class="search_results">
+          <div class="search_results" v-loading="loading" element-loading-text="Loading">
             <div v-if="!find_logotype">
               <el-icon size="100">
                 <MessageBox/>
@@ -63,12 +63,18 @@
               <h2>输入搜索关键词</h2>
             </div>
             <div class="show_search_outcome" v-else>
-              <div class="search_user" v-for="search_user in 10" :key="search_user" @click="confirmAddFriend">
+              <div class="search_user" v-for="(search_user, index) in query_results" :key="index"
+                   @click="confirmAddFriend(search_user)">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
-                <div>
-                  <p>昵称</p>
-                  <p>iId</p>
-                  <p>个性签名</p>
+                <div v-if="search_user.iId">
+                  <p>{{ search_user.nickname }}</p>
+                  <p>{{ search_user.iId }}</p>
+                  <p>{{ search_user.signature }}</p>
+                </div>
+                <div v-else-if="search_user.gId">
+                  <p>{{ search_user.group_name }}</p>
+                  <p>{{ search_user.gId }}</p>
+                  <p>{{ search_user.group_introduce }}</p>
                 </div>
               </div>
             </div>
@@ -85,8 +91,8 @@
           <el-form-item>
             <img src="../../../../public/chat-avatar/from-user.png" alt="被添加方头像">
             <div>
-              <p>昵称</p>
-              <p>iId</p>
+              <p>{{ confirm_add_friend_lists.nickname }}</p>
+              <p>{{ confirm_add_friend_lists.iId }}</p>
             </div>
           </el-form-item>
           <el-form-item label="填写认证信息">
@@ -97,7 +103,7 @@
                 show-word-limit
                 v-model="introduce_yourself"/>
           </el-form-item>
-          <el-form-item label="备注">
+          <el-form-item label="备注" v-show="query_results[0].iId">
             <el-input
                 type="text"
                 clearable
@@ -107,7 +113,7 @@
             />
           </el-form-item>
           <el-form-item style="position:relative;float: right">
-            <el-button type="primary" @click="">发送</el-button>
+            <el-button type="primary" @click="add">发送</el-button>
             <el-button @click="confirm_add_friend = false">取消</el-button>
           </el-form-item>
         </el-form>
@@ -119,7 +125,7 @@
         <div class="information">
           <p>接收方用户</p>
           <p>今天</p>
-          <p>接收的消息asdsdasdsdasdasdsadsd</p>
+          <p>接收的消息</p>
           <el-badge :value="10" :max="99" class="el-badge"/>
         </div>
       </div>
@@ -175,9 +181,11 @@ const {
   add_friend,
   find,
   find_logotype,
+  query_results,
   empty,
   changeBorder,
   confirm_add_friend,
+  confirm_add_friend_lists,
   confirmAddFriend,
   introduce_yourself,
   receiver_remarks,
@@ -186,6 +194,8 @@ const {
   invite_users,
   selected_users,
   inviteUsersLists,
+  add,
+  loading,
 } = homeFriendsBar();
 </script>
 

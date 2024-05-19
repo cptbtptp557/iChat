@@ -1,4 +1,4 @@
-import {h, onMounted, ref, watch} from "vue";
+import {h, onActivated, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
 import {ElNotification} from "element-plus";
 
@@ -52,7 +52,8 @@ export const homeChatBar = () => {
     watch(content, (): void => {
         button_disabled.value = content.value !== "";
     });
-    onMounted(() => {
+
+    onActivated(() => {
         const dialogBox = document.getElementById("dialogBox") as HTMLElement;
         dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'})
     });

@@ -2,21 +2,28 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const expressIndex = require("./express/index");
 const jwt = require("jsonwebtoken");
+const {createServer} = require("http");
+const {Server} = require("socket.io");
 const mySqlQueryStatements = require("./mySql/mySqlQueryStatements");
 const mySqlFunction = require("./mySql/mySqlFunction");
 
-const port = 3000;
+const node_port = 3000;
+const socket_io_port = 30000;
 const app = express();
+const httpServer = createServer(app);
+
 const {sendCaptcha} = expressIndex;
 const {sqlFunction} = mySqlFunction;
 const {
-    getUserLists_sql,
+    getUserListsToiId_sql,
     login_sql,
     search_email,
     change_onlinepresence_sql,
     create_account_sql,
     change_password,
     change_user_lists_sql,
+    add_recording,
+    get_add_recording,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -25,6 +32,19 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
+});
+const io = new Server(httpServer, {
+    // 跨域
+    cors: {
+        origin: "http://localhost:5173",
+        credentials: true,
+    },
+    // 连接状态恢复 ---- 发送错过的事件
+    connectionStateRecovery: {},
+    // 二进制支持
+    binary: true,
+    // 修改传输大小
+    maxHttpBufferSize: 1e8,
 });
 
 // 解析请求体数据
@@ -45,9 +65,12 @@ app.post("/captcha", (req, res) => {
 // 获取用户数据
 app.get('/getUserLists', (req, res) => {
     const data = req.query;
-    const this_account = jwt.decode(data.token).thisAccount;
+    let this_account;
 
-    sqlFunction(getUserLists_sql + this_account)
+    if (data.value) this_account = data.value;
+    else this_account = jwt.decode(data.token).thisAccount;
+
+    sqlFunction(getUserListsToiId_sql(data.searchType, data.parameter, this_account))
         .then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({result, this_account});
@@ -91,7 +114,7 @@ app.post('/signOut', (req, res) => {
             res.status(200).json("退出成功!!!");
         })
         .catch(console.error);
-})
+});
 
 // 注册
 app.post('/createAccount', (req, res) => {
@@ -99,7 +122,7 @@ app.post('/createAccount', (req, res) => {
     const warn = "此邮箱已绑定!!!";
 
     sqlFunction(search_email(data.mailbox))
-        .then((result) => {
+        .then(result => {
             if (result.length !== 0) {
                 res.json(warn);
             } else {
@@ -110,18 +133,17 @@ app.post('/createAccount', (req, res) => {
                     }).catch(console.error)
             }
         }).catch(console.error);
-})
+});
 
 // 修改密码
 app.post('/changePassword', (req, res) => {
     const data = req.query;
 
     sqlFunction(change_password(data.email, data.new_password))
-        .then(result => {
-            console.log(result)
+        .then(() => {
             res.status(200).json("密码修改成功!!!")
         }).catch(console.error);
-})
+});
 
 // 修改用户信息
 app.post('/changeUserLists', (req, res) => {
@@ -131,8 +153,49 @@ app.post('/changeUserLists', (req, res) => {
         .then(() => {
             res.status(200).json("数据修改成功!!!")
         }).catch(console.error);
+});
+
+// 获取添加、加入、邀请好友或群聊记录
+app.get('/getAddRecording', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(get_add_recording(data.to_iId))
+        .then(result => {
+            res.status(200).json({result});
+        }).catch(console.error);
 })
 
-app.listen(port, () => {
-    console.log(`服务器在端口${port}上运行!!!`);
+
+/*==================================    Socket.io   ==================================*/
+let users = {};
+let num = 0;
+
+io.on('connection', socket => {
+    socket.on("login", async (userId) => {
+        socket.name = userId;
+        users[userId] = socket;
+        socket.emit("login", socket.id);
+    });
+
+    socket.on("add", async (toUserLists) => {
+        users[toUserLists.to_iId].emit('add_lists', toUserLists);
+
+        sqlFunction(add_recording(toUserLists.from_iID, toUserLists.to_iId, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
+            .then((res) => {
+                console.log(res)
+            }).catch(console.error);
+    });
+
+    console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);
+    socket.on("disconnect", () => {
+        console.log("有人离开了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);
+    });
+});
+
+app.listen(node_port, () => {
+    console.log(`node服务器在端口: ${node_port}!!!`);
+});
+
+httpServer.listen(socket_io_port, () => {
+    console.log(`socket.io服务器在端口: ${httpServer.address().port}!!!`);
 });

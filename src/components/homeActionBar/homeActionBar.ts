@@ -5,6 +5,7 @@ import {onMounted, ref} from "vue";
 import {usersLists} from "../../pinia/usersLists.ts";
 import {api} from "../../pinia/api.ts";
 import {ElNotification} from "element-plus";
+import socket from "../../socket";
 
 export const homeActionBar = () => {
     const userLists = ref(); // 登录账户信息
@@ -15,7 +16,7 @@ export const homeActionBar = () => {
     const signature = ref(); // 个性签名
     const gender = ref(); // 性别
 
-    const {signOut, getUserLists, changeUserLists} = api();
+    const {signOut, getLoginUserLists, changeUserLists} = api();
 
     const selected = (event: any) => {
         const selected_one = document.getElementById("selected_one") as HTMLElement;
@@ -79,15 +80,18 @@ export const homeActionBar = () => {
 
     onMounted(() => {
         let token = localStorage.getItem('token') as string;
-        getUserLists(token)
-            .then((data) => {
+        getLoginUserLists(token)
+            .then(data => {
                 userLists.value = data.data.result[0];
                 nickname.value = data.data.result[0].nickname;
                 signature.value = data.data.result[0].signature;
                 birthday.value = data.data.result[0].birthday;
                 gender.value = data.data.result[0].gender;
                 userAccount.value = data.data.this_account;
+
+                usersLists().thisUserNickname = data.data.result[0].nickname;
                 usersLists().thisUserAccount = data.data.this_account;
+                socket.emit('login', data.data.this_account);
             }).catch(console.error);
     });
 

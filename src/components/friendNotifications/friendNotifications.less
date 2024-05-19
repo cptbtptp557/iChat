@@ -76,33 +76,90 @@
           font-size: 15px;
 
           & p:first-child {
+            max-width: 200px;
+            position: relative;
+            top: -7px;
             margin-right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
 
             & span {
+              max-width: 90px;
+              position: relative;
+              top: 4px;
+              display: inline-block;
               color: @blue;
               margin-right: 10px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
           }
 
           & p:nth-child(2) {
             color: @text_gray;
+            position: relative;
+            top: -2px;
           }
         }
 
         & .message {
           font-size: 13px;
-          margin-top: 5px;
+          margin-top: 3px;
           color: @text_gray;
         }
       }
 
-      & .el-button {
-        width: 80px;
-        position: absolute;
-        right: 20px;
-        margin-top: 10px;
+      & .application_status_button {
+        width: 100px;
+        height: 33px;
+        background-color: @white;
+        position: relative;
+        top: 10px;
+        left: 130px;
+        border: 1px solid @gray;
+        border-radius: 5px;
+
+        & div {
+          display: flex;
+          flex-direction: row;
+
+          & .el-icon {
+            width: 54px;
+            height: 32px;
+            cursor: pointer;
+          }
+
+          & .el-icon:first-child {
+            border-right: 1px solid @gray;
+          }
+
+          & .el-icon:first-child:hover {
+            background-color: rgba(81, 206, 0, 0.1);
+          }
+
+          & .el-icon:first-child:active {
+            background-color: rgba(81, 206, 0, 0.2);
+          }
+
+          & .el-icon:nth-child(2):hover {
+            background-color: rgba(255, 0, 0, 0.1);
+          }
+
+          & .el-icon:nth-child(2):active {
+            background-color: rgba(255, 0, 0, 0.2);
+          }
+        }
+      }
+
+      & .application_status_p {
+        height: 30px;
+        color: @text_gray;
+        position: relative;
+        top: 15px;
+        left: 180px;
         letter-spacing: 5px;
-        background-color: transparent;
       }
     }
   }

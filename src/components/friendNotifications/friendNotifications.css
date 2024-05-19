@@ -63,26 +63,75 @@
   font-size: 15px;
 }
 .friendNotifications main .apply_friends .left div p:first-child {
+  max-width: 200px;
+  position: relative;
+  top: -7px;
   margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .friendNotifications main .apply_friends .left div p:first-child span {
+  max-width: 90px;
+  position: relative;
+  top: 4px;
+  display: inline-block;
   color: #3598ff;
   margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .friendNotifications main .apply_friends .left div p:nth-child(2) {
   color: #8f8f8f;
+  position: relative;
+  top: -2px;
 }
 .friendNotifications main .apply_friends .left .message {
   font-size: 13px;
-  margin-top: 5px;
+  margin-top: 3px;
   color: #8f8f8f;
 }
-.friendNotifications main .apply_friends .el-button {
-  width: 80px;
-  position: absolute;
-  right: 20px;
-  margin-top: 10px;
+.friendNotifications main .apply_friends .application_status_button {
+  width: 100px;
+  height: 33px;
+  background-color: #f9f9f9;
+  position: relative;
+  top: 10px;
+  left: 130px;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+}
+.friendNotifications main .apply_friends .application_status_button div {
+  display: flex;
+  flex-direction: row;
+}
+.friendNotifications main .apply_friends .application_status_button div .el-icon {
+  width: 54px;
+  height: 32px;
+  cursor: pointer;
+}
+.friendNotifications main .apply_friends .application_status_button div .el-icon:first-child {
+  border-right: 1px solid #c7c7c7;
+}
+.friendNotifications main .apply_friends .application_status_button div .el-icon:first-child:hover {
+  background-color: rgba(81, 206, 0, 0.1);
+}
+.friendNotifications main .apply_friends .application_status_button div .el-icon:first-child:active {
+  background-color: rgba(81, 206, 0, 0.2);
+}
+.friendNotifications main .apply_friends .application_status_button div .el-icon:nth-child(2):hover {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+.friendNotifications main .apply_friends .application_status_button div .el-icon:nth-child(2):active {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+.friendNotifications main .apply_friends .application_status_p {
+  height: 30px;
+  color: #8f8f8f;
+  position: relative;
+  top: 15px;
+  left: 180px;
   letter-spacing: 5px;
-  background-color: transparent;
 }
 /*# sourceMappingURL=friendNotifications.css.map */

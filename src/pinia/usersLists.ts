@@ -5,6 +5,7 @@ import {ref, shallowRef} from "vue";
 
 export const usersLists = defineStore('usersLists', () => {
     const thisUserAccount = ref(); // 当前登陆账户的账号
+    const thisUserNickname = ref(); // 当前账号昵称
     const new_chat_friend_iId = ref();
     const current = shallowRef(message);
     const all_friends_show_components = shallowRef(raidenShogun);
@@ -24,6 +25,7 @@ export const usersLists = defineStore('usersLists', () => {
         inData,
         current,
         thisUserAccount,
+        thisUserNickname,
         all_friends_show_components,
         changeAllFriendsShowComponents,
     }

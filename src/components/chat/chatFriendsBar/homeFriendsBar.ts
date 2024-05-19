@@ -1,18 +1,41 @@
-import {ref} from "vue";
+import {ref, watch} from "vue";
+import {classLists} from "../../../class";
+import {usersLists} from "../../../pinia/usersLists.ts";
+import {api} from "../../../pinia/api.ts";
+import socket from "../../../socket";
 
 export const homeFriendsBar = () => {
     const add_friend = ref(false); // 添加好友框
     const find_logotype = ref(); // 添加好友内输入的内容
+    const query_results = ref(); // 查询出的好友、群聊
+    const search_type = ref("totalusers"); // 搜索类型---用户、群聊
     const confirm_add_friend = ref(false); // 确认添加好友框
+    const confirm_add_friend_lists = ref(); // 确认添加好友数据
     const introduce_yourself = ref("发起方昵称"); // 添加好友时的自我介绍
     const receiver_remarks = ref("给被添加方的备注"); // 添加好友时给被添加方的备注
     const create_group = ref(false); // 创建群聊窗口
     const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
-    const invite_users = ref([1, 2, 3, 4,5,6,7,8,9,10,11,12]); // 邀请加入群聊的好友
+    const invite_users = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]); // 邀请加入群聊的好友
     const selected_users = ref([]);
+    const loading = ref(false);
 
+    const {addUser} = classLists();
+    const {getUserLists} = api();
+
+    let timer: any;
     const find = () => {
-        console.log(find_logotype.value);
+        loading.value = true;
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+            if (find_logotype.value) {
+                getUserLists(search_type.value, find_logotype.value)
+                    .then(data => {
+                        query_results.value = data.data.result;
+                        console.log(query_results.value);
+                        loading.value = false;
+                    })
+            }
+        }, 1500);
     }
 
     const empty = () => {
@@ -22,36 +45,54 @@ export const homeFriendsBar = () => {
     const changeBorder = (even: any) => {
         const user = document.getElementById("user") as HTMLElement
         const group_chats = document.getElementById("group_chats") as HTMLElement;
-        console.log(even.srcElement.__vnode.children)
+
         if (even.srcElement.__vnode.children === "用户") {
             user.style.borderColor = "#4B70E2FF";
             user.style.color = "#4B70E2FF";
             group_chats.style.borderColor = "transparent";
             group_chats.style.color = "#000";
+            search_type.value = "totalusers";
+            find();
         }
         if (even.srcElement.__vnode.children === "群聊") {
             user.style.borderColor = "transparent";
             user.style.color = "#000";
             group_chats.style.borderColor = "#4B70E2FF";
             group_chats.style.color = "#4B70E2FF";
+            search_type.value = "grouplists";
+            find();
         }
     }
 
-    const confirmAddFriend = () => {
+    const confirmAddFriend = (lists: any) => {
         confirm_add_friend.value = true;
+        confirm_add_friend_lists.value = lists;
+        receiver_remarks.value = confirm_add_friend_lists.value.nickname;
+        introduce_yourself.value = usersLists().thisUserNickname;
     }
 
     const inviteUsersLists = (): void => {
         console.log(selected_users.value)
     }
 
+    const add = (): void => {
+        const add_user = new addUser(usersLists().thisUserAccount, find_logotype.value, introduce_yourself.value, receiver_remarks.value, 0);
+        socket.emit("add", add_user);
+    }
+
+    watch(find_logotype, () => {
+        if (find_logotype.value === '') query_results.value = '';
+    });
+
     return {
         add_friend,
         find,
         find_logotype,
+        query_results,
         empty,
         changeBorder,
         confirm_add_friend,
+        confirm_add_friend_lists,
         confirmAddFriend,
         introduce_yourself,
         receiver_remarks,
@@ -60,5 +101,7 @@ export const homeFriendsBar = () => {
         invite_users,
         selected_users,
         inviteUsersLists,
+        add,
+        loading,
     }
 }

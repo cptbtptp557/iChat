@@ -63,8 +63,12 @@
   font-size: 15px;
 }
 .groupChatNotifications main .apply_friends .left div p:first-child {
+  max-width: 100px;
   color: #3598ff;
   margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .groupChatNotifications main .apply_friends .left div p:nth-child(2) {
   color: #8f8f8f;
@@ -73,17 +77,60 @@
   font-size: 13px;
   margin-top: 5px;
   color: #000;
+  position: relative;
+  top: -2px;
 }
 .groupChatNotifications main .apply_friends .left .message span {
+  max-width: 200px;
+  position: relative;
+  top: 4.5px;
+  display: inline-block;
   color: #3598ff;
   margin-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.groupChatNotifications main .apply_friends .el-button {
-  width: 80px;
-  position: absolute;
-  right: 20px;
-  margin-top: 10px;
+.groupChatNotifications main .apply_friends .application_status_button {
+  width: 100px;
+  height: 33px;
+  background-color: #f9f9f9;
+  position: relative;
+  top: 10px;
+  left: 190px;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+}
+.groupChatNotifications main .apply_friends .application_status_button div {
+  display: flex;
+  flex-direction: row;
+}
+.groupChatNotifications main .apply_friends .application_status_button div .el-icon {
+  width: 54px;
+  height: 32px;
+  cursor: pointer;
+}
+.groupChatNotifications main .apply_friends .application_status_button div .el-icon:first-child {
+  border-right: 1px solid #c7c7c7;
+}
+.groupChatNotifications main .apply_friends .application_status_button div .el-icon:first-child:hover {
+  background-color: rgba(81, 206, 0, 0.1);
+}
+.groupChatNotifications main .apply_friends .application_status_button div .el-icon:first-child:active {
+  background-color: rgba(81, 206, 0, 0.2);
+}
+.groupChatNotifications main .apply_friends .application_status_button div .el-icon:nth-child(2):hover {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+.groupChatNotifications main .apply_friends .application_status_button div .el-icon:nth-child(2):active {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+.groupChatNotifications main .apply_friends .application_status_p {
+  height: 30px;
+  color: #8f8f8f;
+  position: relative;
+  top: 15px;
+  left: 240px;
   letter-spacing: 5px;
-  background-color: transparent;
 }
 /*# sourceMappingURL=groupChatNotifications.css.map */

@@ -13,18 +13,18 @@
           </div>
           <p class="message">留言: 我是{{ recording.from_name }}</p>
         </div>
-        <div class="application_status_button" v-if="recording.add_status === '0'">
+        <div class="application_status_button" v-if="recording.add_status === '0' || recording.add_status === 0">
           <div class="agree">
-            <el-icon color="#51ce00" size="20">
+            <el-icon color="#51ce00" size="20" @click="agree(recording)">
               <Check/>
             </el-icon>
-            <el-icon color="#ff0000" size="20">
+            <el-icon color="#ff0000" size="20" @click="refuse(recording)">
               <Close/>
             </el-icon>
           </div>
         </div>
         <p class="application_status_p" v-else>
-          {{ recording.add_status === '1' ? '已同意' : (recording.add_status === '2' ? '已拒绝' : '未知状态') }}
+          {{ recording.add_status === '1' ? '已同意' : '已拒绝' }}
         </p>
       </div>
     </main>
@@ -36,8 +36,9 @@ import {friendNotifications} from "./friendNotifications.ts";
 import {Check, Close} from "@element-plus/icons-vue";
 
 const {
-  application_status,
   friend_add_recording,
+  agree,
+  refuse,
 } = friendNotifications();
 </script>
 

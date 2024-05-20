@@ -14,7 +14,10 @@ const mySqlQueryStatements = () => {
     const create_account_sql = (nickname, mailbox, password) => "insert into totalusers(nickname, mailbox, password, signature, gender, onlinepresence, birthday) values (" + "'" + nickname + "'" + ',' + "'" + mailbox + "'" + ',' + "'" + password + "'" + ",'展示更好的自己', 'man', false, '2000-01-01')";
     const change_user_lists_sql = (nickname, signature, gender, birthday, account) => "update totalusers set nickname = " + "'" + nickname + "', signature = " + "'" + signature + "' , gender =" + "'" + gender + "' , birthday =" + "'" + birthday + "' where iId =" + account;
     const add_recording = (from_iId, to_iId, from_name, to_notes, add_status, add_time) => "insert into addto(from_iid, to_iid, from_name, to_notes, add_status, add_time) values ('" + from_iId + "', '" + to_iId + "', '" + from_name + "','" + to_notes + "'," + add_status + ",'" + add_time + "')";
-    const get_add_recording = (to_iId) => "select * from addto where to_iId = " + to_iId;
+    const get_add_recording = (to_iId) => "select * from addto where to_iId = " + to_iId + " order by add_time desc";
+    const agree_add_request = () => "";
+    const refuse_add_request = (from_iId, to_iId) => "update addto set add_status = 2 where from_iid = " + from_iId + " and to_iid = " + to_iId;
+
     return {
         getUserListsToiId_sql,
         login_sql,
@@ -25,6 +28,8 @@ const mySqlQueryStatements = () => {
         change_user_lists_sql,
         add_recording,
         get_add_recording,
+        agree_add_request,
+        refuse_add_request,
     }
 };
 

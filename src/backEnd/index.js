@@ -24,6 +24,8 @@ const {
     change_user_lists_sql,
     add_recording,
     get_add_recording,
+    agree_add_request,
+    refuse_add_request,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -99,7 +101,7 @@ app.get('/login', (req, res) => {
                 .catch(console.error);
         })
         .catch(err => {
-            res.json(null);
+            // res.json(null);
             console.error(err);
         });
 });
@@ -163,6 +165,16 @@ app.get('/getAddRecording', (req, res) => {
         .then(result => {
             res.status(200).json({result});
         }).catch(console.error);
+});
+
+// 拒绝添加申请
+app.get('/refuseAddRequest', (req,res) => {
+    const data = req.query;
+
+    sqlFunction(refuse_add_request(data.from_iId, data.to_iId))
+        .then(() => {
+            res.status(200).json("拒绝添加申请成功!!!");
+        }).catch(console.error);
 })
 
 
@@ -181,9 +193,11 @@ io.on('connection', socket => {
         users[toUserLists.to_iId].emit('add_lists', toUserLists);
 
         sqlFunction(add_recording(toUserLists.from_iID, toUserLists.to_iId, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
-            .then((res) => {
-                console.log(res)
-            }).catch(console.error);
+            .then(() => {
+                users[toUserLists.from_iID].emit('add_lists', 'true');
+            }).catch(() => {
+            users[toUserLists.from_iID].emit('add_lists', 'false')
+        });
     });
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

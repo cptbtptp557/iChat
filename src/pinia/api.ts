@@ -95,6 +95,16 @@ export const api = defineStore('api', () => {
                 'to_iId': to_iId,
             }
         })
+    };
+
+    // 拒绝添加申请
+    const refuseAddRequest = async (from_iId: number, to_iId: number) => {
+        return await axios.get('http://127.0.0.1:3000/refuseAddRequest', {
+            params: {
+                'from_iId': from_iId,
+                'to_iId': to_iId,
+            }
+        })
     }
 
     return {
@@ -106,5 +116,6 @@ export const api = defineStore('api', () => {
         changeUserLists,
         getUserLists,
         getAddRecording,
+        refuseAddRequest,
     }
 })

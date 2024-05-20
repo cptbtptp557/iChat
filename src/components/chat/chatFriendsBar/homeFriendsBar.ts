@@ -2,6 +2,7 @@ import {ref, watch} from "vue";
 import {classLists} from "../../../class";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
+import {ElMessage} from 'element-plus';
 import socket from "../../../socket";
 
 export const homeFriendsBar = () => {
@@ -31,7 +32,6 @@ export const homeFriendsBar = () => {
                 getUserLists(search_type.value, find_logotype.value)
                     .then(data => {
                         query_results.value = data.data.result;
-                        console.log(query_results.value);
                         loading.value = false;
                     })
             }
@@ -78,6 +78,15 @@ export const homeFriendsBar = () => {
     const add = (): void => {
         const add_user = new addUser(usersLists().thisUserAccount, find_logotype.value, introduce_yourself.value, receiver_remarks.value, 0);
         socket.emit("add", add_user);
+        socket.on('add_lists', (addLists) => {
+            if (addLists === 'true') {
+                confirm_add_friend.value = false;
+                ElMessage({
+                    message: '申请成功!!!',
+                    type: 'success',
+                })
+            }
+        });
     }
 
     watch(find_logotype, () => {

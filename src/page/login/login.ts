@@ -61,7 +61,11 @@ export const login = () => {
                         message: '请重新输入!!!',
                         type: 'error',
                         position: 'top-left',
-                    })
+                    });
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
                 }
             }).catch(console.error);
     };

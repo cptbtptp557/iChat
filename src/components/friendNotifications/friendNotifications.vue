@@ -24,7 +24,7 @@
           </div>
         </div>
         <p class="application_status_p" v-else>
-          {{ recording.add_status === '1' ? '已同意' : '已拒绝' }}
+          {{ recording.add_status === 1 ? '已同意' : '已拒绝' }}
         </p>
       </div>
     </main>

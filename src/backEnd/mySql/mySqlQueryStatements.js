@@ -15,8 +15,9 @@ const mySqlQueryStatements = () => {
     const change_user_lists_sql = (nickname, signature, gender, birthday, account) => "update totalusers set nickname = " + "'" + nickname + "', signature = " + "'" + signature + "' , gender =" + "'" + gender + "' , birthday =" + "'" + birthday + "' where iId =" + account;
     const add_recording = (from_iId, to_iId, from_name, to_notes, add_status, add_time) => "insert into addto(from_iid, to_iid, from_name, to_notes, add_status, add_time) values ('" + from_iId + "', '" + to_iId + "', '" + from_name + "','" + to_notes + "'," + add_status + ",'" + add_time + "')";
     const get_add_recording = (to_iId) => "select * from addto where to_iId = " + to_iId + " order by add_time desc";
-    const agree_add_request = () => "";
+    const agree_add_request = (from_iId, to_iId, from_name, to_notes) => "insert into friendlists values (" + from_iId + "," + to_iId + ",'" + to_notes + "'), (" + to_iId + "," + from_iId + ",'" + from_name + "')";
     const refuse_add_request = (from_iId, to_iId) => "update addto set add_status = 2 where from_iid = " + from_iId + " and to_iid = " + to_iId;
+    const change_add_status = (from_iId, to_iId) => "update addto set add_status = 1 where from_iid = " + from_iId + " and to_iid = " + to_iId;
 
     return {
         getUserListsToiId_sql,
@@ -30,6 +31,7 @@ const mySqlQueryStatements = () => {
         get_add_recording,
         agree_add_request,
         refuse_add_request,
+        change_add_status,
     }
 };
 

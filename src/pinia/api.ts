@@ -97,6 +97,18 @@ export const api = defineStore('api', () => {
         })
     };
 
+    // 同意添加申请
+    const agreeAddRequest = async (from_iId: number, to_iId: number, from_name: number | string, to_notes: number | string) => {
+        return await axios.get('http://127.0.0.1:3000/agreeAddRequest', {
+            params: {
+                'from_iId': from_iId,
+                'to_iId': to_iId,
+                'from_name': from_name,
+                'to_notes': to_notes,
+            }
+        })
+    }
+
     // 拒绝添加申请
     const refuseAddRequest = async (from_iId: number, to_iId: number) => {
         return await axios.get('http://127.0.0.1:3000/refuseAddRequest', {
@@ -116,6 +128,7 @@ export const api = defineStore('api', () => {
         changeUserLists,
         getUserLists,
         getAddRecording,
+        agreeAddRequest,
         refuseAddRequest,
     }
 })

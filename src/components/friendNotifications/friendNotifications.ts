@@ -8,10 +8,19 @@ export const friendNotifications = () => {
 
     // 同意添加申请
     const agree = (recording: any) => {
-        console.log(recording)
+        api().agreeAddRequest(recording.from_iid, recording.to_iid, recording.from_name, recording.to_notes)
+            .then(() => {
+                for (let i = 0; i < friend_add_recording.value.length; i++) {
+                    if (friend_add_recording.value[i].from_iid === recording.from_iid && friend_add_recording.value[i].to_iid === recording.to_iid) {
+                        friend_add_recording.value[i].add_status = 1;
+                        break;
+                    }
+                }
+            }).catch(console.error);
     }
     // 拒绝添加申请
     const refuse = (recording: any) => {
+        console.log(recording)
         api().refuseAddRequest(recording.from_iid, recording.to_iid)
             .then(() => {
                 for (let i = 0; i < friend_add_recording.value.length; i++) {

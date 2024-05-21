@@ -26,6 +26,7 @@ const {
     get_add_recording,
     agree_add_request,
     refuse_add_request,
+    change_add_status,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -167,8 +168,20 @@ app.get('/getAddRecording', (req, res) => {
         }).catch(console.error);
 });
 
+// 同意添加申请
+app.get('/agreeAddRequest', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(agree_add_request(data.from_iId, data.to_iId, data.from_name, data.to_notes))
+        .then(() => {
+            sqlFunction(change_add_status(data.from_iId, data.to_iId))
+                .catch(console.error);
+            res.status(200).json("同意添加申请成功!!!");
+        }).catch(console.error);
+})
+
 // 拒绝添加申请
-app.get('/refuseAddRequest', (req,res) => {
+app.get('/refuseAddRequest', (req, res) => {
     const data = req.query;
 
     sqlFunction(refuse_add_request(data.from_iId, data.to_iId))
@@ -180,7 +193,6 @@ app.get('/refuseAddRequest', (req,res) => {
 
 /*==================================    Socket.io   ==================================*/
 let users = {};
-let num = 0;
 
 io.on('connection', socket => {
     socket.on("login", async (userId) => {
@@ -190,13 +202,13 @@ io.on('connection', socket => {
     });
 
     socket.on("add", async (toUserLists) => {
-        users[toUserLists.to_iId].emit('add_lists', toUserLists);
+        users[toUserLists.to_iid].emit('add_lists', toUserLists);
 
-        sqlFunction(add_recording(toUserLists.from_iID, toUserLists.to_iId, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
+        sqlFunction(add_recording(toUserLists.from_iid, toUserLists.to_iid, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
             .then(() => {
-                users[toUserLists.from_iID].emit('add_lists', 'true');
+                users[toUserLists.from_iid].emit('add_lists', 'true');
             }).catch(() => {
-            users[toUserLists.from_iID].emit('add_lists', 'false')
+            users[toUserLists.from_iid].emit('add_lists', 'false');
         });
     });
 

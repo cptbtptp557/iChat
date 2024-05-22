@@ -6,8 +6,8 @@ const mySqlQueryStatements = () => {
         else this_parameter = "select * from totalusers where " + parameter + " = " + value;
         return this_parameter;
     };
-    const login_sql = 'select password from totalusers where iId = ';
 
+    const login_sql = 'select password from totalusers where iId = ';
     const search_email = (email) => "select * from totalusers where mailbox = " + "'" + email + "'";
     const change_password = (email, newPassword) => "update totalusers set password =" + "'" + newPassword + "'" + " where mailbox = " + "'" + email + "'" + "";
     const change_onlinepresence_sql = (onlinepresence, iId) => 'update totalusers set onlinepresence =' + onlinepresence + ' where iId = ' + iId;
@@ -18,6 +18,7 @@ const mySqlQueryStatements = () => {
     const agree_add_request = (from_iId, to_iId, from_name, to_notes) => "insert into friendlists values (" + from_iId + "," + to_iId + ",'" + to_notes + "'), (" + to_iId + "," + from_iId + ",'" + from_name + "')";
     const refuse_add_request = (from_iId, to_iId) => "update addto set add_status = 2 where from_iid = " + from_iId + " and to_iid = " + to_iId;
     const change_add_status = (from_iId, to_iId) => "update addto set add_status = 1 where from_iid = " + from_iId + " and to_iid = " + to_iId;
+    const get_friends_number = (iId) => "select * from friendlists where iId = " + iId;
 
     return {
         getUserListsToiId_sql,
@@ -32,6 +33,7 @@ const mySqlQueryStatements = () => {
         agree_add_request,
         refuse_add_request,
         change_add_status,
+        get_friends_number,
     }
 };
 

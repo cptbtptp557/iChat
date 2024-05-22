@@ -119,6 +119,15 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 获取好友列表信息
+    const getFriendsLists = async (iId: number) => {
+        return await axios.get('http://127.0.0.1:3000/getFriendsLists', {
+            params: {
+                'iId': iId,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
@@ -130,5 +139,6 @@ export const api = defineStore('api', () => {
         getAddRecording,
         agreeAddRequest,
         refuseAddRequest,
+        getFriendsLists,
     }
 })

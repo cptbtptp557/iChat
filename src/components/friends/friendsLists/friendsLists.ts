@@ -1,12 +1,13 @@
 import {homeActionBar} from "../../homeActionBar/homeActionBar.ts";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import {usersLists} from "../../../pinia/usersLists.ts";
 
 export const friendsList = () => {
-    const friends_lists = ref(true);
-    const friend_signIn_status = ref(true);
+    const friends_lists = ref(); // 好友详细信息
     const gender = ref("man");
     const remark = ref("朋友备注(最大10字)");
     const warn_show = ref(false);
+    // const frined_age = ref(); // 朋友年龄
 
     // 判断备注长度并上传
     const changeRemark = (): void => {
@@ -23,11 +24,22 @@ export const friendsList = () => {
     // 打开聊天界面
     const openChatWindow = (): void => {
         homeActionBar().goMessageHref();
-    }
+    };
+
+    document.addEventListener('click', () => {
+        friends_lists.value = usersLists().thisUserFriendsLists[0];
+        remark.value = usersLists().thisUserFriendsLists[1];
+        gender.value = usersLists().thisUserFriendsLists[0].gender === '男' ? 'man' : 'woman';
+    })
+
+    onMounted(() => {
+        friends_lists.value = usersLists().thisUserFriendsLists[0];
+        remark.value = usersLists().thisUserFriendsLists[1];
+        gender.value = usersLists().thisUserFriendsLists[0].gender === '男' ? 'man' : 'woman';
+    });
 
     return {
         friends_lists,
-        friend_signIn_status,
         gender,
         remark,
         changeRemark,

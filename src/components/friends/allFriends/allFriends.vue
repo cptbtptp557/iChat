@@ -32,12 +32,16 @@
             @change="changeOptions"/>
       </div>
       <div class="friends_introduce">
-        <div class="friends" v-for=" users in 10" :key="users" v-if="this_options === '好友'" @click="friendLists">
+        <div class="friends"
+             v-for="(lists, index) in friends_number"
+             :key="index"
+             v-if="this_options === '好友'"
+             @click="friendLists(lists)">
           <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
           <div class="friends_text_introduce">
-            <p>朋友昵称</p>
+            <p>{{ lists.friend_notes }}</p>
             <div class="SignIn_status">
-              <div class="online" v-if="true">
+              <div class="online" v-if="friends_lists[index][0].onlinepresence === '1'">
                 <div></div>
                 <p>在线</p>
               </div>
@@ -46,7 +50,7 @@
                 <p>离线</p>
               </div>
             </div>
-            <p>朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名朋友个性签名</p>
+            <p>{{ friends_lists[index][0].signature }}</p>
           </div>
         </div>
         <div class="group_chats" v-for=" group in 10" :key="group" v-else-if="this_options === '群聊'">
@@ -71,6 +75,8 @@ const {
   friendNotifications,
   groupChatNotifications,
   friendLists,
+  friends_number,
+  friends_lists,
 } = allFriends();
 </script>
 

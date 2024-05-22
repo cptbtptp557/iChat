@@ -9,6 +9,7 @@ export const usersLists = defineStore('usersLists', () => {
     const new_chat_friend_iId = ref();
     const current = shallowRef(message);
     const all_friends_show_components = shallowRef(raidenShogun);
+    const thisUserFriendsLists = ref(); // 当前账户的好友信息
 
     const inData = (lists: number): void => {
         new_chat_friend_iId.value = lists;
@@ -28,5 +29,6 @@ export const usersLists = defineStore('usersLists', () => {
         thisUserNickname,
         all_friends_show_components,
         changeAllFriendsShowComponents,
+        thisUserFriendsLists,
     }
 })

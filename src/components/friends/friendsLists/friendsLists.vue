@@ -3,10 +3,10 @@
     <div class="friendsLists">
       <img src="../../../../public/chat-avatar/from-user.png" draggable="false" alt="朋友头像">
       <div class="name_id">
-        <p>朋友昵称(最多不超过12字)</p>
-        <p>Iid: 10001</p>
+        <p>{{ friends_lists.nickname }}</p>
+        <p>Iid: {{ friends_lists.iId }}</p>
         <div class="SignIn_status">
-          <div class="online" v-if="!friend_signIn_status">
+          <div class="online" v-if="friends_lists.onlinepresence === '1'">
             <div></div>
             <p>在线</p>
           </div>
@@ -28,7 +28,12 @@
             <p v-else>女</p>
           </div>
           <p class="age">22岁</p>
-          <p class="constellation">11月24日 <span>射手座</span></p>
+          <p class="constellation">
+            {{ friends_lists.birthday.substring(friends_lists.birthday.length - 5, friends_lists.birthday.length - 3) }}
+            月
+            {{ friends_lists.birthday.substring(friends_lists.birthday.length - 2) }}
+            日
+          </p>
         </header>
         <div class="friend_information">
           <div class="remark">
@@ -44,7 +49,7 @@
               <EditPen/>
             </el-icon>
             <p>签名</p>
-            <p class="friend_signature">朋友签名(最大20字)</p>
+            <p class="friend_signature">{{ friends_lists.signature }}</p>
           </div>
         </div>
         <footer>
@@ -62,7 +67,7 @@ import {friendsList} from "./friendsLists.ts";
 import {Male, Female, EditPen, Edit} from "@element-plus/icons-vue";
 
 const {
-  friend_signIn_status,
+  friends_lists,
   gender,
   remark,
   changeRemark,

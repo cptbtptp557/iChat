@@ -27,6 +27,7 @@ const {
     agree_add_request,
     refuse_add_request,
     change_add_status,
+    get_friends_number,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -190,25 +191,34 @@ app.get('/refuseAddRequest', (req, res) => {
         }).catch(console.error);
 })
 
+// 获取好友列表信息
+app.get('/getFriendsLists', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(get_friends_number(data.iId))
+        .then(result => {
+            res.status(200).json({result});
+        }).catch(console.error);
+})
 
 /*==================================    Socket.io   ==================================*/
-let users = {};
+let socket_users = {};
 
 io.on('connection', socket => {
     socket.on("login", async (userId) => {
         socket.name = userId;
-        users[userId] = socket;
+        socket_users[userId] = socket;
         socket.emit("login", socket.id);
     });
 
     socket.on("add", async (toUserLists) => {
-        users[toUserLists.to_iid].emit('add_lists', toUserLists);
+        socket_users[toUserLists.to_iid].emit('add_lists', toUserLists);
 
         sqlFunction(add_recording(toUserLists.from_iid, toUserLists.to_iid, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
             .then(() => {
-                users[toUserLists.from_iid].emit('add_lists', 'true');
+                socket_users[toUserLists.from_iid].emit('add_lists', 'true');
             }).catch(() => {
-            users[toUserLists.from_iid].emit('add_lists', 'false');
+            socket_users[toUserLists.from_iid].emit('add_lists', 'false');
         });
     });
 

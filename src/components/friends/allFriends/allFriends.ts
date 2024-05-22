@@ -2,12 +2,15 @@ import friendNotification from "../../friendNotifications/friendNotifications.vu
 import groupChatNotification from "../../groupChatNotifications/groupChatNotifications.vue";
 import friendsList from "../friendsLists/friendsLists.vue";
 import {usersLists} from "../../../pinia/usersLists.ts";
-import {ref} from "vue";
+import {api} from "../../../pinia/api.ts";
+import {onMounted, ref} from "vue";
 
 export const allFriends = () => {
     const search_friend = ref(); // 好友搜索框
     const options = ref(['好友', '群聊']);
     const this_options = ref('好友');
+    const friends_number = ref(); // 好友列表
+    const friends_lists: any = ref({}); // 好友详细信息
 
     const {changeAllFriendsShowComponents} = usersLists();
 
@@ -38,9 +41,27 @@ export const allFriends = () => {
         changeAllFriendsShowComponents(groupChatNotification);
     };
 
-    const friendLists = () => {
+    const friendLists = (lists: any) => {
+        for (let i: number = 0; i < friends_number.value.length; i++) {
+            if (lists.friend_iId === friends_lists.value[i][0].iId) {
+                usersLists().thisUserFriendsLists = [friends_lists.value[i][0], lists.friend_notes];
+            }
+        }
         changeAllFriendsShowComponents(friendsList);
     };
+
+    onMounted(() => {
+        api().getFriendsLists(usersLists().thisUserAccount)
+            .then(data => {
+                friends_number.value = data.data.result;
+                for (let i: number = 0; i < friends_number.value.length; i++) {
+                    api().getUserLists("totalusers", friends_number.value[i].friend_iId)
+                        .then(lists => {
+                            friends_lists.value[i] = lists.data.result;
+                        })
+                }
+            })
+    });
 
     return {
         search_friend,
@@ -51,5 +72,7 @@ export const allFriends = () => {
         friendNotifications,
         groupChatNotifications,
         friendLists,
+        friends_number,
+        friends_lists,
     }
 }

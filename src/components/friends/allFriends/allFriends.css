@@ -188,7 +188,7 @@
   background: linear-gradient(#97e567, #51ce00);
   border-radius: 50%;
   position: relative;
-  top: 11px;
+  top: 13px;
   margin-right: 3px;
 }
 .SignIn_status .offline {
@@ -200,7 +200,7 @@
   background: linear-gradient(#d5d5d5, #676767);
   border-radius: 50%;
   position: relative;
-  top: 11px;
+  top: 13px;
   margin-right: 3px;
 }
 /*# sourceMappingURL=allFriends.css.map */

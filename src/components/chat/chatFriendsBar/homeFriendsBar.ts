@@ -87,7 +87,7 @@ export const homeFriendsBar = () => {
                 })
             }
         });
-    }
+    };
 
     watch(find_logotype, () => {
         if (find_logotype.value === '') query_results.value = '';

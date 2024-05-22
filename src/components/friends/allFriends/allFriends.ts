@@ -3,7 +3,7 @@ import groupChatNotification from "../../groupChatNotifications/groupChatNotific
 import friendsList from "../friendsLists/friendsLists.vue";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
-import {onMounted, ref} from "vue";
+import {nextTick, onMounted, ref} from "vue";
 
 export const allFriends = () => {
     const search_friend = ref(); // 好友搜索框
@@ -11,6 +11,7 @@ export const allFriends = () => {
     const this_options = ref('好友');
     const friends_number = ref(); // 好友列表
     const friends_lists: any = ref({}); // 好友详细信息
+    const change_color = ref(); // 修改背景颜色
 
     const {changeAllFriendsShowComponents} = usersLists();
 
@@ -41,13 +42,16 @@ export const allFriends = () => {
         changeAllFriendsShowComponents(groupChatNotification);
     };
 
-    const friendLists = (lists: any) => {
-        for (let i: number = 0; i < friends_number.value.length; i++) {
-            if (lists.friend_iId === friends_lists.value[i][0].iId) {
-                usersLists().thisUserFriendsLists = [friends_lists.value[i][0], lists.friend_notes];
+    const friendLists = (lists: any, index: number) => {
+        change_color.value = index;
+
+        nextTick(() => {
+            for (let i: number = 0; i < friends_number.value.length; i++) {
+                if (lists.friend_iId === friends_lists.value[i][0].iId)
+                    usersLists().thisUserFriendsLists = [friends_lists.value[i][0], lists.friend_notes];
             }
-        }
-        changeAllFriendsShowComponents(friendsList);
+            changeAllFriendsShowComponents(friendsList);
+        })
     };
 
     onMounted(() => {
@@ -74,5 +78,6 @@ export const allFriends = () => {
         friendLists,
         friends_number,
         friends_lists,
+        change_color,
     }
 }

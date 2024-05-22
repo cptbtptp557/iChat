@@ -70,6 +70,7 @@ export const homeActionBar = () => {
     // 退出登录
     const signOutAccount = () => {
         let token = localStorage.getItem('token') as string;
+        socket.emit("sign_out", usersLists().thisUserAccount);
 
         signOut(token)
             .then(() => {

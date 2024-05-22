@@ -27,7 +27,7 @@
             <p v-if="gender === 'man'">男</p>
             <p v-else>女</p>
           </div>
-          <p class="age">22岁</p>
+          <p class="age">{{ frined_age }}岁</p>
           <p class="constellation">
             {{ friends_lists.birthday.substring(friends_lists.birthday.length - 5, friends_lists.birthday.length - 3) }}
             月
@@ -75,6 +75,7 @@ const {
   openVoiceCallWindow,
   openVideoCallWindow,
   openChatWindow,
+  frined_age,
 } = friendsList();
 </script>
 

@@ -11,6 +11,7 @@ export const usersLists = defineStore('usersLists', () => {
     const all_friends_show_components = shallowRef(raidenShogun);
     const thisUserFriendsLists = ref(); // 当前账户的好友信息
 
+
     const inData = (lists: number): void => {
         new_chat_friend_iId.value = lists;
         current.value = message;

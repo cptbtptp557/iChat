@@ -36,7 +36,8 @@
              v-for="(lists, index) in friends_number"
              :key="index"
              v-if="this_options === '好友'"
-             @click="friendLists(lists)">
+             @click="friendLists(lists, index)"
+             :style="{backgroundColor: change_color === index?'#e8e8e8': ''}">
           <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
           <div class="friends_text_introduce">
             <p>{{ lists.friend_notes }}</p>
@@ -77,6 +78,7 @@ const {
   friendLists,
   friends_number,
   friends_lists,
+  change_color,
 } = allFriends();
 </script>
 

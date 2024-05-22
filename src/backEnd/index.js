@@ -209,6 +209,11 @@ io.on('connection', socket => {
         socket.name = userId;
         socket_users[userId] = socket;
         socket.emit("login", socket.id);
+        socket_users[userId].broadcast.emit("user_login", userId);
+    });
+
+    socket.on("sign_out", async (userId) => {
+        socket_users[userId].broadcast.emit("sign_out", userId);
     });
 
     socket.on("add", async (toUserLists) => {

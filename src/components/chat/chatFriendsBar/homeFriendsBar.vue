@@ -12,7 +12,7 @@
           :width="150"
           trigger="click"
       >
-        <el-button style="position: relative;left: 11px;margin-bottom: 10px" @click="create_group = true">
+        <el-button style="position: relative;left: 11px;margin-bottom: 10px" @click="createGroup">
           <el-icon style="position: relative; left: -5px">
             <DataAnalysis/>
           </el-icon>
@@ -137,9 +137,11 @@
               v-model="group_add_users_inquire"
               :prefix-icon="Search"
               placeholder="查询"
-              clearable/>
+              clearable
+              @input="inquire"
+          />
           <div>
-            <label v-for="(value, index) in invite_users" :key="index">
+            <label v-for="(value, index) in this_user_friends" :key="index">
               <input
                   type="checkbox"
                   :name="'invite_users' + value"
@@ -148,7 +150,7 @@
                   @change="inviteUsersLists"
               >
               <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
-              邀请用户 {{ value }}
+              {{ value.friend_notes }}
             </label>
           </div>
         </div>
@@ -160,12 +162,12 @@
           <div class="selected_users">
             <div v-for="(value, index) in selected_users" :key="index">
               <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
-              <p>邀请用户 {{ value }}</p>
+              <p>{{ value.friend_notes }}</p>
             </div>
           </div>
           <div class="button">
-            <el-button type="primary" size="default">确定</el-button>
-            <el-button size="default">取消</el-button>
+            <el-button type="primary" size="default" @click="createGroupSure">确定</el-button>
+            <el-button size="default" @click="create_group = false">取消</el-button>
           </div>
         </div>
       </div>
@@ -191,11 +193,14 @@ const {
   receiver_remarks,
   create_group,
   group_add_users_inquire,
-  invite_users,
+  this_user_friends,
   selected_users,
   inviteUsersLists,
   add,
   loading,
+  createGroup,
+  inquire,
+  createGroupSure,
 } = homeFriendsBar();
 </script>
 

@@ -16,12 +16,12 @@ export const homeFriendsBar = () => {
     const receiver_remarks = ref("给被添加方的备注"); // 添加好友时给被添加方的备注
     const create_group = ref(false); // 创建群聊窗口
     const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
-    const invite_users = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]); // 邀请加入群聊的好友
-    const selected_users = ref([]);
+    const this_user_friends = ref(); // 当前账户拥有的好友
+    const selected_users = ref([]); // 邀请加入群聊的好友
     const loading = ref(false);
 
     const {addUser} = classLists();
-    const {getUserLists} = api();
+    const {getUserLists, getFriendsLists} = api();
 
     let timer: any;
     const find = () => {
@@ -89,8 +89,43 @@ export const homeFriendsBar = () => {
         });
     };
 
+    const createGroup = () => {
+        create_group.value = true;
+        getFriendsLists(usersLists().thisUserAccount)
+            .then(data => {
+                this_user_friends.value = data.data.result;
+            }).catch(console.error);
+    }
+
+    const inquire = () => {
+        let inquire_people = [];
+        let regular = new RegExp(group_add_users_inquire.value);
+
+        for (let i = 0; i < this_user_friends.value.length; i++) {
+            if (this_user_friends.value[i].friend_notes.match(regular)) {
+                inquire_people.push(this_user_friends.value[i]);
+            }
+        }
+        this_user_friends.value = inquire_people;
+    }
+
+    const createGroupSure = () => {
+        create_group.value = false;
+        selected_users.value = [];
+
+        
+    }
+
     watch(find_logotype, () => {
         if (find_logotype.value === '') query_results.value = '';
+    });
+    watch(group_add_users_inquire, () => {
+        if (group_add_users_inquire.value === '') {
+            getFriendsLists(usersLists().thisUserAccount)
+                .then(data => {
+                    this_user_friends.value = data.data.result;
+                }).catch(console.error);
+        }
     });
 
     return {
@@ -107,10 +142,13 @@ export const homeFriendsBar = () => {
         receiver_remarks,
         create_group,
         group_add_users_inquire,
-        invite_users,
+        this_user_friends,
         selected_users,
         inviteUsersLists,
         add,
         loading,
+        createGroup,
+        inquire,
+        createGroupSure,
     }
 }

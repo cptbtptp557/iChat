@@ -113,7 +113,7 @@ export const homeFriendsBar = () => {
         create_group.value = false;
         selected_users.value = [];
 
-        
+        console.log(selected_users.value)
     }
 
     watch(find_logotype, () => {

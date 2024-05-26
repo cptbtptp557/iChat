@@ -128,6 +128,16 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 创建群聊
+    const createGroup = async (group_name: string | number, group_leader_iid: number) => {
+        return await axios.post('http://127.0.0.1:3000/createGroup', '', {
+            params: {
+                'group_name': group_name,
+                'group_leader_iid': group_leader_iid,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
@@ -140,5 +150,6 @@ export const api = defineStore('api', () => {
         agreeAddRequest,
         refuseAddRequest,
         getFriendsLists,
+        createGroup,
     }
 })

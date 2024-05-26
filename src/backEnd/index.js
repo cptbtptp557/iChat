@@ -28,6 +28,8 @@ const {
     refuse_add_request,
     change_add_status,
     get_friends_number,
+    create_group,
+    friend_add_group,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -198,6 +200,16 @@ app.get('/getFriendsLists', (req, res) => {
     sqlFunction(get_friends_number(data.iId))
         .then(result => {
             res.status(200).json({result});
+        }).catch(console.error);
+})
+
+// 创建群聊
+app.post('/createGroup', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(create_group(data.group_name, data.group_leader_iid))
+        .then(result => {
+            console.log(result);
         }).catch(console.error);
 })
 

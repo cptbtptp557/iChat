@@ -75,6 +75,7 @@ app.get('/getUserLists', (req, res) => {
 
     if (data.value) this_account = data.value;
     else this_account = jwt.decode(data.token).thisAccount;
+    console.log(data)
 
     sqlFunction(getUserListsToiId_sql(data.searchType, data.parameter, this_account))
         .then(result => {
@@ -229,14 +230,15 @@ io.on('connection', socket => {
     });
 
     socket.on("add", async (toUserLists) => {
-        socket_users[toUserLists.to_iid].emit('add_lists', toUserLists);
+        // if (socket_users[toUserLists.to_iid]) socket_users[toUserLists.to_iid].emit('add_lists', toUserLists);
 
-        sqlFunction(add_recording(toUserLists.from_iid, toUserLists.to_iid, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
-            .then(() => {
-                socket_users[toUserLists.from_iid].emit('add_lists', 'true');
-            }).catch(() => {
-            socket_users[toUserLists.from_iid].emit('add_lists', 'false');
-        });
+        console.log(toUserLists)
+        // sqlFunction(add_recording(toUserLists.from_iid, toUserLists.to_iid, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
+        //     .then(() => {
+        //         socket_users[toUserLists.from_iid].emit('add_lists', 'true');
+        //     }).catch(() => {
+        //     socket_users[toUserLists.from_iid].emit('add_lists', 'false');
+        // });
     });
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

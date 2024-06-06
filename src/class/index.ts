@@ -6,7 +6,7 @@ export const classLists = () => {
     let formattedDate = `${year}/${('0' + month).slice(-2)}/${('0' + date).slice(-2)}`;
 
     // 添加好友、创建群聊
-    class addUser {
+    class addUser_mankind {
         from_iid: number; // 发起方iID
         to_iid: number; // 接收方iId
         from_name: string | number; // 发起方昵称
@@ -24,7 +24,26 @@ export const classLists = () => {
         }
     }
 
+    // 申请加入群聊
+    class addUser_group {
+        from_iid: number; // 发起方iID
+        to_gid: number; // 群gId
+        from_name: string | number; // 发起方昵称
+        add_status: number; // 当前添加好友、创建群聊的消息的状态---0: 未选择, 1: 同意, 2: 拒绝
+        add_time: string; // 发起申请加入群聊的时间
+
+        constructor(from_iid: number, to_gid: number, from_name: string | number, add_status: number) {
+            this.from_iid = from_iid;
+            this.to_gid = to_gid;
+            this.from_name = from_name;
+            this.add_status = add_status;
+            this.add_time = formattedDate;
+        }
+    }
+
+
     return {
-        addUser,
+        addUser_mankind,
+        addUser_group,
     }
 }

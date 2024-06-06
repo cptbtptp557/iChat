@@ -18,7 +18,7 @@
           </el-icon>
           <p>发起群聊</p>
         </el-button>
-        <el-button @click="add_friend = true">
+        <el-button @click="addFriendFrame">
           <el-icon style="position: relative; left: -5px">
             <User/>
           </el-icon>
@@ -90,9 +90,13 @@
         <el-form label-position="top" class="confirm_add_friend">
           <el-form-item>
             <img src="../../../../public/chat-avatar/from-user.png" alt="被添加方头像">
-            <div>
+            <div v-if="confirm_add_friend_lists.iId">
               <p>{{ confirm_add_friend_lists.nickname }}</p>
-              <p>{{ confirm_add_friend_lists.iId }}</p>
+              <p>iId: {{ confirm_add_friend_lists.iId }}</p>
+            </div>
+            <div v-else>
+              <p>{{ confirm_add_friend_lists.group_name }}</p>
+              <p>gId: {{ confirm_add_friend_lists.gId }}</p>
             </div>
           </el-form-item>
           <el-form-item label="填写认证信息">
@@ -113,7 +117,11 @@
             />
           </el-form-item>
           <el-form-item style="position:relative;float: right">
-            <el-button type="primary" @click="add">发送</el-button>
+            <el-button
+                type="primary"
+                @click="confirm_add_friend_lists.iId ? addFriend(confirm_add_friend_lists) : addGroup(confirm_add_friend_lists)">
+              发送
+            </el-button>
             <el-button @click="confirm_add_friend = false">取消</el-button>
           </el-form-item>
         </el-form>
@@ -196,9 +204,11 @@ const {
   this_user_friends,
   selected_users,
   inviteUsersLists,
-  add,
+  addFriend,
+  addGroup,
   loading,
   createGroup,
+  addFriendFrame,
   inquire,
   createGroupSure,
 } = homeFriendsBar();

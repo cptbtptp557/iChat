@@ -2,8 +2,9 @@ const mySqlQueryStatements = () => {
     const getUserListsToiId_sql = (searchType, parameter, value) => {
         let this_parameter;
 
-        if (typeof value === "string") this_parameter = "select * from " + searchType + " where " + parameter + " = " + "'" + value + "'";
+        if (typeof value === "string") this_parameter = "select * from " + searchType + " where " + parameter + " LIKE " + "'%" + value + "%'";
         else this_parameter = "select * from totalusers where " + parameter + " = " + value;
+        console.log(this_parameter)
         return this_parameter;
     };
 

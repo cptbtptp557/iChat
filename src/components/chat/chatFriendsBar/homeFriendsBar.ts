@@ -5,6 +5,7 @@ import {api} from "../../../pinia/api.ts";
 import {ElMessage} from 'element-plus';
 import socket from "../../../socket";
 
+
 export const homeFriendsBar = () => {
     const add_friend = ref(false); // 添加好友框
     const find_logotype = ref(); // 添加好友内输入的内容
@@ -20,7 +21,7 @@ export const homeFriendsBar = () => {
     const selected_users = ref([]); // 邀请加入群聊的好友
     const loading = ref(false);
 
-    const {addUser} = classLists();
+    const {addUser_mankind, addUser_group} = classLists();
     const {getUserLists, getFriendsLists} = api();
 
     let timer: any;
@@ -33,9 +34,11 @@ export const homeFriendsBar = () => {
                     .then(data => {
                         query_results.value = data.data.result;
                         loading.value = false;
-                    })
+                        console.log(data.data)
+                    }).catch(console.error);
             }
         }, 1500);
+        if (!find_logotype.value) loading.value = false;
     }
 
     const empty = () => {
@@ -75,8 +78,9 @@ export const homeFriendsBar = () => {
         console.log(selected_users.value)
     }
 
-    const add = (): void => {
-        const add_user = new addUser(usersLists().thisUserAccount, find_logotype.value, introduce_yourself.value, receiver_remarks.value, 0);
+    // 申请添加---添加人类
+    const addFriend = (confirm_add_friend_lists: any): void => {
+        const add_user = new addUser_mankind(usersLists().thisUserAccount, confirm_add_friend_lists.iId, introduce_yourself.value, receiver_remarks.value, 0);
         socket.emit("add", add_user);
         socket.on('add_lists', (addLists) => {
             if (addLists === 'true') {
@@ -89,12 +93,34 @@ export const homeFriendsBar = () => {
         });
     };
 
+    // 申请添加---添加群聊
+    const addGroup = (confirm_add_friend_lists: any): void => {
+        console.log(typeof confirm_add_friend_lists)
+        const add_user = new addUser_group(usersLists().thisUserAccount, confirm_add_friend_lists.gId, introduce_yourself.value, 0);
+        console.log(add_user);
+        socket.emit("add", add_user);
+        socket.on('add_lists', (addLists) => {
+            if (addLists === 'true') {
+                confirm_add_friend.value = false;
+                ElMessage({
+                    message: '申请成功!!!',
+                    type: 'success',
+                })
+            }
+        });
+    }
+
     const createGroup = () => {
         create_group.value = true;
         getFriendsLists(usersLists().thisUserAccount)
             .then(data => {
                 this_user_friends.value = data.data.result;
             }).catch(console.error);
+    }
+
+    const addFriendFrame = () => {
+        add_friend.value = true;
+        find_logotype.value = '';
     }
 
     const inquire = () => {
@@ -145,9 +171,11 @@ export const homeFriendsBar = () => {
         this_user_friends,
         selected_users,
         inviteUsersLists,
-        add,
+        addFriend,
+        addGroup,
         loading,
         createGroup,
+        addFriendFrame,
         inquire,
         createGroupSure,
     }

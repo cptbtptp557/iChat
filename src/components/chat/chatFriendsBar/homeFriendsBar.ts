@@ -34,7 +34,6 @@ export const homeFriendsBar = () => {
                     .then(data => {
                         query_results.value = data.data.result;
                         loading.value = false;
-                        console.log(data.data)
                     }).catch(console.error);
             }
         }, 1500);
@@ -79,8 +78,8 @@ export const homeFriendsBar = () => {
     }
 
     // 申请添加---添加人类
-    const addFriend = (confirm_add_friend_lists: any): void => {
-        const add_user = new addUser_mankind(usersLists().thisUserAccount, confirm_add_friend_lists.iId, introduce_yourself.value, receiver_remarks.value, 0);
+    const addFriend = (userLists: any): void => {
+        const add_user = new addUser_mankind(usersLists().thisUserAccount, userLists.iId, introduce_yourself.value, receiver_remarks.value, 0);
         socket.emit("add", add_user);
         socket.on('add_lists', (addLists) => {
             if (addLists === 'true') {
@@ -94,10 +93,8 @@ export const homeFriendsBar = () => {
     };
 
     // 申请添加---添加群聊
-    const addGroup = (confirm_add_friend_lists: any): void => {
-        console.log(typeof confirm_add_friend_lists)
-        const add_user = new addUser_group(usersLists().thisUserAccount, confirm_add_friend_lists.gId, introduce_yourself.value, 0);
-        console.log(add_user);
+    const addGroup = (groupLists: any): void => {
+        const add_user = new addUser_group(usersLists().thisUserAccount, groupLists.gId, groupLists.group_leader_iid, introduce_yourself.value, groupLists.group_name, 0);
         socket.emit("add", add_user);
         socket.on('add_lists', (addLists) => {
             if (addLists === 'true') {

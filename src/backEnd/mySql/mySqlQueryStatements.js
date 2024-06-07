@@ -4,7 +4,6 @@ const mySqlQueryStatements = () => {
 
         if (typeof value === "string") this_parameter = "select * from " + searchType + " where " + parameter + " LIKE " + "'%" + value + "%'";
         else this_parameter = "select * from totalusers where " + parameter + " = " + value;
-        console.log(this_parameter)
         return this_parameter;
     };
 
@@ -15,7 +14,9 @@ const mySqlQueryStatements = () => {
     const create_account_sql = (nickname, mailbox, password) => "insert into totalusers(nickname, mailbox, password, signature, gender, onlinepresence, birthday) values (" + "'" + nickname + "'" + ',' + "'" + mailbox + "'" + ',' + "'" + password + "'" + ",'展示更好的自己', 'man', false, '2000-01-01')";
     const change_user_lists_sql = (nickname, signature, gender, birthday, account) => "update totalusers set nickname = " + "'" + nickname + "', signature = " + "'" + signature + "' , gender =" + "'" + gender + "' , birthday =" + "'" + birthday + "' where iId =" + account;
     const add_recording = (from_iId, to_iId, from_name, to_notes, add_status, add_time) => "insert into addto(from_iid, to_iid, from_name, to_notes, add_status, add_time) values ('" + from_iId + "', '" + to_iId + "', '" + from_name + "','" + to_notes + "'," + add_status + ",'" + add_time + "')";
+    const add_group_recording = (from_iid, group_gid, group_name, add_status, add_time, group_leader_iid, group_user_name) => "insert into groupaddto(from_iid,group_gid,group_name,add_status,add_time,group_leader_iid,group_user_name) values (" + from_iid + "," + group_gid + ",'" + group_name + "'," + add_status + ",'" + add_time + "'," + group_leader_iid + ",'" + group_user_name + "')";
     const get_add_recording = (to_iId) => "select * from addto where to_iId = " + to_iId + " order by add_time desc";
+    const get_add_group_recording = (group_leader_iid) => "select * from groupaddto where group_leader_iid = " + group_leader_iid + " order by add_time desc";
     const agree_add_request = (from_iId, to_iId, from_name, to_notes) => "insert into friendlists values (" + from_iId + "," + to_iId + ",'" + to_notes + "'), (" + to_iId + "," + from_iId + ",'" + from_name + "')";
     const refuse_add_request = (from_iId, to_iId) => "update addto set add_status = 2 where from_iid = " + from_iId + " and to_iid = " + to_iId;
     const change_add_status = (from_iId, to_iId) => "update addto set add_status = 1 where from_iid = " + from_iId + " and to_iid = " + to_iId;
@@ -32,7 +33,9 @@ const mySqlQueryStatements = () => {
         create_account_sql,
         change_user_lists_sql,
         add_recording,
+        add_group_recording,
         get_add_recording,
+        get_add_group_recording,
         agree_add_request,
         refuse_add_request,
         change_add_status,

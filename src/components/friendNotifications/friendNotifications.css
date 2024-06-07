@@ -98,7 +98,8 @@
   background-color: #f9f9f9;
   position: relative;
   top: 10px;
-  left: 130px;
+  margin-left: auto;
+  float: right;
   border: 1px solid #c7c7c7;
   border-radius: 5px;
 }
@@ -131,7 +132,7 @@
   color: #8f8f8f;
   position: relative;
   top: 15px;
-  left: 180px;
+  margin-left: auto;
   letter-spacing: 5px;
 }
 /*# sourceMappingURL=friendNotifications.css.map */

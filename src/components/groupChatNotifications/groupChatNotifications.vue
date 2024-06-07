@@ -4,14 +4,14 @@
       <p>群聊通知</p>
     </div>
     <main>
-      <div v-for="a in 10" :key="a" class="apply_friends">
+      <div v-for="(lists, index) in group_notice" :key="index" class="apply_friends">
         <img src="../../../public/chat-avatar/from-user.png" alt="申请好友方头像">
         <div class="left">
           <div>
-            <p>蔡徐坤</p>
-            <p>2024/05/17</p>
+            <p>{{lists.group_user_name}}</p>
+            <p>{{lists.add_time}}</p>
           </div>
-          <p class="message">申请你加入<span>我爱蔡徐坤应援团</span></p>
+          <p class="message">申请加入<span>{{lists.group_name}}</span></p>
         </div>
         <div class="application_status_button" v-if="application_status">
           <div class="agree">
@@ -34,7 +34,9 @@ import {groupChatNotifications} from "./groupChatNotifications.ts";
 import {Check, Close} from "@element-plus/icons-vue";
 
 const {
+  this_user_iId,
   application_status,
+  group_notice,
 } = groupChatNotifications();
 </script>
 

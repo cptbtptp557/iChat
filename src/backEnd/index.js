@@ -23,7 +23,9 @@ const {
     change_password,
     change_user_lists_sql,
     add_recording,
+    add_group_recording,
     get_add_recording,
+    get_add_group_recording,
     agree_add_request,
     refuse_add_request,
     change_add_status,
@@ -162,7 +164,7 @@ app.post('/changeUserLists', (req, res) => {
         }).catch(console.error);
 });
 
-// 获取添加、加入、邀请好友或群聊记录
+// 获取添加、加入、邀请好友记录
 app.get('/getAddRecording', (req, res) => {
     const data = req.query;
 
@@ -171,6 +173,16 @@ app.get('/getAddRecording', (req, res) => {
             res.status(200).json({result});
         }).catch(console.error);
 });
+
+// 获取加入、邀请好友进入群聊记录
+app.get('/getAddGroupRecording', (req,res) => {
+    const data = req.query;
+
+    sqlFunction(get_add_group_recording(data.group_leader_iid))
+        .then(result => {
+            res.status(200).json({result});
+        }).catch(console.error);
+})
 
 // 同意添加申请
 app.get('/agreeAddRequest', (req, res) => {
@@ -230,15 +242,26 @@ io.on('connection', socket => {
     });
 
     socket.on("add", async (toUserLists) => {
-        // if (socket_users[toUserLists.to_iid]) socket_users[toUserLists.to_iid].emit('add_lists', toUserLists);
-
         console.log(toUserLists)
-        // sqlFunction(add_recording(toUserLists.from_iid, toUserLists.to_iid, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
-        //     .then(() => {
-        //         socket_users[toUserLists.from_iid].emit('add_lists', 'true');
-        //     }).catch(() => {
-        //     socket_users[toUserLists.from_iid].emit('add_lists', 'false');
-        // });
+        if (toUserLists.to_iid) {
+            if (socket_users[toUserLists.to_iid]) socket_users[toUserLists.to_iid].emit('add_lists', toUserLists);
+
+            sqlFunction(add_recording(toUserLists.from_iid, toUserLists.to_iid, toUserLists.from_name, toUserLists.to_notes, toUserLists.add_status, toUserLists.add_time))
+                .then(() => {
+                    socket_users[toUserLists.from_iid].emit('add_lists', 'true');
+                }).catch(() => {
+                socket_users[toUserLists.from_iid].emit('add_lists', 'false');
+            });
+        } else if (toUserLists.group_leader_iid) {
+            if (socket_users[toUserLists.group_leader_iid]) socket_users[toUserLists.group_leader_iid].emit('add_lists', toUserLists);
+
+            sqlFunction(add_group_recording(toUserLists.from_iid, toUserLists.to_gid, toUserLists.group_name, toUserLists.add_status, toUserLists.add_time, toUserLists.group_leader_iid, toUserLists.from_name))
+                .then(() => {
+                    console.log("成功")
+                }).catch((err) => {
+                console.log(err);
+            })
+        }
     });
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

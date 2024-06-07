@@ -88,7 +88,7 @@ export const api = defineStore('api', () => {
         })
     };
 
-    // 获取添加、加入、邀请好友或群聊记录
+    // 获取添加、加入、邀请好友记录
     const getAddRecording = async (to_iId: number) => {
         return await axios.get('http://127.0.0.1:3000/getAddRecording', {
             params: {
@@ -96,6 +96,15 @@ export const api = defineStore('api', () => {
             }
         })
     };
+
+    // 获取加入、邀请好友进入群聊记录
+    const getAddGroupRecording = async (group_leader_iid: number) => {
+        return await axios.get('http://127.0.0.1:3000/getAddGroupRecording', {
+            params: {
+                'group_leader_iid': group_leader_iid,
+            }
+        })
+    }
 
     // 同意添加申请
     const agreeAddRequest = async (from_iId: number, to_iId: number, from_name: number | string, to_notes: number | string) => {
@@ -147,6 +156,7 @@ export const api = defineStore('api', () => {
         changeUserLists,
         getUserLists,
         getAddRecording,
+        getAddGroupRecording,
         agreeAddRequest,
         refuseAddRequest,
         getFriendsLists,

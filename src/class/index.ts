@@ -28,19 +28,22 @@ export const classLists = () => {
     class addUser_group {
         from_iid: number; // 发起方iID
         to_gid: number; // 群gId
+        group_leader_iid: number; // 群主iId
         from_name: string | number; // 发起方昵称
+        group_name: string | number; // 群昵称
         add_status: number; // 当前添加好友、创建群聊的消息的状态---0: 未选择, 1: 同意, 2: 拒绝
         add_time: string; // 发起申请加入群聊的时间
 
-        constructor(from_iid: number, to_gid: number, from_name: string | number, add_status: number) {
+        constructor(from_iid: number, to_gid: number, group_leader_iid: number, from_name: string | number, group_name: string | number, add_status: number) {
             this.from_iid = from_iid;
             this.to_gid = to_gid;
+            this.group_leader_iid = group_leader_iid;
             this.from_name = from_name;
+            this.group_name = group_name;
             this.add_status = add_status;
             this.add_time = formattedDate;
         }
     }
-
 
     return {
         addUser_mankind,

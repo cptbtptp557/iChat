@@ -147,6 +147,26 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 同意群聊申请
+    const agreeGroupAdd = async (from_iid: number, group_gid: number) => {
+        return await axios.post('http://127.0.0.1:3000/agreeGroupAdd', '', {
+            params: {
+                'iid': from_iid,
+                'gid': group_gid,
+            }
+        })
+    }
+
+    // 拒绝群聊申请
+    const refuseGroupAdd = async (from_iid: number, group_gid: number) => {
+        return await axios.post('http://127.0.0.1:3000/refuseGroupAdd', '', {
+            params: {
+                'iid': from_iid,
+                'gid': group_gid,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
@@ -161,5 +181,7 @@ export const api = defineStore('api', () => {
         refuseAddRequest,
         getFriendsLists,
         createGroup,
+        agreeGroupAdd,
+        refuseGroupAdd,
     }
 })

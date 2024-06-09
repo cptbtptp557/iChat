@@ -83,7 +83,7 @@
 .groupChatNotifications main .apply_friends .left .message span {
   max-width: 200px;
   position: relative;
-  top: 4.5px;
+  top: 4px;
   display: inline-block;
   color: #3598ff;
   margin-left: 10px;
@@ -130,7 +130,7 @@
   color: #8f8f8f;
   position: relative;
   top: 15px;
-  left: 240px;
   letter-spacing: 5px;
+  margin-left: auto;
 }
 /*# sourceMappingURL=groupChatNotifications.css.map */

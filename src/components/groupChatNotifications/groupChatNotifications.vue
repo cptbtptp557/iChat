@@ -8,22 +8,22 @@
         <img src="../../../public/chat-avatar/from-user.png" alt="申请好友方头像">
         <div class="left">
           <div>
-            <p>{{lists.group_user_name}}</p>
-            <p>{{lists.add_time}}</p>
+            <p>{{ lists.group_user_name }}</p>
+            <p>{{ lists.add_time }}</p>
           </div>
-          <p class="message">申请加入<span>{{lists.group_name}}</span></p>
+          <p class="message">申请加入<span>{{ lists.group_name }}</span></p>
         </div>
-        <div class="application_status_button" v-if="application_status">
+        <div class="application_status_button" v-if="lists.add_status == 0">
           <div class="agree">
-            <el-icon color="#51ce00" size="20">
+            <el-icon color="#51ce00" size="20" @click="agreeAdd(lists)">
               <Check/>
             </el-icon>
-            <el-icon color="#ff0000" size="20">
+            <el-icon color="#ff0000" size="20" @click="refuseAdd(lists)">
               <Close/>
             </el-icon>
           </div>
         </div>
-        <p class="application_status_p" v-else>{{ application_status }}</p>
+        <p class="application_status_p" v-else>{{ lists.add_status == 1 ? "已同意" : "已拒绝" }}</p>
       </div>
     </main>
   </div>
@@ -34,9 +34,9 @@ import {groupChatNotifications} from "./groupChatNotifications.ts";
 import {Check, Close} from "@element-plus/icons-vue";
 
 const {
-  this_user_iId,
-  application_status,
   group_notice,
+  agreeAdd,
+  refuseAdd,
 } = groupChatNotifications();
 </script>
 

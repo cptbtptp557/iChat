@@ -22,6 +22,7 @@ const mySqlQueryStatements = () => {
     const change_add_status = (from_iId, to_iId) => "update addto set add_status = 1 where from_iid = " + from_iId + " and to_iid = " + to_iId;
     const get_friends_number = (iId) => "select * from friendlists where iId = " + iId;
     const create_group = (group_name, group_leader_iid) => "insert into grouplists(group_name, group_leader_iid) values ('" + group_name + "','" + group_leader_iid + "')";
+    const revise_group_status = (status, gid, iid) => "update groupaddto set add_status = " + status + " where from_iid = " + iid + " and group_gid = " + gid;
     const friend_add_group = (gid, iid) => "insert into groupmembers(gid, iid) values (" + gid + ", " + iid + ")";
 
     return {
@@ -41,6 +42,7 @@ const mySqlQueryStatements = () => {
         change_add_status,
         get_friends_number,
         create_group,
+        revise_group_status,
         friend_add_group,
     }
 };

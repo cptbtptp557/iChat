@@ -31,6 +31,7 @@ const {
     change_add_status,
     get_friends_number,
     create_group,
+    revise_group_status,
     friend_add_group,
 } = mySqlQueryStatements;
 
@@ -77,7 +78,6 @@ app.get('/getUserLists', (req, res) => {
 
     if (data.value) this_account = data.value;
     else this_account = jwt.decode(data.token).thisAccount;
-    console.log(data)
 
     sqlFunction(getUserListsToiId_sql(data.searchType, data.parameter, this_account))
         .then(result => {
@@ -175,7 +175,7 @@ app.get('/getAddRecording', (req, res) => {
 });
 
 // 获取加入、邀请好友进入群聊记录
-app.get('/getAddGroupRecording', (req,res) => {
+app.get('/getAddGroupRecording', (req, res) => {
     const data = req.query;
 
     sqlFunction(get_add_group_recording(data.group_leader_iid))
@@ -184,7 +184,7 @@ app.get('/getAddGroupRecording', (req,res) => {
         }).catch(console.error);
 })
 
-// 同意添加申请
+// 同意添加好友申请
 app.get('/agreeAddRequest', (req, res) => {
     const data = req.query;
 
@@ -196,7 +196,7 @@ app.get('/agreeAddRequest', (req, res) => {
         }).catch(console.error);
 })
 
-// 拒绝添加申请
+// 拒绝添加好友申请
 app.get('/refuseAddRequest', (req, res) => {
     const data = req.query;
 
@@ -223,6 +223,29 @@ app.post('/createGroup', (req, res) => {
     sqlFunction(create_group(data.group_name, data.group_leader_iid))
         .then(result => {
             console.log(result);
+        }).catch(console.error);
+})
+
+// 同意群聊申请
+app.post('/agreeGroupAdd', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(friend_add_group(data.gid, data.iid))
+        .then(() => {
+            sqlFunction(revise_group_status(1, data.gid, data.iid))
+                .then(() => {
+                    res.status(200).json(1);
+                }).catch(console.error);
+        }).catch(console.error);
+})
+
+// 拒绝群聊申请
+app.post('/refuseGroupAdd', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(revise_group_status(2, data.gid, data.iid))
+        .then(() => {
+            res.status(200).json(1);
         }).catch(console.error);
 })
 

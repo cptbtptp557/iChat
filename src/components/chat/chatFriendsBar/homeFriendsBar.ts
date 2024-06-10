@@ -2,7 +2,7 @@ import {ref, watch} from "vue";
 import {classLists} from "../../../class";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
-import {ElMessage} from 'element-plus';
+import {ElMessage, ElNotification} from 'element-plus';
 import socket from "../../../socket";
 
 
@@ -18,11 +18,11 @@ export const homeFriendsBar = () => {
     const create_group = ref(false); // 创建群聊窗口
     const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
     const this_user_friends = ref(); // 当前账户拥有的好友
-    const selected_users = ref([]); // 邀请加入群聊的好友
+    const selected_users = ref(); // 邀请加入群聊的好友
     const loading = ref(false);
 
-    const {addUser_mankind, addUser_group} = classLists();
-    const {getUserLists, getFriendsLists} = api();
+    const {addUser_mankind, addUser_group, create_new_group} = classLists();
+    const {getUserLists, getFriendsLists, createGroup} = api();
 
     let timer: any;
     const find = () => {
@@ -73,10 +73,6 @@ export const homeFriendsBar = () => {
         introduce_yourself.value = usersLists().thisUserNickname;
     }
 
-    const inviteUsersLists = (): void => {
-        console.log(selected_users.value)
-    }
-
     // 申请添加---添加人类
     const addFriend = (userLists: any): void => {
         const add_user = new addUser_mankind(usersLists().thisUserAccount, userLists.iId, introduce_yourself.value, receiver_remarks.value, 0);
@@ -107,8 +103,9 @@ export const homeFriendsBar = () => {
         });
     }
 
-    const createGroup = () => {
+    const createNewGroup = () => {
         create_group.value = true;
+        selected_users.value = [];
         getFriendsLists(usersLists().thisUserAccount)
             .then(data => {
                 this_user_friends.value = data.data.result;
@@ -133,10 +130,31 @@ export const homeFriendsBar = () => {
     }
 
     const createGroupSure = () => {
-        create_group.value = false;
-        selected_users.value = [];
+        let group_name: string = "";
+        let add_user_iid: number[] = [];
+        for (let i = 0; i < selected_users.value.length; i++) {
+            if (i < selected_users.value.length - 1) group_name += selected_users.value[i].friend_notes + ",";
+            else group_name += selected_users.value[i].friend_notes + "的群聊";
+        }
+        selected_users.value.forEach((proxy: any) => {
+            add_user_iid.push(proxy.friend_iId);
+        })
 
-        console.log(selected_users.value)
+        const new_group_lists = new create_new_group(group_name, usersLists().thisUserAccount, add_user_iid);
+        createGroup(new_group_lists)
+            .then(() => {
+                create_group.value = false;
+                ElNotification({
+                    title: '创建成功',
+                    type: 'success',
+                })
+            })
+            .catch(() => {
+                ElNotification({
+                    title: '创建成功',
+                    type: 'error',
+                })
+            })
     }
 
     watch(find_logotype, () => {
@@ -167,11 +185,10 @@ export const homeFriendsBar = () => {
         group_add_users_inquire,
         this_user_friends,
         selected_users,
-        inviteUsersLists,
         addFriend,
         addGroup,
         loading,
-        createGroup,
+        createNewGroup,
         addFriendFrame,
         inquire,
         createGroupSure,

@@ -12,7 +12,7 @@
           :width="150"
           trigger="click"
       >
-        <el-button style="position: relative;left: 11px;margin-bottom: 10px" @click="createGroup">
+        <el-button style="position: relative;left: 11px;margin-bottom: 10px" @click="createNewGroup">
           <el-icon style="position: relative; left: -5px">
             <DataAnalysis/>
           </el-icon>
@@ -74,7 +74,6 @@
                 <div v-else-if="search_user.gId">
                   <p>{{ search_user.group_name }}</p>
                   <p>{{ search_user.gId }}</p>
-                  <p>{{ search_user.group_introduce }}</p>
                 </div>
               </div>
             </div>
@@ -155,7 +154,6 @@
                   :name="'invite_users' + value"
                   :value="value"
                   v-model="selected_users"
-                  @change="inviteUsersLists"
               >
               <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
               {{ value.friend_notes }}
@@ -203,11 +201,10 @@ const {
   group_add_users_inquire,
   this_user_friends,
   selected_users,
-  inviteUsersLists,
   addFriend,
   addGroup,
   loading,
-  createGroup,
+  createNewGroup,
   addFriendFrame,
   inquire,
   createGroupSure,

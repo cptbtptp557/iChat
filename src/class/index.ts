@@ -45,8 +45,24 @@ export const classLists = () => {
         }
     }
 
+    // 创建新群聊
+    class create_new_group {
+        group_name: string;
+        group_announcement: string | number;
+        group_leader_iid: number;
+        add_user_iid: number[];
+
+        constructor(group_name: string, group_leader_iid: number, add_user_iid: number[]) {
+            this.group_name = group_name;
+            this.group_announcement = "欢迎加入群聊!!!";
+            this.group_leader_iid = group_leader_iid;
+            this.add_user_iid = add_user_iid;
+        }
+    }
+
     return {
         addUser_mankind,
         addUser_group,
+        create_new_group,
     }
 }

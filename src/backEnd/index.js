@@ -218,11 +218,17 @@ app.get('/getFriendsLists', (req, res) => {
 
 // 创建群聊
 app.post('/createGroup', (req, res) => {
-    const data = req.query;
+    const data = req.body;
 
-    sqlFunction(create_group(data.group_name, data.group_leader_iid))
+    sqlFunction(create_group(data.group_name, data.group_leader_iid, data.group_announcement))
         .then(result => {
-            console.log(result);
+            for (let i = 0; i < data.add_user_iid.length; i++) {
+                sqlFunction(friend_add_group(result.insertId, data.add_user_iid[i]))
+                    .catch(console.error);
+            }
+        })
+        .then(() => {
+            res.status(200).json(1);
         }).catch(console.error);
 })
 

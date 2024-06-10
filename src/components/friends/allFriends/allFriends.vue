@@ -54,9 +54,12 @@
             <p>{{ friends_lists[index][0].signature }}</p>
           </div>
         </div>
-        <div class="group_chats" v-for=" group in 10" :key="group" v-else-if="this_options === '群聊'">
+        <div class="group_chats"
+             v-for=" (group_data, index2) in all_group_data"
+             :key="index2"
+             v-else-if="this_options === '群聊'">
           <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
-          <p>群聊名称</p>
+          <p>{{ group_data[0].group_name }}</p>
         </div>
       </div>
     </main>
@@ -79,6 +82,7 @@ const {
   friends_number,
   friends_lists,
   change_color,
+  all_group_data,
 } = allFriends();
 </script>
 

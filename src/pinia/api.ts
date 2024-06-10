@@ -166,6 +166,15 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 获取所有所在群聊名单
+    const allInsideGroupLists = async (iid: number) => {
+        return await axios.get('http://127.0.0.1:3000/allInsideGroupLists', {
+            params: {
+                'iid': iid,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
@@ -182,5 +191,6 @@ export const api = defineStore('api', () => {
         createGroup,
         agreeGroupAdd,
         refuseGroupAdd,
+        allInsideGroupLists,
     }
 })

@@ -24,6 +24,8 @@ const mySqlQueryStatements = () => {
     const create_group = (group_name, group_leader_iid, group_announcement) => "insert into grouplists(group_name, group_leader_iid, group_announcement) values ('" + group_name + "','" + group_leader_iid + "','" + group_announcement + "')";
     const revise_group_status = (status, gid, iid) => "update groupaddto set add_status = " + status + " where from_iid = " + iid + " and group_gid = " + gid;
     const friend_add_group = (gid, iid) => "insert into groupmembers(gid, iid) values (" + gid + ", " + iid + ")";
+    const all_inside_group_lists = (iid) => "select gid from groupmembers where iid = " + iid;
+    const get_group_data = (gid) => "select * from grouplists where gId = " + gid;
 
     return {
         getUserListsToiId_sql,
@@ -44,6 +46,8 @@ const mySqlQueryStatements = () => {
         create_group,
         revise_group_status,
         friend_add_group,
+        all_inside_group_lists,
+        get_group_data,
     }
 };
 

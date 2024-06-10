@@ -33,6 +33,8 @@ const {
     create_group,
     revise_group_status,
     friend_add_group,
+    all_inside_group_lists,
+    get_group_data,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -252,6 +254,23 @@ app.post('/refuseGroupAdd', (req, res) => {
     sqlFunction(revise_group_status(2, data.gid, data.iid))
         .then(() => {
             res.status(200).json(1);
+        }).catch(console.error);
+})
+
+// 获取所有所在群聊名单
+app.get('/allInsideGroupLists', (req, res) => {
+    const data = req.query;
+    let group_promise = [];
+
+    sqlFunction(all_inside_group_lists(data.iid))
+        .then(lists => {
+            for (let i = 0; i < lists.length; i++) {
+                group_promise.push(sqlFunction(get_group_data(lists[i].gid)))
+            }
+            return Promise.all(group_promise);
+        })
+        .then((group_data) => {
+            res.status(200).json({group_data});
         }).catch(console.error);
 })
 

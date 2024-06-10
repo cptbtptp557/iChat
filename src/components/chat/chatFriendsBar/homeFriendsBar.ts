@@ -139,6 +139,7 @@ export const homeFriendsBar = () => {
         selected_users.value.forEach((proxy: any) => {
             add_user_iid.push(proxy.friend_iId);
         })
+        add_user_iid.push(usersLists().thisUserAccount);
 
         const new_group_lists = new create_new_group(group_name, usersLists().thisUserAccount, add_user_iid);
         createGroup(new_group_lists)

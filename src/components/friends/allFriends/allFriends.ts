@@ -12,8 +12,9 @@ export const allFriends = () => {
     const friends_number = ref(); // 好友列表
     const friends_lists: any = ref({}); // 好友详细信息
     const change_color = ref(); // 修改背景颜色
+    const all_group_data = ref(); // 所有所在群信息
 
-    const {changeAllFriendsShowComponents} = usersLists();
+    const {changeAllFriendsShowComponents, thisUserAccount} = usersLists();
 
     // 查询好友---进行了防抖处理
     let timer: any;
@@ -28,9 +29,9 @@ export const allFriends = () => {
 
     const changeOptions = () => {
         if (this_options.value === "好友") {
-            console.log(this_options.value)
+            getFriendsLists();
         } else if (this_options.value === "群聊") {
-            console.log(this_options.value)
+            getGroupLists();
         }
     };
 
@@ -54,7 +55,7 @@ export const allFriends = () => {
         })
     };
 
-    onMounted(() => {
+    const getFriendsLists = () => {
         api().getFriendsLists(usersLists().thisUserAccount)
             .then(data => {
                 friends_number.value = data.data.result;
@@ -65,6 +66,19 @@ export const allFriends = () => {
                         })
                 }
             })
+    }
+
+    const getGroupLists = () => {
+        api().allInsideGroupLists(thisUserAccount)
+            .then(lists => {
+                all_group_data.value = lists.data.group_data
+                console.log(all_group_data.value)
+            }).catch(console.error);
+    }
+
+    onMounted(() => {
+        // changeOptions();
+        getFriendsLists()
     });
 
     return {
@@ -79,5 +93,6 @@ export const allFriends = () => {
         friends_number,
         friends_lists,
         change_color,
+        all_group_data,
     }
 }

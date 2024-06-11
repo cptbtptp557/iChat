@@ -1,13 +1,22 @@
-import {onMounted, ref} from "vue";
+import {onMounted, Ref, ref} from "vue";
 import {usersLists} from "../../../pinia/usersLists.ts";
+import {ElMessageBox} from 'element-plus';
 
 export const groupLists = () => {
-    const theGroupLists = ref(123); // 当前点击群聊数据
+    const group_lists: Ref<any> = ref({}); // 当前点击群聊数据
+    const group_user_lists = ref(); // 群成员名单
+    const showAnnouncement = () => {
+        ElMessageBox.alert(group_lists.value.group_announcement, '群公告', {
+            draggable: true,
+            showConfirmButton: false,
+        })
+    }
 
     onMounted(() => {
-        theGroupLists.value = usersLists().thisUserGroupLists;
+        group_lists.value = usersLists().thisUserGroupLists;
     })
     return {
-        theGroupLists,
+        group_lists,
+        showAnnouncement,
     }
 }

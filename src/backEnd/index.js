@@ -35,6 +35,7 @@ const {
     friend_add_group,
     all_inside_group_lists,
     get_group_data,
+    get_group_user_data,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -272,6 +273,11 @@ app.get('/allInsideGroupLists', (req, res) => {
         .then((group_data) => {
             res.status(200).json({group_data});
         }).catch(console.error);
+})
+
+app.get('/groupUserData', (req,res) => {
+    const data = req.query;
+    
 })
 
 /*==================================    Socket.io   ==================================*/

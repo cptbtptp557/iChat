@@ -3,8 +3,8 @@
     <header>
       <img src="../../../../public/chat-avatar/from-user.png" alt="群聊头像">
       <div>
-        <p>{{ theGroupLists.group_name }}</p>
-        <p>gId: {{ theGroupLists.gId }}</p>
+        <p>{{ group_lists.group_name }}</p>
+        <p>gId: {{ group_lists.gId }}</p>
       </div>
     </header>
     <el-divider/>
@@ -16,8 +16,8 @@
           </el-icon>
           <p>群公告</p>
         </div>
-        <div>
-          <p>群公告</p>
+        <div @click="showAnnouncement">
+          <p>{{ group_lists.group_announcement }}</p>
           <el-icon color="#9a9898">
             <ArrowRight/>
           </el-icon>
@@ -80,7 +80,8 @@ import {groupLists} from "./groupLists";
 import {ArrowRight, DataBoard, PieChart, User} from "@element-plus/icons-vue";
 
 const {
-  theGroupLists,
+  group_lists,
+  showAnnouncement,
 } = groupLists();
 </script>
 

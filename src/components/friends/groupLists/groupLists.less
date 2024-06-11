@@ -1,0 +1,156 @@
+@white: #f9f9f9;
+@neu-2: #d1d9e6;
+@gray: rgb(199, 199, 199);
+@light_gray: #efefef;
+@text_gray: #505050;
+@blue: #557ffc;
+
+.groupLists {
+  width: 670px;
+  height: 99.7%;
+  position: fixed;
+  top: 0;
+  right: 2px;
+  box-shadow: 1px 0 5px @neu-2;
+  background-color: @white;
+  padding: 40px 60px;
+
+  & header {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+    & img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    & div {
+      position: relative;
+      top: 20px;
+      left: 15px;
+
+      & p:nth-child(1) {
+        width: 420px;
+        font-size: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-bottom: 10px;
+      }
+
+      & p:nth-child(2) {
+        font-size: 13px;
+        color: @text_gray;
+      }
+    }
+  }
+
+  & main {
+    padding: 0 10px;
+
+    & div {
+      display: flex;
+      flex-direction: row;
+
+      & .el-icon {
+        margin-right: 10px;
+      }
+    }
+
+    & .dataBoard {
+      & div:nth-child(2) {
+        margin-left: auto;
+        cursor: pointer;
+
+        & p {
+          width: 300px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-align: right;
+        }
+
+        & .el-icon {
+          position: relative;
+          top: 4px;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    & .user {
+      display: flex;
+      flex-direction: column;
+
+      & div:nth-child(2) {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+
+        & img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+
+        & > img:not(:last-child) {
+          margin-right: 4px;
+        }
+      }
+    }
+
+    & .pieChart {
+      display: flex;
+      flex-direction: column;
+
+      & div:nth-child(1) {
+        margin-bottom: 10px;
+
+        & p {
+          position: relative;
+          bottom: 1px;
+        }
+      }
+
+      & div:nth-child(2) {
+        & .el-progress {
+          width: 120px;
+          height: 120px;
+
+          & .percentage-value {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 10px;
+          }
+
+          & .percentage-label {
+            font-size: 13px;
+            display: block;
+          }
+        }
+
+        & > .el-progress:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    & > div:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  & footer {
+    position: relative;
+    top: 20px;
+
+    & .el-button {
+      width: 130px;
+      letter-spacing: 2px;
+      position: relative;
+      left: 200px;
+    }
+  }
+}

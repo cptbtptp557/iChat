@@ -1,9 +1,11 @@
 import friendNotification from "../../friendNotifications/friendNotifications.vue";
 import groupChatNotification from "../../groupChatNotifications/groupChatNotifications.vue";
 import friendsList from "../friendsLists/friendsLists.vue";
+import theGroupLists from "../groupLists/groupLists.vue";
+import raidenShogun from "../../raidenShogun/raidenShogun.vue";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
-import {nextTick, onMounted, ref} from "vue";
+import {nextTick, onDeactivated, onMounted, ref} from "vue";
 
 export const allFriends = () => {
     const search_friend = ref(); // 好友搜索框
@@ -28,6 +30,9 @@ export const allFriends = () => {
     };
 
     const changeOptions = () => {
+        changeAllFriendsShowComponents(raidenShogun);
+        change_color.value = '';
+
         if (this_options.value === "好友") {
             getFriendsLists();
         } else if (this_options.value === "群聊") {
@@ -36,10 +41,12 @@ export const allFriends = () => {
     };
 
     const friendNotifications = () => {
+        change_color.value = '';
         changeAllFriendsShowComponents(friendNotification);
     };
 
     const groupChatNotifications = () => {
+        change_color.value = '';
         changeAllFriendsShowComponents(groupChatNotification);
     };
 
@@ -54,6 +61,12 @@ export const allFriends = () => {
             changeAllFriendsShowComponents(friendsList);
         })
     };
+
+    const groupLists = (lists: any, index: number) => {
+        change_color.value = index;
+        usersLists().thisUserGroupLists = lists;
+        changeAllFriendsShowComponents(theGroupLists);
+    }
 
     const getFriendsLists = () => {
         api().getFriendsLists(usersLists().thisUserAccount)
@@ -71,14 +84,16 @@ export const allFriends = () => {
     const getGroupLists = () => {
         api().allInsideGroupLists(thisUserAccount)
             .then(lists => {
-                all_group_data.value = lists.data.group_data
-                console.log(all_group_data.value)
+                all_group_data.value = lists.data.group_data;
             }).catch(console.error);
     }
 
     onMounted(() => {
-        // changeOptions();
-        getFriendsLists()
+        changeOptions();
+    });
+
+    onDeactivated(() => {
+        change_color.value = '';
     });
 
     return {
@@ -90,6 +105,7 @@ export const allFriends = () => {
         friendNotifications,
         groupChatNotifications,
         friendLists,
+        groupLists,
         friends_number,
         friends_lists,
         change_color,

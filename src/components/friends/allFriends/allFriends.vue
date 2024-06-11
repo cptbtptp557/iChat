@@ -57,7 +57,9 @@
         <div class="group_chats"
              v-for=" (group_data, index2) in all_group_data"
              :key="index2"
-             v-else-if="this_options === '群聊'">
+             v-else-if="this_options === '群聊'"
+             @click="groupLists(group_data[0], index2)"
+             :style="{backgroundColor: change_color === index2?'#e8e8e8': ''}">
           <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
           <p>{{ group_data[0].group_name }}</p>
         </div>
@@ -79,6 +81,7 @@ const {
   friendNotifications,
   groupChatNotifications,
   friendLists,
+  groupLists,
   friends_number,
   friends_lists,
   change_color,

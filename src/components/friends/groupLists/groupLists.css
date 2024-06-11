@@ -1,0 +1,121 @@
+.groupLists {
+  width: 670px;
+  height: 99.7%;
+  position: fixed;
+  top: 0;
+  right: 2px;
+  box-shadow: 1px 0 5px #d1d9e6;
+  background-color: #f9f9f9;
+  padding: 40px 60px;
+}
+.groupLists header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+.groupLists header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.groupLists header div {
+  position: relative;
+  top: 20px;
+  left: 15px;
+}
+.groupLists header div p:nth-child(1) {
+  width: 420px;
+  font-size: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
+.groupLists header div p:nth-child(2) {
+  font-size: 13px;
+  color: #505050;
+}
+.groupLists main {
+  padding: 0 10px;
+}
+.groupLists main div {
+  display: flex;
+  flex-direction: row;
+}
+.groupLists main div .el-icon {
+  margin-right: 10px;
+}
+.groupLists main .dataBoard div:nth-child(2) {
+  margin-left: auto;
+  cursor: pointer;
+}
+.groupLists main .dataBoard div:nth-child(2) p {
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
+.groupLists main .dataBoard div:nth-child(2) .el-icon {
+  position: relative;
+  top: 4px;
+  margin-left: 5px;
+}
+.groupLists main .user {
+  display: flex;
+  flex-direction: column;
+}
+.groupLists main .user div:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+.groupLists main .user div:nth-child(2) img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.groupLists main .user div:nth-child(2) > img:not(:last-child) {
+  margin-right: 4px;
+}
+.groupLists main .pieChart {
+  display: flex;
+  flex-direction: column;
+}
+.groupLists main .pieChart div:nth-child(1) {
+  margin-bottom: 10px;
+}
+.groupLists main .pieChart div:nth-child(1) p {
+  position: relative;
+  bottom: 1px;
+}
+.groupLists main .pieChart div:nth-child(2) .el-progress {
+  width: 120px;
+  height: 120px;
+}
+.groupLists main .pieChart div:nth-child(2) .el-progress .percentage-value {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 10px;
+}
+.groupLists main .pieChart div:nth-child(2) .el-progress .percentage-label {
+  font-size: 13px;
+  display: block;
+}
+.groupLists main .pieChart div:nth-child(2) > .el-progress:not(:last-child) {
+  margin-right: 10px;
+}
+.groupLists main > div:not(:last-child) {
+  margin-bottom: 20px;
+}
+.groupLists footer {
+  position: relative;
+  top: 20px;
+}
+.groupLists footer .el-button {
+  width: 130px;
+  letter-spacing: 2px;
+  position: relative;
+  left: 200px;
+}
+/*# sourceMappingURL=groupLists.css.map */

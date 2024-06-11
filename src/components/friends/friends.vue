@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import allFriends from "./allFriends/allFriends.vue";
-import {usersLists} from "../../pinia/usersLists.ts";
+import {usersLists} from "../../pinia/usersLists";
 </script>
 
 <style scoped>

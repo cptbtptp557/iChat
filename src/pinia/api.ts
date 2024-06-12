@@ -175,6 +175,14 @@ export const api = defineStore('api', () => {
         })
     }
 
+    const groupUserData = async (gid: number) => {
+        return await axios.get('http://127.0.0.1:3000/groupUserData', {
+            params: {
+                'gid': gid,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
@@ -192,5 +200,6 @@ export const api = defineStore('api', () => {
         agreeGroupAdd,
         refuseGroupAdd,
         allInsideGroupLists,
+        groupUserData,
     }
 })

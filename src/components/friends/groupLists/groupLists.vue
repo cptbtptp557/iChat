@@ -3,8 +3,8 @@
     <header>
       <img src="../../../../public/chat-avatar/from-user.png" alt="群聊头像">
       <div>
-        <p>{{ group_lists.group_name }}</p>
-        <p>gId: {{ group_lists.gId }}</p>
+        <p>{{ group_lists[0].group_name }}</p>
+        <p>gId: {{ group_lists[0].gId }}</p>
       </div>
     </header>
     <el-divider/>
@@ -17,7 +17,7 @@
           <p>群公告</p>
         </div>
         <div @click="showAnnouncement">
-          <p>{{ group_lists.group_announcement }}</p>
+          <p>{{ group_lists[0].group_announcement }}</p>
           <el-icon color="#9a9898">
             <ArrowRight/>
           </el-icon>
@@ -28,10 +28,10 @@
           <el-icon size="20">
             <User/>
           </el-icon>
-          <p>群成员(114514人)</p>
+          <p>群成员({{group_lists[1].length}}人)</p>
         </div>
         <div>
-          <img v-for="a in 12" src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+          <img v-for="group_user in group_lists[1]" src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
         </div>
       </div>
       <div class="pieChart">

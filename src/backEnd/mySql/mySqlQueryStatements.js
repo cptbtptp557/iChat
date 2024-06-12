@@ -26,7 +26,7 @@ const mySqlQueryStatements = () => {
     const friend_add_group = (gid, iid) => "insert into groupmembers(gid, iid) values (" + gid + ", " + iid + ")";
     const all_inside_group_lists = (iid) => "select gid from groupmembers where iid = " + iid;
     const get_group_data = (gid) => "select * from grouplists where gId = " + gid;
-    const get_group_user_data = (gid) => "select * from groupmembers where gid = " + gid;
+    const get_group_user_data = (gid) => "select iid from groupmembers where gid = " + gid;
 
     return {
         getUserListsToiId_sql,

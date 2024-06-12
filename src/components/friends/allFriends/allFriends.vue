@@ -60,7 +60,7 @@
              v-else-if="this_options === '群聊'"
              @click="groupLists(group_data[0], index2)"
              :style="{backgroundColor: change_color === index2?'#e8e8e8': ''}">
-          <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
+          <img src="../../../../public/chat-avatar/from-user.png" alt="群聊头像">
           <p>{{ group_data[0].group_name }}</p>
         </div>
       </div>

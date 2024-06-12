@@ -275,9 +275,15 @@ app.get('/allInsideGroupLists', (req, res) => {
         }).catch(console.error);
 })
 
-app.get('/groupUserData', (req,res) => {
+app.get('/groupUserData', (req, res) => {
     const data = req.query;
-    
+    console.log(data);
+
+    sqlFunction(get_group_user_data(data.gid))
+        .then((group_user_data) => {
+            res.status(200).json({group_user_data});
+            console.log(group_user_data)
+        }).catch(console.error);
 })
 
 /*==================================    Socket.io   ==================================*/

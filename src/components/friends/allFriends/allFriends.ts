@@ -66,9 +66,12 @@ export const allFriends = () => {
         change_color.value = index;
         api().groupUserData(lists.gId)
             .then(data => {
-                usersLists().thisUserGroupLists = [lists, data.data.group_user_data];
+                usersLists().thisUserGroupLists = [lists, data.data];
+            })
+            .then(() => {
                 changeAllFriendsShowComponents(theGroupLists);
-            }).catch(console.error);
+            })
+            .catch(console.error);
     }
 
     const getFriendsLists = () => {

@@ -17,13 +17,14 @@ export const groupLists = () => {
     }
 
     const getGroupLists = () => {
+        const man_mun: number = group_user_lists.value.filter((user: any): boolean => user.gender === '男').length;
+        const online_mun: number = group_user_lists.value.filter((user: any): boolean => user.onlinepresence === "1").length;
+        const year_mun: number = group_user_lists.value.filter((user: any): boolean => new Date(user.birthday).getFullYear() > 2000).length;
+
         group_lists.value = usersLists().thisUserGroupLists[0];
         group_user_lists.value = usersLists().thisUserGroupLists[1].flattenedUserLists;
-        const man_mun = group_user_lists.value.filter((user: any) => user.gender === '男').length;
         man_percentage.value = Math.floor((man_mun / group_user_lists.value.length) * 100);
-        const online_mun = group_user_lists.value.filter((user: any) => user.onlinepresence === "1").length;
         online_percentage.value = Math.floor((online_mun / group_user_lists.value.length) * 100);
-        const year_mun = group_user_lists.value.filter((user: any) => new Date(user.birthday).getFullYear() > 2000).length;
         year_percentage.value = Math.floor((year_mun / group_user_lists.value.length) * 100);
     }
 

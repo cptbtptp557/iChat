@@ -1,7 +1,7 @@
 <template>
   <div class="thisOutside">
     <header>
-      <h4>聊天对象</h4>
+      <h4>聊天对象昵称</h4>
       <div class="shat_control">
         <el-tooltip
             class="box-item"
@@ -91,7 +91,8 @@
         <div>
           <div>
             <p>发出方用户</p>
-            <p>发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
+            <p>
+              发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
           </div>
           <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
         </div>
@@ -130,7 +131,7 @@
           </el-icon>
         </el-tooltip>
       </div>
-      <textarea v-model="content"/>
+      <textarea maxlength="495" v-model="content"/>
       <el-button type="primary" :disabled="!button_disabled" :icon="Position" class="send_box">发送</el-button>
     </footer>
     <el-drawer

@@ -94,6 +94,13 @@ export const homeChatBar = () => {
                 else content.value = content.value.slice(0, start) + message + content.value.slice(start);
             })
     }
+    document.addEventListener("click", () => {
+        const paste_button = document.getElementById("paste") as HTMLElement;
+        const copy_button = document.getElementById("copy") as HTMLElement;
+
+        paste_button.style.display = "none";
+        copy_button.style.display = "none";
+    })
 
     watch(content, (): void => {
         button_disabled.value = content.value !== "";

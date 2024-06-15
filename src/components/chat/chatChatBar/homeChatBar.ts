@@ -90,11 +90,8 @@ export const homeChatBar = () => {
         await navigator.clipboard.readText()
             .then((message) => {
                 paste_button.style.display = "none";
-                if (!content.value) {
-                    content.value = message;
-                } else {
-                    content.value = content.value.slice(0, start) + message + content.value.slice(start);
-                }
+                if (!content.value) content.value = message;
+                else content.value = content.value.slice(0, start) + message + content.value.slice(start);
             })
     }
 

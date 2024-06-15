@@ -45,6 +45,8 @@
         </el-tooltip>
       </div>
     </header>
+    <p class="copy_paste" id="copy">复制</p>
+    <p class="copy_paste" id="paste" @click="paste">粘贴</p>
     <el-divider style="position: absolute; top: 15px"/>
     <div id="dialogBox" class="dialog_box">
       <div class="to_user">
@@ -52,7 +54,7 @@
           <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
           <div>
             <p>接收方用户</p>
-            <p>
+            <p @contextmenu.prevent="copyText">
               发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容
             </p>
           </div>
@@ -62,7 +64,7 @@
         <div>
           <div>
             <p>发出方用户</p>
-            <p>发出的内容</p>
+            <p @contextmenu.prevent="copyText">发出的内容</p>
           </div>
           <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
         </div>
@@ -72,28 +74,27 @@
           <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
           <div>
             <p>接收方用户</p>
-            <p>
-              发出的内容
+            <p @contextmenu.prevent="copyText">发出的内容</p>
+          </div>
+        </div>
+      </div>
+      <div class="to_user">
+        <div>
+          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+          <div>
+            <p>接收方用户</p>
+            <p @contextmenu.prevent="copyText">发出的内容</p>
+          </div>
+        </div>
+      </div>
+      <div class="from_user">
+        <div>
+          <div>
+            <p>发出方用户</p>
+            <p @contextmenu.prevent="copyText">
+              发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容
             </p>
           </div>
-        </div>
-      </div>
-      <div class="to_user">
-        <div>
-          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-          <div>
-            <p>接收方用户</p>
-            <p>发出的内容</p>
-          </div>
-        </div>
-      </div>
-      <div class="from_user">
-        <div>
-          <div>
-            <p>发出方用户</p>
-            <p>
-              发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容</p>
-          </div>
           <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
         </div>
       </div>
@@ -101,7 +102,7 @@
         <div>
           <div>
             <p>发出方用户</p>
-            <p>发出的内容</p>
+            <p @contextmenu.prevent="copyText">发出的内容</p>
           </div>
           <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
         </div>
@@ -110,29 +111,47 @@
     <el-divider style="position: absolute; bottom: 200px"/>
     <footer>
       <div class="shat_control">
-        <el-tooltip
-            class="box-item"
-            effect="dark"
-            content="图片"
-            placement="bottom-start"
-        >
-          <el-icon size="20">
-            <Picture/>
-          </el-icon>
-        </el-tooltip>
-        <el-tooltip
-            class="box-item"
-            effect="dark"
-            content="文件"
-            placement="bottom"
-        >
-          <el-icon size="20">
-            <Files/>
-          </el-icon>
-        </el-tooltip>
+        <label>
+          <el-tooltip
+              class="box-item"
+              effect="dark"
+              content="图片"
+              placement="bottom-start"
+          >
+            <el-icon size="20">
+              <Picture/>
+            </el-icon>
+          </el-tooltip>
+          <input type="file" accept="image/*" style="display: none">
+        </label>
+        <label>
+          <el-tooltip
+              class="box-item"
+              effect="dark"
+              content="文件"
+              placement="bottom"
+          >
+            <el-icon size="20">
+              <Files/>
+            </el-icon>
+          </el-tooltip>
+          <input type="file"
+                 style="display: none"
+                 accept=".txt,.mp4,.zip,.rar,.ppt,.pptx,.pdf,.json,.xlsx,.xls,.docx,.doc,.rtf"/>
+        </label>
       </div>
-      <textarea maxlength="495" v-model="content"/>
-      <el-button type="primary" :disabled="!button_disabled" :icon="Position" class="send_box">发送</el-button>
+      <textarea id="textarea" maxlength="500" v-model="content" @contextmenu.prevent="pasteText"/>
+      <el-button type="primary" :disabled="!button_disabled" :icon="Position" class="send_box">
+        发送
+      </el-button>
+      <el-alert title="复制成功 ! ! !"
+                show-icon
+                type="success"
+                :closable="false"
+                center
+                class="copy_success"
+                v-show="copy_success"
+      />
     </footer>
     <el-drawer
         v-model="more_window"
@@ -310,6 +329,10 @@ const {
   inviteUsersLists,
   look_more_group_users,
   look_more_group_users_inquire,
+  copyText,
+  pasteText,
+  paste,
+  copy_success,
 } = homeChatBar();
 </script>
 

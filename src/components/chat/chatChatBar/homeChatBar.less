@@ -4,6 +4,7 @@
 @light_gray: #efefef;
 @text_gray: #505050;
 @blue: #557ffc;
+@selection_green: #e5ffde;
 
 .thisOutside {
   width: 690px;
@@ -43,6 +44,26 @@ header {
         transform: scale(.9);
       }
     }
+  }
+}
+
+.copy_paste {
+  width: 50px;
+  padding: 3px 0 6px 3px;
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 3px;
+  border: 1.5px solid @gray;
+  border-radius: 3px;
+  background-color: @light_gray;
+  box-shadow: 0 0 10px 1px @gray;
+  display: none;
+  position: fixed;
+  z-index: 100;
+  cursor: pointer;
+
+  &:active {
+    background-color: #dedede;
   }
 }
 
@@ -112,6 +133,12 @@ header {
           font-size: 14px;
           letter-spacing: .5px;
           text-align: left;
+          user-select: text;
+
+          &::selection {
+            background-color: @selection_green;
+            color: #000;
+          }
         }
       }
     }
@@ -162,6 +189,12 @@ header {
           font-size: 14px;
           letter-spacing: .5px;
           text-align: left;
+          user-select: text;
+
+          &::selection {
+            background-color: @selection_green;
+            color: #000;
+          }
         }
       }
     }
@@ -190,7 +223,7 @@ footer {
   }
 
   & textarea {
-    width: 665px;
+    width: 655px;
     height: 140px;
     resize: none;
     font-family: 'Montserrat', sans-serif;
@@ -200,6 +233,7 @@ footer {
     margin: 5px 0 0 5px;
     overflow: auto;
     letter-spacing: 1px;
+    font-size: 15px;
 
     &::-webkit-scrollbar {
       width: 10px;
@@ -709,6 +743,15 @@ footer {
       }
     }
   }
+}
+
+.copy_success {
+  width: 180px;
+  position: fixed;
+  top: 10px;
+  left: 550px;
+  z-index: 100;
+  transition: 1s;
 }
 
 // 修改Element-plus组件样式

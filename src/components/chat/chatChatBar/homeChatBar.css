@@ -32,6 +32,24 @@ header .shat_control .el-icon:hover {
 header .shat_control .el-icon:active {
   transform: scale(0.9);
 }
+.copy_paste {
+  width: 50px;
+  padding: 3px 0 6px 3px;
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 3px;
+  border: 1.5px solid #c7c7c7;
+  border-radius: 3px;
+  background-color: #efefef;
+  box-shadow: 0 0 10px 1px #c7c7c7;
+  display: none;
+  position: fixed;
+  z-index: 100;
+  cursor: pointer;
+}
+.copy_paste:active {
+  background-color: #dedede;
+}
 .dialog_box {
   height: 389px;
   padding: 0 10px 10px 10px;
@@ -93,6 +111,11 @@ header .shat_control .el-icon:active {
   font-size: 14px;
   letter-spacing: 0.5px;
   text-align: left;
+  user-select: text;
+}
+.dialog_box .to_user div div p:nth-child(2)::selection {
+  background-color: #e5ffde;
+  color: #000;
 }
 .dialog_box .from_user {
   position: relative;
@@ -137,6 +160,11 @@ header .shat_control .el-icon:active {
   font-size: 14px;
   letter-spacing: 0.5px;
   text-align: left;
+  user-select: text;
+}
+.dialog_box .from_user div div p:nth-child(2)::selection {
+  background-color: #e5ffde;
+  color: #000;
 }
 footer {
   width: 665px;
@@ -155,7 +183,7 @@ footer .shat_control .el-icon:active {
   transform: scale(0.9);
 }
 footer textarea {
-  width: 665px;
+  width: 655px;
   height: 140px;
   resize: none;
   font-family: 'Montserrat', sans-serif;
@@ -165,6 +193,7 @@ footer textarea {
   margin: 5px 0 0 5px;
   overflow: auto;
   letter-spacing: 1px;
+  font-size: 15px;
 }
 footer textarea::-webkit-scrollbar {
   width: 10px;
@@ -582,6 +611,14 @@ footer .send_box:active {
 }
 .look_more_group_users main ul li:last-child {
   margin-bottom: 0;
+}
+.copy_success {
+  width: 180px;
+  position: fixed;
+  top: 10px;
+  left: 550px;
+  z-index: 100;
+  transition: 1s;
 }
  /deep/ .el-drawer.rtl {
   background-color: #efefef;

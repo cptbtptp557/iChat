@@ -127,13 +127,28 @@
       </el-dialog>
     </header>
     <div class="chat_friends">
-      <div class="friends" v-for="friends in 10" :key="friends">
+      <div class="friends"
+           v-for="(friends,index) in friendsChatUserData?.friendChatUserData"
+           :key="index"
+           @click="getAllMessage(friends.from_iid, friends.to_iid)">
         <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
         <div class="information">
-          <p>接收方用户</p>
-          <p>今天</p>
-          <p>接收的消息</p>
-          <el-badge :value="10" :max="99" class="el-badge"/>
+          <p>{{ friendsChatUserData.flattenedUserLists[index].nickname }}</p>
+          <p>{{
+              (new Date(friends.send_time) >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) &&
+                  new Date(friends.send_time) <= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 999)) ?
+                  friends.send_time.match(/(\d{2}):\d{2}/)[0] :
+                  (new Date(friends.send_time) >= new Date(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime() - 86400000) &&
+                      new Date(friends.send_time) <= new Date(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime() - 1)) ?
+                      '昨天' :
+                      friends.send_time.match(/^\d{4}\/\d{2}\/\d{2}/)[0]
+            }}</p>
+          <p>{{ friends.message }}</p>
+          <el-badge
+              :value="friends.status_num"
+              :max="99"
+              :offset="[-1,-3]"
+              class="el-badge"/>
         </div>
       </div>
     </div>
@@ -208,6 +223,8 @@ const {
   addFriendFrame,
   inquire,
   createGroupSure,
+  friendsChatUserData,
+  getAllMessage,
 } = homeFriendsBar();
 </script>
 

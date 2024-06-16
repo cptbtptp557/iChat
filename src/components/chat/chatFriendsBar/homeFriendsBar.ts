@@ -20,9 +20,10 @@ export const homeFriendsBar = () => {
     const this_user_friends = ref(); // 当前账户拥有的好友
     const selected_users = ref(); // 邀请加入群聊的好友
     const loading = ref(false);
+    const friendsChatUserData = ref(); // 聊天好友列表
 
     const {addUser_mankind, addUser_group, create_new_group} = classLists();
-    const {getUserLists, getFriendsLists, createGroup} = api();
+    const {getUserLists, getFriendsLists, createGroup, getFriendChatUserData} = api();
 
     let timer: any;
     const find = () => {
@@ -158,6 +159,14 @@ export const homeFriendsBar = () => {
             })
     }
 
+    const getAllMessage = (thisAccountId: number, to_iid: number) => {
+        const thisUserId: number = (usersLists().thisUserAccount >>> 0);
+        const thisChatFriendId: number = thisUserId === thisAccountId ? to_iid : thisAccountId;
+
+        socket.emit("chatUsersIds", {thisUserId, thisChatFriendId})
+        console.log(thisUserId, thisChatFriendId)
+    }
+
     watch(find_logotype, () => {
         if (find_logotype.value === '') query_results.value = '';
     });
@@ -169,6 +178,24 @@ export const homeFriendsBar = () => {
                 }).catch(console.error);
         }
     });
+
+    socket.on("friendChatUserData", (thisAccountId) => {
+        getFriendChatUserData(thisAccountId)
+            .then((friendChatUserData) => {
+                friendsChatUserData.value = friendChatUserData.data;
+                console.log(friendsChatUserData.value)
+
+                let groupedMessages: any[] = [];
+                friendsChatUserData.value.unreadNum.forEach((message: any) => {
+                    if (!groupedMessages[message.to_iid]) groupedMessages[message.to_iid] = [];
+                    groupedMessages[message.to_iid].push(message);
+                })
+
+                friendsChatUserData.value.friendChatUserData.forEach((item: any) => {
+                    item.status_num = groupedMessages[item.to_iid]?.length;
+                })
+            })
+    })
 
     return {
         add_friend,
@@ -193,5 +220,7 @@ export const homeFriendsBar = () => {
         addFriendFrame,
         inquire,
         createGroupSure,
+        friendsChatUserData,
+        getAllMessage,
     }
 }

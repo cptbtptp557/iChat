@@ -27,6 +27,10 @@ const mySqlQueryStatements = () => {
     const all_inside_group_lists = (iid) => "select gid from groupmembers where iid = " + iid;
     const get_group_data = (gid) => "select * from grouplists where gId = " + gid;
     const get_group_user_data = (gid) => "select iid from groupmembers where gid = " + gid;
+    const add_friend_chat_message = (from_iid, to_iid, message, reading_status, send_time) => "insert into friendchatmessage(from_iid, to_iid, message, reading_status, send_time) values (" + from_iid + "," + to_iid + ",'" + message + "', " + reading_status + ",'" + send_time + "' )";
+    const get_friend_chat_user_data = (account_iid) => "with RankedMessages as ( select *, row_number() over(partition by to_iid order by send_time desc) as rn from friendchatmessage where from_iid = " + account_iid + " or to_iid = " + account_iid + ") select * from RankedMessages where rn = 1 order by send_time desc;";
+    const get_friend_chat_message = (from_iid, to_iid, records_num) => "select * from friendchatmessage where from_iid = " + from_iid + " and to_iid = " + to_iid + " order by send_time asc limit " + records_num;
+    const get_reading_start_lists = (from_iid) => "select * from friendchatmessage where reading_status = 0 and from_iid = " + from_iid;
 
     return {
         getUserListsToiId_sql,
@@ -50,6 +54,10 @@ const mySqlQueryStatements = () => {
         all_inside_group_lists,
         get_group_data,
         get_group_user_data,
+        add_friend_chat_message,
+        get_friend_chat_user_data,
+        get_friend_chat_message,
+        get_reading_start_lists,
     }
 };
 

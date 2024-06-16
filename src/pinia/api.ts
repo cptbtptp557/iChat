@@ -175,10 +175,20 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 获取群聊成员信息
     const groupUserData = async (gid: number) => {
         return await axios.get('http://127.0.0.1:3000/groupUserData', {
             params: {
                 'gid': gid,
+            }
+        })
+    }
+
+    // 获取好友聊天列表数据
+    const getFriendChatUserData = async (account_iid: number) => {
+        return await axios.get('http://127.0.0.1:3000/getFriendChatUserData', {
+            params: {
+                'account_iid': account_iid
             }
         })
     }
@@ -201,5 +211,6 @@ export const api = defineStore('api', () => {
         refuseGroupAdd,
         allInsideGroupLists,
         groupUserData,
+        getFriendChatUserData,
     }
 })

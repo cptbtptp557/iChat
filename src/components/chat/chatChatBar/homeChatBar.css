@@ -47,6 +47,9 @@ header .shat_control .el-icon:active {
   z-index: 100;
   cursor: pointer;
 }
+.copy_paste:hover {
+  background-color: #e3e3e3;
+}
 .copy_paste:active {
   background-color: #dedede;
 }

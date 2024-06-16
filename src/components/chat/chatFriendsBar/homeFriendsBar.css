@@ -217,11 +217,12 @@ header .add {
   flex-direction: column;
   align-items: stretch;
   position: relative;
-  top: -55px;
+  top: -50px;
   left: 60px;
 }
 .chat_friends .friends .information > p:first-of-type {
   position: relative;
+  letter-spacing: 1px;
 }
 .chat_friends .friends .information > p:nth-of-type(2) {
   position: relative;
@@ -234,8 +235,8 @@ header .add {
   width: 145px;
   height: 20px;
   position: relative;
-  top: -4px;
-  font-size: 14px;
+  top: -6px;
+  font-size: 12px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

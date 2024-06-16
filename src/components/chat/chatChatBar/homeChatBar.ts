@@ -1,6 +1,9 @@
 import {h, onActivated, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
+import {classLists} from "../../../class";
 import {ElNotification} from "element-plus";
+import {usersLists} from "../../../pinia/usersLists.ts";
+import socket from "../../../socket";
 
 export const homeChatBar = () => {
     const content = ref(); // 输入内容
@@ -19,6 +22,7 @@ export const homeChatBar = () => {
     const paste_message = ref(); // 粘贴板内容
 
     const {group_state} = groupData();
+    const {friend_chat_message} = classLists();
 
     // 打开语音通话界面
     const openVoiceCallWindow = (): void => {
@@ -94,12 +98,29 @@ export const homeChatBar = () => {
                 else content.value = content.value.slice(0, start) + message + content.value.slice(start);
             })
     }
+
     document.addEventListener("click", () => {
         const paste_button = document.getElementById("paste") as HTMLElement;
         const copy_button = document.getElementById("copy") as HTMLElement;
 
         paste_button.style.display = "none";
         copy_button.style.display = "none";
+    })
+
+    const sendMessage = (): void => {
+        const message = new friend_chat_message(usersLists().thisUserAccount, 10005, content.value)
+
+        socket.emit("sendFriendMessage", message);
+        content.value = "";
+    }
+
+    socket.on("sendFriendMessage", (message: any): void => {
+        console.log(message)
+    })
+
+    socket.on("chatUsersIds", (thisAccountId: any): void => {
+        console.log(thisAccountId)
+
     })
 
     watch(content, (): void => {
@@ -109,7 +130,8 @@ export const homeChatBar = () => {
     onActivated(() => {
         const dialogBox = document.getElementById("dialogBox") as HTMLElement;
 
-        dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'})
+        dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
+        console.log(usersLists().thisUserAccount)
     });
 
     return {
@@ -137,5 +159,6 @@ export const homeChatBar = () => {
         pasteText,
         paste,
         copy_success,
+        sendMessage,
     }
 }

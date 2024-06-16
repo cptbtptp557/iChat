@@ -3,7 +3,11 @@ export const classLists = () => {
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
     let date = now.getDate();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let second = now.getSeconds();
     let formattedDate = `${year}/${('0' + month).slice(-2)}/${('0' + date).slice(-2)}`;
+    let messageDate = `${formattedDate} ${hours >= 10 ? hours : "0" + hours}:${minutes >= 10 ? minutes : "0" + minutes}:${second >= 10 ? second : "0" + second}`
 
     // 添加好友、创建群聊
     class addUser_mankind {
@@ -60,9 +64,27 @@ export const classLists = () => {
         }
     }
 
+    // 好友消息信息
+    class friend_chat_message {
+        from_iid: number;
+        to_iid: number;
+        message: any;
+        reading_status: number;
+        send_time: string;
+
+        constructor(from_iid: number, to_iid: number, message: any) {
+            this.from_iid = from_iid;
+            this.to_iid = to_iid;
+            this.message = message;
+            this.reading_status = 0;
+            this.send_time = messageDate;
+        }
+    }
+
     return {
         addUser_mankind,
         addUser_group,
         create_new_group,
+        friend_chat_message,
     }
 }

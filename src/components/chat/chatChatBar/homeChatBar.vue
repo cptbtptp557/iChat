@@ -141,7 +141,11 @@
         </label>
       </div>
       <textarea id="textarea" maxlength="500" v-model="content" @contextmenu.prevent="pasteText"/>
-      <el-button type="primary" :disabled="!button_disabled" :icon="Position" class="send_box">
+      <el-button type="primary"
+                 :disabled="!button_disabled"
+                 :icon="Position"
+                 class="send_box"
+                 @click="sendMessage">
         发送
       </el-button>
       <el-alert title="复制成功 ! ! !"
@@ -333,6 +337,7 @@ const {
   pasteText,
   paste,
   copy_success,
+  sendMessage,
 } = homeChatBar();
 </script>
 

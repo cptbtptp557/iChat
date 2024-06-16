@@ -36,6 +36,10 @@ const {
     all_inside_group_lists,
     get_group_data,
     get_group_user_data,
+    add_friend_chat_message,
+    get_friend_chat_user_data,
+    get_friend_chat_message,
+    get_reading_start_lists,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -275,9 +279,10 @@ app.get('/allInsideGroupLists', (req, res) => {
         }).catch(console.error);
 })
 
+// 获取群聊成员信息
 app.get('/groupUserData', (req, res) => {
     const data = req.query;
-    let userLists = [];
+    const userLists = [];
 
     sqlFunction(get_group_user_data(data.gid))
         .then((group_user_data) => {
@@ -294,6 +299,39 @@ app.get('/groupUserData', (req, res) => {
         }).catch(console.error);
 })
 
+// 获取好友聊天列表数据
+app.get('/getFriendChatUserData', (req, res) => {
+    const data = req.query;
+    const userLists = [];
+
+    sqlFunction(get_friend_chat_user_data(data.account_iid))
+        .then((friendChatUserData) => {
+            for (let i = 0; i < friendChatUserData.length; i++) {
+                for (let j = 0; j < friendChatUserData.length; j++) {
+                    if (friendChatUserData[i].to_iid === friendChatUserData[j].from_iid
+                        && friendChatUserData[i].from_iid === friendChatUserData[j].to_iid)
+                        friendChatUserData.splice(i > j ? i : j, 1);
+                }
+            }
+            console.log(data.account_iid)
+            sqlFunction(get_reading_start_lists(data.account_iid))
+                .then((unreadNum) => {
+                    for (let i = 0; i < friendChatUserData.length; i++) {
+                        if (friendChatUserData[i].from_iid === (data.account_iid >>> 0))
+                            userLists.push(sqlFunction(getUserListsToiId_sql("totalusers", "iId", friendChatUserData[i].to_iid)));
+                        else userLists.push(sqlFunction(getUserListsToiId_sql("totalusers", "iId", friendChatUserData[i].from_iid)));
+                    }
+
+                    Promise.all(userLists)
+                        .then((thisUserLists) => {
+                            const flattenedUserLists = thisUserLists.map(lists => lists[0]);
+
+                            res.status(200).json({friendChatUserData, flattenedUserLists, unreadNum});
+                        })
+                }).catch(console.error);
+        }).catch(console.error);
+})
+
 /*==================================   Socket.io   ==================================*/
 let socket_users = {};
 
@@ -303,6 +341,7 @@ io.on('connection', socket => {
         socket_users[userId] = socket;
         socket.emit("login", socket.id);
         socket_users[userId].broadcast.emit("user_login", userId);
+        socket_users[userId].emit("friendChatUserData", userId);
     });
 
     socket.on("sign_out", async (userId) => {
@@ -310,7 +349,6 @@ io.on('connection', socket => {
     });
 
     socket.on("add", async (toUserLists) => {
-        console.log(toUserLists)
         if (toUserLists.to_iid) {
             if (socket_users[toUserLists.to_iid]) socket_users[toUserLists.to_iid].emit('add_lists', toUserLists);
 
@@ -331,6 +369,17 @@ io.on('connection', socket => {
             })
         }
     });
+
+    socket.on("sendFriendMessage", (message) => {
+        sqlFunction(add_friend_chat_message(message.from_iid, message.to_iid, message.message, message.reading_status, message.send_time))
+            .then(() => {
+                socket_users[message.to_iid].emit("sendFriendMessage", message);
+            }).catch(console.error);
+    })
+
+    socket.on("chatUsersIds", (chatUsersIds) => {
+        socket.emit()
+    })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);
     socket.on("disconnect", () => {

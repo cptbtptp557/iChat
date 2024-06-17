@@ -1,11 +1,15 @@
 <template>
   <homeFriendsBar></homeFriendsBar>
-  <chatChatBar></chatChatBar>
+  <KeepAlive>
+    <component :is="chat_page"></component>
+  </KeepAlive>
 </template>
 
 <script setup lang="ts">
-import chatChatBar from "./chatChatBar/homeChatBar.vue";
 import homeFriendsBar from "./chatFriendsBar/homeFriendsBar.vue";
+import {groupData} from "../../pinia/groupData.ts";
+
+const {chat_page} = groupData();
 </script>
 
 <style scoped>

@@ -145,7 +145,7 @@
             }}</p>
           <p>{{ friends.message }}</p>
           <el-badge
-              :value="friends.status_num"
+              :value="friendsChatUserData.unreadNum.length"
               :max="99"
               :offset="[-1,-3]"
               class="el-badge"/>

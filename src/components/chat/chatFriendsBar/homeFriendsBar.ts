@@ -1,10 +1,11 @@
 import {ref, watch} from "vue";
 import {classLists} from "../../../class";
 import {usersLists} from "../../../pinia/usersLists.ts";
+import {groupData} from "../../../pinia/groupData.ts";
 import {api} from "../../../pinia/api.ts";
 import {ElMessage, ElNotification} from 'element-plus';
 import socket from "../../../socket";
-
+import chatChatBar from "../chatChatBar/homeChatBar.vue";
 
 export const homeFriendsBar = () => {
     const add_friend = ref(false); // 添加好友框
@@ -165,6 +166,7 @@ export const homeFriendsBar = () => {
 
         socket.emit("chatUsersIds", {thisUserId, thisChatFriendId})
         console.log(thisUserId, thisChatFriendId)
+        groupData().chat_page.value = chatChatBar;
     }
 
     watch(find_logotype, () => {
@@ -183,16 +185,11 @@ export const homeFriendsBar = () => {
         getFriendChatUserData(thisAccountId)
             .then((friendChatUserData) => {
                 friendsChatUserData.value = friendChatUserData.data;
-                console.log(friendsChatUserData.value)
 
                 let groupedMessages: any[] = [];
                 friendsChatUserData.value.unreadNum.forEach((message: any) => {
                     if (!groupedMessages[message.to_iid]) groupedMessages[message.to_iid] = [];
                     groupedMessages[message.to_iid].push(message);
-                })
-
-                friendsChatUserData.value.friendChatUserData.forEach((item: any) => {
-                    item.status_num = groupedMessages[item.to_iid]?.length;
                 })
             })
     })

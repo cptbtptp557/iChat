@@ -193,6 +193,17 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 获取好友聊天记录
+    const getFriendChatMessage = async (from_iid: number, to_iid: number, chatMessageNum: number) => {
+        return await axios.get('http://127.0.0.1:3000/getFriendChatMessage', {
+            params: {
+                'from_iid': from_iid,
+                'to_iid': to_iid,
+                'chatMessageNum': chatMessageNum,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
@@ -212,5 +223,6 @@ export const api = defineStore('api', () => {
         allInsideGroupLists,
         groupUserData,
         getFriendChatUserData,
+        getFriendChatMessage,
     }
 })

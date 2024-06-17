@@ -48,7 +48,7 @@
     <p class="copy_paste" id="copy">复制</p>
     <p class="copy_paste" id="paste" @click="paste">粘贴</p>
     <el-divider style="position: absolute; top: 15px"/>
-    <div id="dialogBox" class="dialog_box">
+    <div id="dialogBox" class="dialog_box" ref="scroll_top_height" @scroll="scrollTopHeight">
       <div class="to_user">
         <div>
           <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
@@ -338,6 +338,8 @@ const {
   paste,
   copy_success,
   sendMessage,
+  scroll_top_height,
+  scrollTopHeight,
 } = homeChatBar();
 </script>
 

@@ -39,7 +39,7 @@ const {
     add_friend_chat_message,
     get_friend_chat_user_data,
     get_friend_chat_message,
-    get_reading_start_lists,
+    get_reading_status_lists,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -313,8 +313,8 @@ app.get('/getFriendChatUserData', (req, res) => {
                         friendChatUserData.splice(i > j ? i : j, 1);
                 }
             }
-            console.log(data.account_iid)
-            sqlFunction(get_reading_start_lists(data.account_iid))
+
+            sqlFunction(get_reading_status_lists(data.account_iid))
                 .then((unreadNum) => {
                     for (let i = 0; i < friendChatUserData.length; i++) {
                         if (friendChatUserData[i].from_iid === (data.account_iid >>> 0))
@@ -329,6 +329,17 @@ app.get('/getFriendChatUserData', (req, res) => {
                             res.status(200).json({friendChatUserData, flattenedUserLists, unreadNum});
                         })
                 }).catch(console.error);
+        }).catch(console.error);
+})
+
+// 获取好友聊天记录
+app.get('/getFriendChatMessage', (req, res) => {
+    const data = req.query;
+    console.log(data)
+
+    sqlFunction(get_friend_chat_message(data.from_iid, data.to_iid, data.chatMessageNum))
+        .then((allMessage) => {
+            res.status(200).json(allMessage);
         }).catch(console.error);
 })
 
@@ -378,7 +389,7 @@ io.on('connection', socket => {
     })
 
     socket.on("chatUsersIds", (chatUsersIds) => {
-        socket.emit()
+        socket_users[chatUsersIds.thisUserId].emit("chatUsersIds", chatUsersIds)
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

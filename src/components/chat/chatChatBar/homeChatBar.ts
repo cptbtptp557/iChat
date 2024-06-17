@@ -3,6 +3,7 @@ import {groupData} from "../../../pinia/groupData.ts";
 import {classLists} from "../../../class";
 import {ElNotification} from "element-plus";
 import {usersLists} from "../../../pinia/usersLists.ts";
+import {api} from "../../../pinia/api.ts";
 import socket from "../../../socket";
 
 export const homeChatBar = () => {
@@ -20,9 +21,13 @@ export const homeChatBar = () => {
     const look_more_group_users_inquire = ref(); // 更多群成员查询
     const copy_success = ref(false); // 复制成功告示
     const paste_message = ref(); // 粘贴板内容
+    const scroll_top_height = ref(); // 聊天框滚动条距顶部距离
+    const thisChatUsersIds = ref(); // 当前聊天双方iId
+    const allChatMessage = ref(); // 聊天记录
 
     const {group_state} = groupData();
     const {friend_chat_message} = classLists();
+    const {getFriendChatMessage} = api();
 
     // 打开语音通话界面
     const openVoiceCallWindow = (): void => {
@@ -114,13 +119,32 @@ export const homeChatBar = () => {
         content.value = "";
     }
 
+    const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number): void => {
+        getFriendChatMessage(from_iid, to_iid, chatMessageNum)
+            .then((allMessage) => {
+                console.log(allMessage.data)
+                allChatMessage.value = allMessage.data;
+            }).catch(console.error);
+    }
+
+    let chatMessageNum: number = 1;
+    const scrollTopHeight = (): void => {
+        const scrollTop = scroll_top_height.value.scrollTop;
+        if (scrollTop <= 0) {
+            chatMessageNum++
+            console.log('滚动条触顶了！', chatMessageNum);
+            getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 50)
+        }
+    }
+
     socket.on("sendFriendMessage", (message: any): void => {
         console.log(message)
     })
 
-    socket.on("chatUsersIds", (thisAccountId: any): void => {
-        console.log(thisAccountId)
-
+    socket.on("chatUsersIds", (chatUsersIds: any): void => {
+        thisChatUsersIds.value = chatUsersIds;
+        chatMessageNum = 1;
+        getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 50)
     })
 
     watch(content, (): void => {
@@ -131,7 +155,6 @@ export const homeChatBar = () => {
         const dialogBox = document.getElementById("dialogBox") as HTMLElement;
 
         dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
-        console.log(usersLists().thisUserAccount)
     });
 
     return {
@@ -160,5 +183,7 @@ export const homeChatBar = () => {
         paste,
         copy_success,
         sendMessage,
+        scroll_top_height,
+        scrollTopHeight,
     }
 }

@@ -24,6 +24,7 @@ export const homeFriendsBar = () => {
     const friendsChatUserData = ref(); // 聊天好友列表
     const user_background = ref(); // 被聊天对象背景颜色
     const unreadNum = ref(); // 未读消息数目
+    const this_chat_user_iId = ref(); // 当前聊天对象iId
 
     const {addUser_mankind, addUser_group, create_new_group} = classLists();
     const {getUserLists, getFriendsLists, createGroup, getFriendChatUserData} = api();
@@ -156,7 +157,7 @@ export const homeFriendsBar = () => {
             })
             .catch(() => {
                 ElNotification({
-                    title: '创建成功',
+                    title: '创建失败',
                     type: 'error',
                 })
             })
@@ -171,24 +172,27 @@ export const homeFriendsBar = () => {
         groupData().chat_page.value = chatChatBar;
         groupData().this_chat_friend_lists.value = friends_lists;
 
-        console.log(friendsChatUserData.value)
-        // getFriendChatUserData((thisAccountId >>> 0))
-        //     .then((friendChatUserData_two) => {
-        //         friendsChatUserData.value = friendChatUserData_two.data;
-        //
-        //         const unReadCount = new Map();
-        //
-        //         friendsChatUserData.value.unreadNum.forEach((message: any) => {
-        //             if (!unReadCount.has(message.from_iid))
-        //                 unReadCount.set(message.from_iid, 1);
-        //             else {
-        //
-        //                 let count: number = unReadCount.get(message.from_iid);
-        //                 unReadCount.set(message.from_iid, ++count)
-        //             }
-        //         });
-        //         unreadNum.value = unReadCount;
-        //     })
+        this_chat_user_iId.value = to_iid;
+        unreadNum.value.set(to_iid, []);
+    }
+
+    const getAboutMessageData = (account_iId: number) => {
+        getFriendChatUserData(account_iId)
+            .then((friendChatUserData_one) => {
+                friendsChatUserData.value = friendChatUserData_one.data;
+
+                const unReadCount = new Map();
+
+                friendsChatUserData.value.unreadNum.forEach((message: any) => {
+                    if (!unReadCount.has(message.from_iid)) {
+                        unReadCount.set(message.from_iid, 1);
+                    } else {
+                        let count: number = unReadCount.get(message.from_iid);
+                        unReadCount.set(message.from_iid, ++count)
+                    }
+                });
+                unreadNum.value = unReadCount;
+            })
     }
 
     watch(find_logotype, () => {
@@ -204,43 +208,17 @@ export const homeFriendsBar = () => {
     });
 
     socket.on("friendChatUserData", (thisAccountId) => {
-        getFriendChatUserData(thisAccountId)
-            .then((friendChatUserData_one) => {
-                friendsChatUserData.value = friendChatUserData_one.data;
-
-                const unReadCount = new Map();
-
-                friendsChatUserData.value.unreadNum.forEach((message: any) => {
-                    if (!unReadCount.has(message.from_iid))
-                        unReadCount.set(message.from_iid, 1);
-                    else {
-                        let count: number = unReadCount.get(message.from_iid);
-                        unReadCount.set(message.from_iid, ++count)
-                    }
-                });
-                unreadNum.value = unReadCount;
-            })
+        getAboutMessageData(thisAccountId);
     })
 
-    // socket.on("sendFriendMessage", (thisAccountId) => {
-    //     getFriendChatUserData((thisAccountId >>> 0))
-    //         .then((friendChatUserData_two) => {
-    //             friendsChatUserData.value = friendChatUserData_two.data;
-    //
-    //             const unReadCount = new Map();
-    //
-    //             friendsChatUserData.value.unreadNum.forEach((message: any) => {
-    //                 if (!unReadCount.has(message.from_iid))
-    //                     unReadCount.set(message.from_iid, 1);
-    //                 else {
-    //
-    //                     let count: number = unReadCount.get(message.from_iid);
-    //                     unReadCount.set(message.from_iid, ++count)
-    //                 }
-    //             });
-    //             unreadNum.value = unReadCount;
-    //         })
-    // })
+    socket.on("updateNewMessage", (thisAccountId) => {
+        unreadNum.value.set(this_chat_user_iId.value, []);
+
+        getAboutMessageData(thisAccountId);
+    })
+    socket.on("sendFriendMessage", () => {
+        if (groupData().chat_page.value === chatChatBar) unreadNum.value.set(this_chat_user_iId.value, []);
+    })
 
     return {
         add_friend,

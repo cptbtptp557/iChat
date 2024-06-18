@@ -344,6 +344,9 @@ app.get('/getFriendChatMessage', (req, res) => {
         }).catch(console.error);
 })
 
+// // 更改消息读取状态
+// app.post('/changeMessageStatus')
+
 /*==================================   Socket.io   ==================================*/
 let socket_users = {};
 
@@ -386,16 +389,17 @@ io.on('connection', socket => {
         sqlFunction(add_friend_chat_message(message.from_iid, message.to_iid, message.message, message.reading_status, message.send_time))
             .then(() => {
                 socket_users[message.to_iid].emit("sendFriendMessage", message);
-                // socket_users[message.from_iid].emit("sendFriendMessage", message.from_iid);
+                socket_users[message.from_iid].emit("updateNewMessage", message.from_iid);
             }).catch(console.error);
     })
 
     socket.on("chatUsersIds", (chatUsersIds) => {
         socket_users[chatUsersIds.thisUserId].emit("chatUsersIds", chatUsersIds);
-        console.log(chatUsersIds)
-        // sqlFunction(change_message_status(chatUsersIds.thisChatFriendId, chatUsersIds.thisUserId))
-        //     .then(console.log)
-        //     .catch(console.log)
+
+        sqlFunction(change_message_status(chatUsersIds.thisChatFriendId, chatUsersIds.thisUserId))
+            .then(() => {
+                socket_users[chatUsersIds.thisUserId].emit("changeMessageStatus", 1);
+            }).catch(console.error);
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

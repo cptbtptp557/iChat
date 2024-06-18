@@ -128,7 +128,6 @@ export const homeChatBar = () => {
     const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number): void => {
         getFriendChatMessage(from_iid, to_iid, chatMessageNum)
             .then((allMessage) => {
-                console.log(allMessage.data)
                 allChatMessage.value = allMessage.data;
             })
             .then(() => {
@@ -150,7 +149,11 @@ export const homeChatBar = () => {
     }
 
     socket.on("sendFriendMessage", (message: any): void => {
-        console.log(message)
+        allChatMessage.value.push(message);
+        setTimeout(() => {
+            const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+            dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
+        }, 100)
     })
 
     socket.on("chatUsersIds", (chatUsersIds: any): void => {

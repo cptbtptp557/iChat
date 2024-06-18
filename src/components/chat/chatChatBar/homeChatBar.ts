@@ -155,7 +155,7 @@ export const homeChatBar = () => {
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
         }, 100)
     })
-
+    
     socket.on("chatUsersIds", (chatUsersIds: any): void => {
         thisChatUsersIds.value = chatUsersIds;
         chatMessageNum = 1;

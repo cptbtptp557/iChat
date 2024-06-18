@@ -27,7 +27,7 @@ export const homeFriendsBar = () => {
     const this_chat_user_iId = ref(); // 当前聊天对象iId
 
     const {addUser_mankind, addUser_group, create_new_group} = classLists();
-    const {getUserLists, getFriendsLists, createGroup, getFriendChatUserData} = api();
+    const {getUserLists, getFriendsLists, createGroup, getFriendChatUserData, changeMessageStatus} = api();
 
     let timer: any;
     const find = () => {
@@ -172,22 +172,22 @@ export const homeFriendsBar = () => {
         groupData().chat_page.value = chatChatBar;
         groupData().this_chat_friend_lists.value = friends_lists;
 
-        this_chat_user_iId.value = to_iid;
-        unreadNum.value.set(to_iid, []);
+        this_chat_user_iId.value = thisAccountId;
+        unreadNum.value.set(thisAccountId, []);
     }
 
     const getAboutMessageData = (account_iId: number) => {
         getFriendChatUserData(account_iId)
             .then((friendChatUserData_one) => {
-                friendsChatUserData.value = friendChatUserData_one.data;
-
                 const unReadCount = new Map();
 
+                friendsChatUserData.value = friendChatUserData_one.data;
                 friendsChatUserData.value.unreadNum.forEach((message: any) => {
                     if (!unReadCount.has(message.from_iid)) {
                         unReadCount.set(message.from_iid, 1);
                     } else {
                         let count: number = unReadCount.get(message.from_iid);
+
                         unReadCount.set(message.from_iid, ++count)
                     }
                 });
@@ -216,8 +216,14 @@ export const homeFriendsBar = () => {
 
         getAboutMessageData(thisAccountId);
     })
-    socket.on("sendFriendMessage", () => {
-        if (groupData().chat_page.value === chatChatBar) unreadNum.value.set(this_chat_user_iId.value, []);
+    socket.on("sendFriendMessage", (message) => {
+        getAboutMessageData(message.to_iid);
+        setTimeout(() => {
+            if (groupData().chat_page.value === chatChatBar) {
+                unreadNum.value.set(this_chat_user_iId.value, []);
+                changeMessageStatus(usersLists().thisUserAccount, this_chat_user_iId.value)
+            }
+        }, 100);
     })
 
     return {

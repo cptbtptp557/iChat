@@ -326,7 +326,6 @@ app.get('/getFriendChatUserData', (req, res) => {
                     Promise.all(userLists)
                         .then((thisUserLists) => {
                             const flattenedUserLists = thisUserLists.map(lists => lists[0]);
-                            console.log(unreadNum)
                             res.status(200).json({friendChatUserData, flattenedUserLists, unreadNum});
                         })
                 }).catch(console.error);
@@ -336,7 +335,6 @@ app.get('/getFriendChatUserData', (req, res) => {
 // 获取好友聊天记录
 app.get('/getFriendChatMessage', (req, res) => {
     const data = req.query;
-    console.log(data)
 
     sqlFunction(get_friend_chat_message(data.from_iid, data.to_iid, data.chatMessageNum))
         .then((allMessage) => {
@@ -345,7 +343,12 @@ app.get('/getFriendChatMessage', (req, res) => {
 })
 
 // // 更改消息读取状态
-// app.post('/changeMessageStatus')
+app.post('/changeMessageStatus', (req) => {
+    const data = req.query;
+
+    sqlFunction(change_message_status(data.to_iid, data.from_iid))
+        .catch(console.error);
+})
 
 /*==================================   Socket.io   ==================================*/
 let socket_users = {};
@@ -394,12 +397,11 @@ io.on('connection', socket => {
     })
 
     socket.on("chatUsersIds", (chatUsersIds) => {
+        console.log(chatUsersIds)
         socket_users[chatUsersIds.thisUserId].emit("chatUsersIds", chatUsersIds);
 
         sqlFunction(change_message_status(chatUsersIds.thisChatFriendId, chatUsersIds.thisUserId))
-            .then(() => {
-                socket_users[chatUsersIds.thisUserId].emit("changeMessageStatus", 1);
-            }).catch(console.error);
+            .catch(console.error);
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

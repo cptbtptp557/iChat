@@ -204,6 +204,16 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 修改消息阅读状态
+    const changeMessageStatus = async (from_iid: number, to_iid: number) => {
+        return await axios.post('http://127.0.0.1:3000/changeMessageStatus', '', {
+            params: {
+                'from_iid': from_iid,
+                'to_iid': to_iid,
+            }
+        })
+    }
+
     return {
         login,
         createAccount,
@@ -224,5 +234,6 @@ export const api = defineStore('api', () => {
         groupUserData,
         getFriendChatUserData,
         getFriendChatMessage,
+        changeMessageStatus,
     }
 })

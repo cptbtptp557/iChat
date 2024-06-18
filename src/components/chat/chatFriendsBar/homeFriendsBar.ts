@@ -22,6 +22,8 @@ export const homeFriendsBar = () => {
     const selected_users = ref(); // 邀请加入群聊的好友
     const loading = ref(false);
     const friendsChatUserData = ref(); // 聊天好友列表
+    const user_background = ref(); // 被聊天对象背景颜色
+    const unreadNum = ref(); // 未读消息数目
 
     const {addUser_mankind, addUser_group, create_new_group} = classLists();
     const {getUserLists, getFriendsLists, createGroup, getFriendChatUserData} = api();
@@ -160,13 +162,33 @@ export const homeFriendsBar = () => {
             })
     }
 
-    const getAllMessage = (thisAccountId: number, to_iid: number) => {
+    const getAllMessage = (thisAccountId: number, to_iid: number, friends_lists: any, index: number) => {
         const thisUserId: number = (usersLists().thisUserAccount >>> 0);
         const thisChatFriendId: number = thisUserId === thisAccountId ? to_iid : thisAccountId;
 
+        user_background.value = index;
         socket.emit("chatUsersIds", {thisUserId, thisChatFriendId})
-        console.log(thisUserId, thisChatFriendId)
         groupData().chat_page.value = chatChatBar;
+        groupData().this_chat_friend_lists.value = friends_lists;
+
+        console.log(friendsChatUserData.value)
+        // getFriendChatUserData((thisAccountId >>> 0))
+        //     .then((friendChatUserData_two) => {
+        //         friendsChatUserData.value = friendChatUserData_two.data;
+        //
+        //         const unReadCount = new Map();
+        //
+        //         friendsChatUserData.value.unreadNum.forEach((message: any) => {
+        //             if (!unReadCount.has(message.from_iid))
+        //                 unReadCount.set(message.from_iid, 1);
+        //             else {
+        //
+        //                 let count: number = unReadCount.get(message.from_iid);
+        //                 unReadCount.set(message.from_iid, ++count)
+        //             }
+        //         });
+        //         unreadNum.value = unReadCount;
+        //     })
     }
 
     watch(find_logotype, () => {
@@ -183,16 +205,42 @@ export const homeFriendsBar = () => {
 
     socket.on("friendChatUserData", (thisAccountId) => {
         getFriendChatUserData(thisAccountId)
-            .then((friendChatUserData) => {
-                friendsChatUserData.value = friendChatUserData.data;
+            .then((friendChatUserData_one) => {
+                friendsChatUserData.value = friendChatUserData_one.data;
 
-                let groupedMessages: any[] = [];
+                const unReadCount = new Map();
+
                 friendsChatUserData.value.unreadNum.forEach((message: any) => {
-                    if (!groupedMessages[message.to_iid]) groupedMessages[message.to_iid] = [];
-                    groupedMessages[message.to_iid].push(message);
-                })
+                    if (!unReadCount.has(message.from_iid))
+                        unReadCount.set(message.from_iid, 1);
+                    else {
+                        let count: number = unReadCount.get(message.from_iid);
+                        unReadCount.set(message.from_iid, ++count)
+                    }
+                });
+                unreadNum.value = unReadCount;
             })
     })
+
+    // socket.on("sendFriendMessage", (thisAccountId) => {
+    //     getFriendChatUserData((thisAccountId >>> 0))
+    //         .then((friendChatUserData_two) => {
+    //             friendsChatUserData.value = friendChatUserData_two.data;
+    //
+    //             const unReadCount = new Map();
+    //
+    //             friendsChatUserData.value.unreadNum.forEach((message: any) => {
+    //                 if (!unReadCount.has(message.from_iid))
+    //                     unReadCount.set(message.from_iid, 1);
+    //                 else {
+    //
+    //                     let count: number = unReadCount.get(message.from_iid);
+    //                     unReadCount.set(message.from_iid, ++count)
+    //                 }
+    //             });
+    //             unreadNum.value = unReadCount;
+    //         })
+    // })
 
     return {
         add_friend,
@@ -219,5 +267,7 @@ export const homeFriendsBar = () => {
         createGroupSure,
         friendsChatUserData,
         getAllMessage,
+        user_background,
+        unreadNum,
     }
 }

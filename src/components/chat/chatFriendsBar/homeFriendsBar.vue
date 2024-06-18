@@ -130,7 +130,8 @@
       <div class="friends"
            v-for="(friends,index) in friendsChatUserData?.friendChatUserData"
            :key="index"
-           @click="getAllMessage(friends.from_iid, friends.to_iid)">
+           :style="{background : user_background === index? '#e8e8e8': '' }"
+           @click="getAllMessage(friends.from_iid, friends.to_iid, friendsChatUserData.flattenedUserLists[index], index)">
         <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
         <div class="information">
           <p>{{ friendsChatUserData.flattenedUserLists[index].nickname }}</p>
@@ -145,7 +146,7 @@
             }}</p>
           <p>{{ friends.message }}</p>
           <el-badge
-              :value="friendsChatUserData.unreadNum.length"
+              :value="unreadNum.get(friends.to_iid == usersLists().thisUserAccount ? friends.from_iid : friends.to_iid)"
               :max="99"
               :offset="[-1,-3]"
               class="el-badge"/>
@@ -199,6 +200,7 @@
 <script setup lang="ts">
 import {CircleClose, DataAnalysis, MessageBox, Plus, Search, User} from "@element-plus/icons-vue";
 import {homeFriendsBar} from "./homeFriendsBar.ts";
+import {usersLists} from "../../../pinia/usersLists.ts";
 
 const {
   add_friend,
@@ -225,6 +227,8 @@ const {
   createGroupSure,
   friendsChatUserData,
   getAllMessage,
+  user_background,
+  unreadNum,
 } = homeFriendsBar();
 </script>
 

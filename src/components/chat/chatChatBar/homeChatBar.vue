@@ -1,7 +1,7 @@
 <template>
   <div class="thisOutside">
     <header>
-      <h4>聊天对象昵称</h4>
+      <h4>{{ this_chat_friend_data?.nickname }}</h4>
       <div class="shat_control">
         <el-tooltip
             class="box-item"
@@ -49,62 +49,24 @@
     <p class="copy_paste" id="paste" @click="paste">粘贴</p>
     <el-divider style="position: absolute; top: 15px"/>
     <div id="dialogBox" class="dialog_box" ref="scroll_top_height" @scroll="scrollTopHeight">
-      <div class="to_user">
-        <div>
-          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+      <div v-for="(message, index) in allChatMessage" :key="index">
+        <div class="to_user" v-if="message.to_iid == usersLists().thisUserAccount">
           <div>
-            <p>接收方用户</p>
-            <p @contextmenu.prevent="copyText">
-              发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容
-            </p>
+            <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+            <div>
+              <p>{{ this_chat_friend_data?.nickname }}</p>
+              <p @contextmenu.prevent="copyText">{{ message.message }}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="from_user">
-        <div>
+        <div class="from_user" v-else>
           <div>
-            <p>发出方用户</p>
-            <p @contextmenu.prevent="copyText">发出的内容</p>
+            <div>
+              <p>{{ usersLists().thisUserNickname }}</p>
+              <p @contextmenu.prevent="copyText">{{ message.message }}</p>
+            </div>
+            <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
           </div>
-          <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
-        </div>
-      </div>
-      <div class="to_user">
-        <div>
-          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-          <div>
-            <p>接收方用户</p>
-            <p @contextmenu.prevent="copyText">发出的内容</p>
-          </div>
-        </div>
-      </div>
-      <div class="to_user">
-        <div>
-          <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
-          <div>
-            <p>接收方用户</p>
-            <p @contextmenu.prevent="copyText">发出的内容</p>
-          </div>
-        </div>
-      </div>
-      <div class="from_user">
-        <div>
-          <div>
-            <p>发出方用户</p>
-            <p @contextmenu.prevent="copyText">
-              发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容发出的内容
-            </p>
-          </div>
-          <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
-        </div>
-      </div>
-      <div class="from_user">
-        <div>
-          <div>
-            <p>发出方用户</p>
-            <p @contextmenu.prevent="copyText">发出的内容</p>
-          </div>
-          <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
         </div>
       </div>
     </div>
@@ -299,6 +261,7 @@
 
 <script setup lang="ts">
 import {homeChatBar} from "./homeChatBar.ts";
+import {usersLists} from "../../../pinia/usersLists.ts";
 import {
   Microphone,
   VideoCamera,
@@ -340,6 +303,8 @@ const {
   sendMessage,
   scroll_top_height,
   scrollTopHeight,
+  this_chat_friend_data,
+  allChatMessage,
 } = homeChatBar();
 </script>
 

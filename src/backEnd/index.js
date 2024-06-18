@@ -40,6 +40,7 @@ const {
     get_friend_chat_user_data,
     get_friend_chat_message,
     get_reading_status_lists,
+    change_message_status,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -325,7 +326,7 @@ app.get('/getFriendChatUserData', (req, res) => {
                     Promise.all(userLists)
                         .then((thisUserLists) => {
                             const flattenedUserLists = thisUserLists.map(lists => lists[0]);
-
+                            console.log(unreadNum)
                             res.status(200).json({friendChatUserData, flattenedUserLists, unreadNum});
                         })
                 }).catch(console.error);
@@ -385,11 +386,16 @@ io.on('connection', socket => {
         sqlFunction(add_friend_chat_message(message.from_iid, message.to_iid, message.message, message.reading_status, message.send_time))
             .then(() => {
                 socket_users[message.to_iid].emit("sendFriendMessage", message);
+                // socket_users[message.from_iid].emit("sendFriendMessage", message.from_iid);
             }).catch(console.error);
     })
 
     socket.on("chatUsersIds", (chatUsersIds) => {
-        socket_users[chatUsersIds.thisUserId].emit("chatUsersIds", chatUsersIds)
+        socket_users[chatUsersIds.thisUserId].emit("chatUsersIds", chatUsersIds);
+        console.log(chatUsersIds)
+        // sqlFunction(change_message_status(chatUsersIds.thisChatFriendId, chatUsersIds.thisUserId))
+        //     .then(console.log)
+        //     .catch(console.log)
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

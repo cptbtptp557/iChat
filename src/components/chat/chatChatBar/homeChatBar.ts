@@ -1,4 +1,4 @@
-import {h, onActivated, ref, watch} from "vue";
+import {h, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
 import {classLists} from "../../../class";
 import {ElNotification} from "element-plus";
@@ -24,6 +24,7 @@ export const homeChatBar = () => {
     const scroll_top_height = ref(); // 聊天框滚动条距顶部距离
     const thisChatUsersIds = ref(); // 当前聊天双方iId
     const allChatMessage = ref(); // 聊天记录
+    const this_chat_friend_data = ref(); // 当前聊天好友的信息
 
     const {group_state} = groupData();
     const {friend_chat_message} = classLists();
@@ -113,10 +114,15 @@ export const homeChatBar = () => {
     })
 
     const sendMessage = (): void => {
-        const message = new friend_chat_message(usersLists().thisUserAccount, 10005, content.value)
+        const message = new friend_chat_message(usersLists().thisUserAccount, this_chat_friend_data.value.iId, content.value)
 
         socket.emit("sendFriendMessage", message);
         content.value = "";
+        allChatMessage.value.push(message)
+        setTimeout(() => {
+            const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+            dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
+        }, 100)
     }
 
     const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number): void => {
@@ -124,6 +130,12 @@ export const homeChatBar = () => {
             .then((allMessage) => {
                 console.log(allMessage.data)
                 allChatMessage.value = allMessage.data;
+            })
+            .then(() => {
+                if (chatMessageNum == 50) {
+                    const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+                    dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
+                }
             }).catch(console.error);
     }
 
@@ -131,7 +143,7 @@ export const homeChatBar = () => {
     const scrollTopHeight = (): void => {
         const scrollTop = scroll_top_height.value.scrollTop;
         if (scrollTop <= 0) {
-            chatMessageNum++
+            chatMessageNum++;
             console.log('滚动条触顶了！', chatMessageNum);
             getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 50)
         }
@@ -144,17 +156,12 @@ export const homeChatBar = () => {
     socket.on("chatUsersIds", (chatUsersIds: any): void => {
         thisChatUsersIds.value = chatUsersIds;
         chatMessageNum = 1;
-        getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 50)
+        getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 50);
+        this_chat_friend_data.value = groupData().this_chat_friend_lists.value;
     })
 
     watch(content, (): void => {
         button_disabled.value = content.value !== "";
-    });
-
-    onActivated(() => {
-        const dialogBox = document.getElementById("dialogBox") as HTMLElement;
-
-        dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
     });
 
     return {
@@ -185,5 +192,7 @@ export const homeChatBar = () => {
         sendMessage,
         scroll_top_height,
         scrollTopHeight,
+        this_chat_friend_data,
+        allChatMessage,
     }
 }

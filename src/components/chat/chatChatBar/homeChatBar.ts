@@ -122,13 +122,13 @@ export const homeChatBar = () => {
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
-        }, 100)
+        }, 100);
     }
 
     const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number): void => {
         getFriendChatMessage(from_iid, to_iid, chatMessageNum)
             .then((allMessage) => {
-                allChatMessage.value = allMessage.data;
+                allChatMessage.value = allMessage.data.reverse();
             })
             .then(() => {
                 if (chatMessageNum == 50) {
@@ -141,10 +141,18 @@ export const homeChatBar = () => {
     let chatMessageNum: number = 1;
     const scrollTopHeight = (): void => {
         const scrollTop = scroll_top_height.value.scrollTop;
+        const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+
         if (scrollTop <= 0) {
+            const scrollButton_first: number = scroll_top_height.value.scrollHeight - scroll_top_height.value.scrollTop;
+
             chatMessageNum++;
-            console.log('滚动条触顶了！', chatMessageNum);
             getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 50)
+            setTimeout((): void => {
+                const scrollButton_second: number = scroll_top_height.value.scrollHeight - scrollButton_first;
+
+                dialogBox.scrollTo({top: scrollButton_second, behavior: 'instant'});
+            }, 100)
         }
     }
 
@@ -155,7 +163,7 @@ export const homeChatBar = () => {
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
         }, 100)
     })
-    
+
     socket.on("chatUsersIds", (chatUsersIds: any): void => {
         thisChatUsersIds.value = chatUsersIds;
         chatMessageNum = 1;

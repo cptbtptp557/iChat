@@ -1,13 +1,27 @@
 export const classLists = () => {
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = now.getMonth() + 1;
-    let date = now.getDate();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    let second = now.getSeconds();
-    let formattedDate = `${year}/${('0' + month).slice(-2)}/${('0' + date).slice(-2)}`;
-    let messageDate = `${formattedDate} ${hours >= 10 ? hours : "0" + hours}:${minutes >= 10 ? minutes : "0" + minutes}:${second >= 10 ? second : "0" + second}`
+    const get_addUser_mankind_time = (): string => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const date = now.getDate();
+
+        return (`${year}/${('0' + month).slice(-2)}/${('0' + date).slice(-2)}`);
+    }
+
+    const get_create_new_group_time = (): string => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const date = now.getDate();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const second = now.getSeconds();
+        const formattedDate = `${year}/${('0' + month).slice(-2)}/${('0' + date).slice(-2)}`;
+        const messageDate = `${formattedDate} ${hours >= 10 ? hours : "0" + hours}:${minutes >= 10 ? minutes : "0" + minutes}:${second >= 10 ? second : "0" + second}`
+
+
+        return (messageDate);
+    }
 
     // 添加好友、创建群聊
     class addUser_mankind {
@@ -24,7 +38,7 @@ export const classLists = () => {
             this.from_name = from_name;
             this.to_notes = to_notes;
             this.add_status = add_status;
-            this.add_time = formattedDate;
+            this.add_time = get_addUser_mankind_time();
         }
     }
 
@@ -45,7 +59,7 @@ export const classLists = () => {
             this.from_name = from_name;
             this.group_name = group_name;
             this.add_status = add_status;
-            this.add_time = formattedDate;
+            this.add_time = get_addUser_mankind_time();
         }
     }
 
@@ -77,7 +91,7 @@ export const classLists = () => {
             this.to_iid = to_iid;
             this.message = message;
             this.reading_status = 0;
-            this.send_time = messageDate;
+            this.send_time = get_create_new_group_time();
         }
     }
 

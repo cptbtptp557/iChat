@@ -29,7 +29,7 @@ const mySqlQueryStatements = () => {
     const get_group_user_data = (gid) => "select iid from groupmembers where gid = " + gid;
     const add_friend_chat_message = (from_iid, to_iid, message, reading_status, send_time) => "insert into friendchatmessage(from_iid, to_iid, message, reading_status, send_time) values (" + from_iid + "," + to_iid + ",'" + message + "', " + reading_status + ",'" + send_time + "' )";
     const get_friend_chat_user_data = (account_iid) => "with RankedMessages as ( select *, row_number() over(partition by to_iid order by send_time desc) as rn from friendchatmessage where from_iid = " + account_iid + " or to_iid = " + account_iid + ") select * from RankedMessages where rn = 1 order by send_time desc;";
-    const get_friend_chat_message = (from_iid, to_iid, records_num) => "select * from friendchatmessage where (from_iid = " + from_iid + " and to_iid = " + to_iid + ") or (from_iid = " + to_iid + " and to_iid = " + from_iid + ") order by send_time asc limit " + records_num;
+    const get_friend_chat_message = (from_iid, to_iid, records_num) => "select * from friendchatmessage where (from_iid = " + from_iid + " and to_iid = " + to_iid + ") or (from_iid = " + to_iid + " and to_iid = " + from_iid + ") order by send_time desc limit " + records_num;
     const get_reading_status_lists = (from_iid) => "select * from friendchatmessage where reading_status = 0 and to_iid = " + from_iid;
     const change_message_status = (from_iid, to_iid) => "update friendchatmessage set reading_status = 1 where from_iid = " + from_iid + " and to_iid = " + to_iid;
 

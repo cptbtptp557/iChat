@@ -1,7 +1,7 @@
-import {h, ref, watch} from "vue";
+import {h, onMounted, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
 import {classLists} from "../../../class";
-import {ElNotification} from "element-plus";
+import {ElNotification, ElMessage} from "element-plus";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
 import socket from "../../../socket";
@@ -115,14 +115,23 @@ export const homeChatBar = () => {
 
     const sendMessage = (): void => {
         const message = new friend_chat_message(usersLists().thisUserAccount, this_chat_friend_data.value.iId, content.value)
-
-        socket.emit("sendFriendMessage", message);
-        content.value = "";
-        allChatMessage.value.push(message)
-        setTimeout(() => {
-            const dialogBox = document.getElementById("dialogBox") as HTMLElement;
-            dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
-        }, 100);
+        const spaces_check: RegExp = /[\n\r\s]/g;
+        if (spaces_check.test(content.value)) {
+            ElMessage({
+                message: '内容不可为空!!!',
+                type: 'error',
+                offset: 610,
+            });
+            content.value = "";
+        } else {
+            socket.emit("sendFriendMessage", message);
+            content.value = "";
+            allChatMessage.value.push(message);
+            setTimeout(() => {
+                const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+                dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
+            }, 100);
+        }
     }
 
     const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number): void => {
@@ -174,6 +183,17 @@ export const homeChatBar = () => {
     watch(content, (): void => {
         button_disabled.value = content.value !== "";
     });
+
+    onMounted((): void => {
+        const textarea = document.getElementById("textarea") as HTMLElement;
+
+        textarea.addEventListener("keydown", (event: KeyboardEvent) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                if (content.value) sendMessage();
+            }
+        })
+    })
 
     return {
         content,

@@ -275,6 +275,10 @@ import {
   Search, ArrowLeft,
 } from "@element-plus/icons-vue";
 
+const a = (e: any) => {
+  console.log(e)
+}
+
 const {
   content,
   button_disabled,

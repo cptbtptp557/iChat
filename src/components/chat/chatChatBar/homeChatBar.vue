@@ -55,7 +55,9 @@
             <img class="user_image" src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
             <div>
               <p>{{ this_chat_friend_data?.nickname }}</p>
-              <img :src="message.message.substring(message.message.indexOf('|')+1)" alt="imageMessage" v-if="message.message.startsWith('image')">
+              <img :src="message.message.substring(message.message.indexOf('|') + 1)"
+                   alt="imageMessage"
+                   v-if="message.message.startsWith('image')">
               <p @contextmenu.prevent="copyText" v-else>{{ message.message }}</p>
             </div>
           </div>
@@ -64,7 +66,9 @@
           <div>
             <div>
               <p>{{ this_chat_friend_data?.nickname }}</p>
-              <img :src="message.message.substring(message.message.indexOf('|')+1)" alt="imageMessage" v-if="message.message.startsWith('image')">
+              <img :src="message.message.substring(message.message.indexOf('|') + 1)"
+                   alt="imageMessage"
+                   v-if="message.message.startsWith('image')">
               <p @contextmenu.prevent="copyText" v-else>{{ message.message }}</p>
             </div>
             <img class="user_image" src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">

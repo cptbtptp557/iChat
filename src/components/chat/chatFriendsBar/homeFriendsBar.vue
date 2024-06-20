@@ -144,8 +144,8 @@
                       '昨天' :
                       friends.send_time.match(/^\d{4}\/\d{2}\/\d{2}/)[0]
             }}</p>
-          <p v-if="friends.message.startsWith('image')">[图片]</p>
-          <p v-else>{{ friends.message}}</p>
+          <p v-if="friends.message.includes('http://ichatimage.oss-cn-shenzhen.aliyuncs.com/')">[文件] {{friends.message.split('|')[0]}}</p>
+          <p v-else>{{ friends.message }}</p>
           <el-badge
               :value="unreadNum.get(friends.to_iid == usersLists().thisUserAccount ? friends.from_iid : friends.to_iid)"
               :max="99"

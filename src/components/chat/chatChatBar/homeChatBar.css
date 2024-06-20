@@ -123,7 +123,8 @@ header .shat_control .el-icon:active {
   color: #000;
 }
 .dialog_box .to_user div div img {
-  max-width: 450px;
+  max-width: 400px;
+  max-height: 280px;
   border-radius: 5px;
   margin-top: 10px;
   cursor: pointer;
@@ -182,9 +183,11 @@ header .shat_control .el-icon:active {
   color: #000;
 }
 .dialog_box .from_user div div img {
-  max-width: 450px;
+  max-width: 400px;
+  max-height: 280px;
   border-radius: 5px;
   margin-top: 10px;
+  margin-right: 10px;
   cursor: pointer;
   border: 1px solid #c7c7c7;
   box-shadow: 0 0 5px 1px #c7c7c7;

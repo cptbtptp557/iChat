@@ -52,20 +52,22 @@
       <div v-for="(message, index) in allChatMessage" :key="index">
         <div class="to_user" v-if="message.to_iid == usersLists().thisUserAccount">
           <div>
-            <img src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+            <img class="user_image" src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
             <div>
               <p>{{ this_chat_friend_data?.nickname }}</p>
-              <p @contextmenu.prevent="copyText">{{ message.message }}</p>
+              <img :src="message.message.substring(message.message.indexOf('|')+1)" alt="imageMessage" v-if="message.message.startsWith('image')">
+              <p @contextmenu.prevent="copyText" v-else>{{ message.message }}</p>
             </div>
           </div>
         </div>
         <div class="from_user" v-else>
           <div>
             <div>
-              <p>{{ usersLists().thisUserNickname }}</p>
-              <p @contextmenu.prevent="copyText">{{ message.message }}</p>
+              <p>{{ this_chat_friend_data?.nickname }}</p>
+              <img :src="message.message.substring(message.message.indexOf('|')+1)" alt="imageMessage" v-if="message.message.startsWith('image')">
+              <p @contextmenu.prevent="copyText" v-else>{{ message.message }}</p>
             </div>
-            <img src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
+            <img class="user_image" src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
           </div>
         </div>
       </div>
@@ -105,7 +107,7 @@
       </div>
       <textarea id="textarea"
                 maxlength="500"
-                v-model="content"
+                v-model.trim="content"
                 @keydown.enter="enterSengMessage"
                 @contextmenu.prevent="pasteText"/>
       <el-button type="primary"
@@ -281,6 +283,7 @@ import {
 } from "@element-plus/icons-vue";
 
 import {oss} from "../../../alibabaCloud/oss.ts";
+
 const {getFile} = oss();
 
 const {

@@ -83,10 +83,11 @@ header .shat_control .el-icon:active {
   display: flex;
   flex-direction: row;
 }
-.dialog_box .to_user div img {
+.dialog_box .to_user div .user_image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  -webkit-user-drag: none;
 }
 .dialog_box .to_user div div {
   position: relative;
@@ -115,10 +116,19 @@ header .shat_control .el-icon:active {
   letter-spacing: 0.5px;
   text-align: left;
   user-select: text;
+  line-break: anywhere;
 }
 .dialog_box .to_user div div p:nth-child(2)::selection {
   background-color: #e5ffde;
   color: #000;
+}
+.dialog_box .to_user div div img {
+  max-width: 450px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: 1px solid #c7c7c7;
+  box-shadow: 0 0 5px 1px #c7c7c7;
 }
 .dialog_box .from_user {
   position: relative;
@@ -130,11 +140,12 @@ header .shat_control .el-icon:active {
   display: flex;
   justify-content: flex-end;
 }
-.dialog_box .from_user div img {
+.dialog_box .from_user div .user_image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   float: right;
+  -webkit-user-drag: none;
 }
 .dialog_box .from_user div div {
   display: flex;
@@ -164,10 +175,19 @@ header .shat_control .el-icon:active {
   letter-spacing: 0.5px;
   text-align: left;
   user-select: text;
+  line-break: anywhere;
 }
 .dialog_box .from_user div div p:nth-child(2)::selection {
   background-color: #e5ffde;
   color: #000;
+}
+.dialog_box .from_user div div img {
+  max-width: 450px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: 1px solid #c7c7c7;
+  box-shadow: 0 0 5px 1px #c7c7c7;
 }
 footer {
   width: 665px;

@@ -104,10 +104,11 @@ header {
       display: flex;
       flex-direction: row;
 
-      & img {
+      & .user_image {
         width: 40px;
         height: 40px;
         border-radius: 50%;
+        -webkit-user-drag: none;
       }
 
       & div {
@@ -138,11 +139,21 @@ header {
           letter-spacing: .5px;
           text-align: left;
           user-select: text;
+          line-break: anywhere;
 
           &::selection {
             background-color: @selection_green;
             color: #000;
           }
+        }
+
+        & img {
+          max-width: 450px;
+          border-radius: 5px;
+          margin-top: 10px;
+          cursor: pointer;
+          border: 1px solid @gray;
+          box-shadow: 0 0 5px 1px @gray;
         }
       }
     }
@@ -158,11 +169,12 @@ header {
       display: flex;
       justify-content: flex-end;
 
-      & img {
+      & .user_image {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         float: right;
+        -webkit-user-drag: none;
       }
 
       & div {
@@ -194,11 +206,21 @@ header {
           letter-spacing: .5px;
           text-align: left;
           user-select: text;
+          line-break: anywhere;
 
           &::selection {
             background-color: @selection_green;
             color: #000;
           }
+        }
+
+        & img {
+          max-width: 450px;
+          border-radius: 5px;
+          margin-top: 10px;
+          cursor: pointer;
+          border: 1px solid @gray;
+          box-shadow: 0 0 5px 1px @gray;
         }
       }
     }

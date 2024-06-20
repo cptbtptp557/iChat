@@ -115,23 +115,14 @@ export const homeChatBar = () => {
 
     const sendMessage = (): void => {
         const message = new friend_chat_message(usersLists().thisUserAccount, this_chat_friend_data.value.iId, content.value)
-        const spaces_check: RegExp = /[\n\r\s]/g;
-        if (spaces_check.test(content.value)) {
-            ElMessage({
-                message: '内容不可为空!!!',
-                type: 'error',
-                offset: 610,
-            });
-            content.value = "";
-        } else {
-            socket.emit("sendFriendMessage", message);
-            content.value = "";
-            allChatMessage.value.push(message);
-            setTimeout(() => {
-                const dialogBox = document.getElementById("dialogBox") as HTMLElement;
-                dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
-            }, 100);
-        }
+
+        socket.emit("sendFriendMessage", message);
+        content.value = "";
+        allChatMessage.value.push(message);
+        setTimeout(() => {
+            const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+            dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
+        }, 100);
     }
 
     const enterSengMessage = (): void => {
@@ -175,6 +166,7 @@ export const homeChatBar = () => {
     }
 
     socket.on("sendFriendMessage", (message: any): void => {
+        console.log(message)
         allChatMessage.value.push(message);
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
@@ -187,6 +179,10 @@ export const homeChatBar = () => {
         chatMessageNum = 1;
         getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 50);
         this_chat_friend_data.value = groupData().this_chat_friend_lists.value;
+        setTimeout(() => {
+            const dialogBox = document.getElementById("dialogBox") as HTMLElement;
+            dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
+        }, 50)
     })
 
     watch(content, (): void => {

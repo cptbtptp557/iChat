@@ -1,4 +1,4 @@
-import {h, onMounted, ref, watch} from "vue";
+import {h, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
 import {classLists} from "../../../class";
 import {ElNotification, ElMessage} from "element-plus";
@@ -134,6 +134,15 @@ export const homeChatBar = () => {
         }
     }
 
+    const enterSengMessage = (): void => {
+        if (content.value) sendMessage();
+        else ElMessage({
+            message: '内容不可为空!!!',
+            type: 'error',
+            offset: 610,
+        });
+    }
+
     const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number): void => {
         getFriendChatMessage(from_iid, to_iid, chatMessageNum)
             .then((allMessage) => {
@@ -184,17 +193,6 @@ export const homeChatBar = () => {
         button_disabled.value = content.value !== "";
     });
 
-    onMounted((): void => {
-        const textarea = document.getElementById("textarea") as HTMLElement;
-
-        textarea.addEventListener("keydown", (event: KeyboardEvent) => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                if (content.value) sendMessage();
-            }
-        })
-    })
-
     return {
         content,
         button_disabled,
@@ -225,5 +223,6 @@ export const homeChatBar = () => {
         scrollTopHeight,
         this_chat_friend_data,
         allChatMessage,
+        enterSengMessage,
     }
 }

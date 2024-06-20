@@ -84,7 +84,7 @@
               <Picture/>
             </el-icon>
           </el-tooltip>
-          <input type="file" accept="image/*" style="display: none">
+          <input type="file" accept="image/*" style="display: none" @change="getFile">
         </label>
         <label>
           <el-tooltip
@@ -99,10 +99,15 @@
           </el-tooltip>
           <input type="file"
                  style="display: none"
-                 accept=".txt,.mp4,.zip,.rar,.ppt,.pptx,.pdf,.json,.xlsx,.xls,.docx,.doc,.rtf"/>
+                 accept=".txt,.mp4,.zip,.rar,.ppt,.pptx,.pdf,.json,.xlsx,.xls,.docx,.doc,.rtf"
+                 @change="getFile"/>
         </label>
       </div>
-      <textarea id="textarea" maxlength="500" v-model="content" @contextmenu.prevent="pasteText"/>
+      <textarea id="textarea"
+                maxlength="500"
+                v-model="content"
+                @keydown.enter="enterSengMessage"
+                @contextmenu.prevent="pasteText"/>
       <el-button type="primary"
                  :disabled="!button_disabled"
                  :icon="Position"
@@ -275,9 +280,8 @@ import {
   Search, ArrowLeft,
 } from "@element-plus/icons-vue";
 
-const a = (e: any) => {
-  console.log(e)
-}
+import {oss} from "../../../alibabaCloud/oss.ts";
+const {getFile} = oss();
 
 const {
   content,
@@ -309,6 +313,7 @@ const {
   scrollTopHeight,
   this_chat_friend_data,
   allChatMessage,
+  enterSengMessage,
 } = homeChatBar();
 </script>
 

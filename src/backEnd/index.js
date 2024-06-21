@@ -352,6 +352,7 @@ app.post('/changeMessageStatus', (req) => {
 
 /*==================================   Socket.io   ==================================*/
 let socket_users = {};
+let chating_friend = {};
 
 io.on('connection', socket => {
     socket.on("login", async (userId) => {
@@ -397,7 +398,8 @@ io.on('connection', socket => {
     })
 
     socket.on("chatUsersIds", (chatUsersIds) => {
-        console.log(chatUsersIds)
+        chating_friend = chatUsersIds;
+
         socket_users[chatUsersIds.thisUserId].emit("chatUsersIds", chatUsersIds);
 
         sqlFunction(change_message_status(chatUsersIds.thisChatFriendId, chatUsersIds.thisUserId))

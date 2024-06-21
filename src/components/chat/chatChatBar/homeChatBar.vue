@@ -55,9 +55,31 @@
             <img class="user_image" src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
             <div>
               <p>{{ this_chat_friend_data?.nickname }}</p>
-              <img :src="message.message.substring(message.message.indexOf('|') + 1)"
+              <img :src="message.message.split('|')[1]"
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">
+              <video autoplay :src="message.message.split('|')[1]"
+                     v-else-if="message.message.startsWith('video')"/>
+              <div class="file"
+                   @click="openOrDownloadFile"
+                   v-else-if="message.message.startsWith('application')">
+                <div>
+                  <p>{{ message.message.split('|')[2] }}</p>
+                  <p>{{
+                      message.message.split('|')[3] > 1024 ?
+                          (message.message.split('|')[3] > (1024 * 1024) ?
+                              (message.message.split('|')[3] > (1024 * 1024 * 1024) ?
+                                  `${(message.message.split('|')[3] / (1024 * 1024 * 1024)).toFixed(1)}GB` :
+                                  `${(message.message.split('|')[3] / (1024 * 1024)).toFixed(1)}MB`) :
+                              `${(message.message.split('|')[3] / 1024).toFixed(1)}KB`) :
+                          `${message.message.split('|')[3].toFixed(1)}bytes`
+                    }}</p>
+                </div>
+                <el-icon size="60" color="#557ffc">
+                  <Document/>
+                </el-icon>
+                <a id="file" :href="message.message.split('|')[1]">file</a>
+              </div>
               <p @contextmenu.prevent="copyText" v-else>{{ message.message }}</p>
             </div>
           </div>
@@ -66,9 +88,29 @@
           <div>
             <div>
               <p>{{ this_chat_friend_data?.nickname }}</p>
-              <img :src="message.message.substring(message.message.indexOf('|') + 1)"
+              <img :src="message.message.split('|')[1]"
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">
+              <div class="file"
+                   @click="openOrDownloadFile"
+                   v-else-if="message.message.startsWith('application')">
+                <div>
+                  <p>{{ message.message.split('|')[2] }}</p>
+                  <p>{{
+                      message.message.split('|')[3] > 1024 ?
+                          (message.message.split('|')[3] > (1024 * 1024) ?
+                              (message.message.split('|')[3] > (1024 * 1024 * 1024) ?
+                                  `${(message.message.split('|')[3] / (1024 * 1024 * 1024)).toFixed(1)}GB` :
+                                  `${(message.message.split('|')[3] / (1024 * 1024)).toFixed(1)}MB`) :
+                              `${(message.message.split('|')[3] / 1024).toFixed(1)}KB`) :
+                          `${message.message.split('|')[3].toFixed(1)}bytes`
+                    }}</p>
+                </div>
+                <el-icon size="60" color="#557ffc">
+                  <Document/>
+                </el-icon>
+                <a id="file" :href="message.message.split('|')[1]">file</a>
+              </div>
               <p @contextmenu.prevent="copyText" v-else>{{ message.message }}</p>
             </div>
             <img class="user_image" src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
@@ -283,7 +325,7 @@ import {
   ArrowRight,
   Plus,
   DataBoard,
-  Search, ArrowLeft,
+  Search, ArrowLeft, Document,
 } from "@element-plus/icons-vue";
 
 import {oss} from "../../../alibabaCloud/oss.ts";
@@ -321,6 +363,7 @@ const {
   this_chat_friend_data,
   allChatMessage,
   enterSengMessage,
+  openOrDownloadFile,
 } = homeChatBar();
 </script>
 

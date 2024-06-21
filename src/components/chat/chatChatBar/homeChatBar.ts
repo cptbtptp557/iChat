@@ -140,7 +140,7 @@ export const homeChatBar = () => {
                 allChatMessage.value = allMessage.data.reverse();
             })
             .then(() => {
-                if (chatMessageNum == 50) {
+                if (chatMessageNum == 30) {
                     const dialogBox = document.getElementById("dialogBox") as HTMLElement;
                     dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
                 }
@@ -156,13 +156,18 @@ export const homeChatBar = () => {
             const scrollButton_first: number = scroll_top_height.value.scrollHeight - scroll_top_height.value.scrollTop;
 
             chatMessageNum++;
-            getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 50)
+            getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 30)
             setTimeout((): void => {
                 const scrollButton_second: number = scroll_top_height.value.scrollHeight - scrollButton_first;
 
                 dialogBox.scrollTo({top: scrollButton_second, behavior: 'instant'});
             }, 100)
         }
+    }
+
+    const openOrDownloadFile = () => {
+        const the_file = document.getElementById("file") as HTMLElement;
+        the_file.click();
     }
 
     socket.on("sendFriendMessage", (message: any): void => {
@@ -177,7 +182,7 @@ export const homeChatBar = () => {
     socket.on("chatUsersIds", (chatUsersIds: any): void => {
         thisChatUsersIds.value = chatUsersIds;
         chatMessageNum = 1;
-        getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 50);
+        getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 30);
         this_chat_friend_data.value = groupData().this_chat_friend_lists.value;
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
@@ -220,5 +225,6 @@ export const homeChatBar = () => {
         this_chat_friend_data,
         allChatMessage,
         enterSengMessage,
+        openOrDownloadFile,
     }
 }

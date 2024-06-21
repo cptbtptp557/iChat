@@ -17,14 +17,14 @@ export const oss = () => {
     })
 
     const getFile = async (event: any) => {
-        await client.put(getUuid(10, 16), event.target.files[0])
+        await client.put(getUuid(15, 16), event.target.files[0])
             .then((result: any): void => {
                 groupData().this_file_lists.value = event.target.files[0].type;
                 console.log('图片上传成功', result);
                 console.log(event.target.files[0])
-                const fileMessage: string = groupData().this_file_lists.value + "|" + result.url;
+                const fileMessage: string = groupData().this_file_lists.value + "|" + result.url + "|" + event.target.files[0].name + "|" + event.target.files[0].size;
 
-                sendFile(fileMessage)
+                sendFile(fileMessage);
             }).catch(console.error);
     }
 

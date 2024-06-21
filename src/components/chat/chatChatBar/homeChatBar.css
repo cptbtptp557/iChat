@@ -129,7 +129,56 @@ header .shat_control .el-icon:active {
   margin-top: 10px;
   cursor: pointer;
   border: 1px solid #c7c7c7;
-  box-shadow: 0 0 5px 1px #c7c7c7;
+  box-shadow: 0 0 5px 1px #d1d9e6;
+}
+.dialog_box .to_user div div video {
+  max-width: 400px;
+  max-height: 400px;
+}
+.dialog_box .to_user div div .file {
+  width: 250px;
+  height: 100px;
+  background-color: #f9f9f9;
+  margin: 20px 0 0 -10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  box-shadow: 0 0 5px 1px #d1d9e6;
+}
+.dialog_box .to_user div div .file:active {
+  background-color: #f5f5f5;
+}
+.dialog_box .to_user div div .file div:nth-child(1) {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  transform: translateX(10px);
+}
+.dialog_box .to_user div div .file div:nth-child(1) p {
+  background-color: transparent;
+  transform: translate(-10px, 10px);
+  text-align: left;
+  color: #505050;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+.dialog_box .to_user div div .file div:nth-child(1) p:nth-child(1) {
+  font-size: 15px;
+}
+.dialog_box .to_user div div .file div:nth-child(1) p:nth-child(2) {
+  font-size: 13px;
+  transform: translate(-10px, 25px);
+}
+.dialog_box .to_user div div .file .el-icon {
+  transform: translate(-10px, 20px);
+}
+.dialog_box .to_user div div .file a {
+  display: none;
 }
 .dialog_box .from_user {
   position: relative;
@@ -190,7 +239,52 @@ header .shat_control .el-icon:active {
   margin-right: 10px;
   cursor: pointer;
   border: 1px solid #c7c7c7;
-  box-shadow: 0 0 5px 1px #c7c7c7;
+  box-shadow: 0 0 5px 1px #d1d9e6;
+}
+.dialog_box .from_user div div .file {
+  width: 250px;
+  height: 100px;
+  background-color: #f9f9f9;
+  margin: 10px 10px 0 0;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  box-shadow: 0 0 5px 1px #d1d9e6;
+}
+.dialog_box .from_user div div .file:active {
+  background-color: #f5f5f5;
+}
+.dialog_box .from_user div div .file div:nth-child(1) {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  transform: translateX(10px);
+}
+.dialog_box .from_user div div .file div:nth-child(1) p {
+  background-color: transparent;
+  transform: translate(10px, -30px);
+  text-align: left;
+  color: #505050;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+.dialog_box .from_user div div .file div:nth-child(1) p:nth-child(1) {
+  font-size: 15px;
+}
+.dialog_box .from_user div div .file div:nth-child(1) p:nth-child(2) {
+  font-size: 13px;
+  transform: translate(10px, -20px);
+}
+.dialog_box .from_user div div .file .el-icon {
+  transform: translate(-10px, 20px);
+}
+.dialog_box .from_user div div .file a {
+  display: none;
 }
 footer {
   width: 665px;

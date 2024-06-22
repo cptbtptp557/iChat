@@ -69,10 +69,10 @@
                       message.message.split('|')[3] > 1024 ?
                           (message.message.split('|')[3] > (1024 * 1024) ?
                               (message.message.split('|')[3] > (1024 * 1024 * 1024) ?
-                                  `${(message.message.split('|')[3] / (1024 * 1024 * 1024)).toFixed(1)}GB` :
-                                  `${(message.message.split('|')[3] / (1024 * 1024)).toFixed(1)}MB`) :
-                              `${(message.message.split('|')[3] / 1024).toFixed(1)}KB`) :
-                          `${message.message.split('|')[3].toFixed(1)}bytes`
+                                  (`${(message.message.split('|')[3] / (1024 * 1024 * 1024)).toFixed(1)}GB`) :
+                                  (`${(message.message.split('|')[3] / (1024 * 1024)).toFixed(1)}MB`)) :
+                              (`${(message.message.split('|')[3] / 1024).toFixed(1)}KB`)) :
+                          (`${message.message.split('|')[3].toFixed(1)}bytes`)
                     }}</p>
                 </div>
                 <el-icon size="60" color="#557ffc">
@@ -91,6 +91,8 @@
               <img :src="message.message.split('|')[1]"
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">
+              <video autoplay :src="message.message.split('|')[1]"
+                     v-else-if="message.message.startsWith('video')"/>
               <div class="file"
                    @click="openOrDownloadFile"
                    v-else-if="message.message.startsWith('application')">

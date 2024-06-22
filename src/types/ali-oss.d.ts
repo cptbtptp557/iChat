@@ -3,6 +3,8 @@ declare module 'ali-oss' {
         constructor(options: OSS.Options);
 
         put(name: string, file: any, options?: OSS.PutOptions): Promise<OSS.PutResult>;
+
+        multipartUpload(name: string, file: any, options?: {progress:(p:number) => void,  parallel: number,partSize: number}): Promise<OSS.PutResult>;
     }
 
     namespace OSS {

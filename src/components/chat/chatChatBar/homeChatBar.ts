@@ -170,6 +170,11 @@ export const homeChatBar = () => {
         the_file.click();
     }
 
+    const watchVideo = (src: string) => {
+        console.log(src);
+        window.electronAPI.watchVideo()
+    }
+
     socket.on("sendFriendMessage", (message: any): void => {
         console.log(message)
         allChatMessage.value.push(message);
@@ -226,5 +231,6 @@ export const homeChatBar = () => {
         allChatMessage,
         enterSengMessage,
         openOrDownloadFile,
+        watchVideo,
     }
 }

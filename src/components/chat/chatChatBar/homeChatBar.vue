@@ -58,8 +58,24 @@
               <img :src="message.message.split('|')[1]"
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">
-              <video autoplay :src="message.message.split('|')[1]"
-                     v-else-if="message.message.startsWith('video')"/>
+              <div v-else-if="message.message.startsWith('video')">
+                <video @canplaythrough="video" :src="message.message.split('|')[1]"/>
+                <div class="operate">
+                  <el-icon>
+                    <VideoPlay/>
+                  </el-icon>
+                  <p>{{ message.message.split('|')[2] }}</p>
+                  <p>{{
+                      message.message.split('|')[3] > 1024 ?
+                          (message.message.split('|')[3] > (1024 * 1024) ?
+                              (message.message.split('|')[3] > (1024 * 1024 * 1024) ?
+                                  (`${(message.message.split('|')[3] / (1024 * 1024 * 1024)).toFixed(1)}GB`) :
+                                  (`${(message.message.split('|')[3] / (1024 * 1024)).toFixed(1)}MB`)) :
+                              (`${(message.message.split('|')[3] / 1024).toFixed(1)}KB`)) :
+                          (`${message.message.split('|')[3].toFixed(1)}bytes`)
+                    }}</p>
+                </div>
+              </div>
               <div class="file"
                    @click="openOrDownloadFile"
                    v-else-if="message.message.startsWith('application')">
@@ -91,8 +107,24 @@
               <img :src="message.message.split('|')[1]"
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">
-              <video autoplay :src="message.message.split('|')[1]"
-                     v-else-if="message.message.startsWith('video')"/>
+              <div v-else-if="message.message.startsWith('video')">
+                <video :src="message.message.split('|')[1]"/>
+                <div class="operate">
+                  <el-icon size="40" color="#ABABAB" @click="watchVideo(message.message.split('|')[1])">
+                    <VideoPlay/>
+                  </el-icon>
+                  <p>{{ message.message.split('|')[2] }}</p>
+                  <p>{{
+                      message.message.split('|')[3] > 1024 ?
+                          (message.message.split('|')[3] > (1024 * 1024) ?
+                              (message.message.split('|')[3] > (1024 * 1024 * 1024) ?
+                                  (`${(message.message.split('|')[3] / (1024 * 1024 * 1024)).toFixed(1)}GB`) :
+                                  (`${(message.message.split('|')[3] / (1024 * 1024)).toFixed(1)}MB`)) :
+                              (`${(message.message.split('|')[3] / 1024).toFixed(1)}KB`)) :
+                          (`${message.message.split('|')[3].toFixed(1)}bytes`)
+                    }}</p>
+                </div>
+              </div>
               <div class="file"
                    @click="openOrDownloadFile"
                    v-else-if="message.message.startsWith('application')">
@@ -327,7 +359,7 @@ import {
   ArrowRight,
   Plus,
   DataBoard,
-  Search, ArrowLeft, Document,
+  Search, ArrowLeft, Document, VideoPlay,
 } from "@element-plus/icons-vue";
 
 import {oss} from "../../../alibabaCloud/oss.ts";
@@ -366,6 +398,7 @@ const {
   allChatMessage,
   enterSengMessage,
   openOrDownloadFile,
+  watchVideo,
 } = homeChatBar();
 </script>
 

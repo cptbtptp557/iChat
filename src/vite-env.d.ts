@@ -3,6 +3,7 @@
 export interface IElectronAPI {
     openVoiceCallWindow: () => void,
     openVideoWindow: () => void,
+    watchVideo: () => void,
     closeWindow: (windowName) => Promise<void>,
     miniWindow: (windowName) => Promise<void>,
 }

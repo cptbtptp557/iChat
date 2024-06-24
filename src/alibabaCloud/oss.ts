@@ -1,4 +1,5 @@
 import OSS from "ali-oss";
+import {ref} from "vue";
 import {uuid} from "../tool/uuid";
 import {groupData} from "../pinia/groupData.ts";
 import {classLists} from "../class";
@@ -6,19 +7,23 @@ import {usersLists} from "../pinia/usersLists.ts";
 import socket from "../socket";
 
 export const oss = () => {
+    const upload_progress = ref();
+
     const {getUuid} = uuid();
     const {friend_chat_message} = classLists();
 
     const client: OSS = new OSS({
-        accessKeyId: 'LTAI5tGxPZ3hn1rbGVuyRdoQ',
-        accessKeySecret: '4BIHxXF56YRZCAJTRUvGEgg9G0DtqG',
+        accessKeyId: import.meta.env.VITE_ACCESSKEYID,
+        accessKeySecret: import.meta.env.VITE_ACCESSKEYSECRET,
         region: 'oss-cn-shenzhen',
         bucket: 'ichatimage',
+        timeout: 60 * 1000 * 10,
     });
 
     const options = {
         progress: (progress: number) => {
             console.log(progress * 100 + "%");
+            upload_progress.value = progress * 100;
         },
         parallel: 4,
         partSize: 1024 * 1024,
@@ -44,5 +49,6 @@ export const oss = () => {
 
     return {
         getFile,
+        upload_progress,
     }
 }

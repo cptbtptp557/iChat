@@ -53,12 +53,8 @@ app.whenReady()
             }
         })
         ipcMain.on('miniWindow', (event, title) => {
-            if (title === "audio_window") {
-                audio_window.minimize();
-            }
-            if (title === "video_window") {
-                video_window.minimize();
-            }
+            if (title === "audio_window") audio_window.minimize();
+            if (title === "video_window") video_window.minimize();
         })
     })
 

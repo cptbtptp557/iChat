@@ -7,6 +7,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
     openVideoWindow: () => {
         ipcRenderer.send('openVideoWindow');
     },
+    watchVideo: () => {
+        ipcRenderer.send('watchVideo');
+    },
     closeWindow: (window_name) => {
         ipcRenderer.send('closeWindow', window_name);
     },

@@ -48,10 +48,27 @@ const window = () => {
         }
     }
 
+    const watchVideo = {
+        width: 850,
+        height: 600,
+        frame: false,
+        resizable: false,
+        // transparent: true,
+        useContentSize: true,
+        autoHideMenuBar: true,
+        webPreferences: {
+            sandbox: false,
+            nodeIntegration: true,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js'),
+        }
+    }
+
     return {
         mainWindow,
         audioWindow,
         videoWindow,
+        watchVideo,
     }
 }
 

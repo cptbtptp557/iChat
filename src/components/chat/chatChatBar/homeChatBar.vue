@@ -59,9 +59,11 @@
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">
               <div v-else-if="message.message.startsWith('video')">
-                <video @canplaythrough="video" :src="message.message.split('|')[1]"/>
+                <video :src="message.message.split('|')[1]"/>
                 <div class="operate">
-                  <el-icon>
+                  <el-icon size="40"
+                           color="#ABABAB"
+                           @click="watchVideo(message.message.split('|')[2], message.message.split('|')[1])">
                     <VideoPlay/>
                   </el-icon>
                   <p>{{ message.message.split('|')[2] }}</p>
@@ -110,7 +112,9 @@
               <div v-else-if="message.message.startsWith('video')">
                 <video :src="message.message.split('|')[1]"/>
                 <div class="operate">
-                  <el-icon size="40" color="#ABABAB" @click="watchVideo(message.message.split('|')[1])">
+                  <el-icon size="40"
+                           color="#ABABAB"
+                           @click="watchVideo(message.message.split('|')[2], message.message.split('|')[1])">
                     <VideoPlay/>
                   </el-icon>
                   <p>{{ message.message.split('|')[2] }}</p>

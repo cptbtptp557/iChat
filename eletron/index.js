@@ -1,25 +1,38 @@
 const {app, BrowserWindow, Tray, nativeImage, ipcMain} = require("electron");
 const window = require("./window");
 
-const {mainWindow, audioWindow, videoWindow} = window;
+const {
+    mainWindow,
+    audioWindow,
+    videoWindow,
+    watchVideo
+} = window;
+
+let front_end_url = "http://localhost:5173";
 
 let win = null;
 let audio_window = null;
 let video_window = null;
+let watch_video = null;
 
 const createWin = () => {
     win = new BrowserWindow(mainWindow);
-    win.loadURL('http://localhost:5173/login').catch(console.error);
+    win.loadURL(front_end_url + '/login').catch(console.error);
 }
 
 const createAudioWin = () => {
     audio_window = new BrowserWindow(audioWindow);
-    audio_window.loadURL('http://localhost:5173/voiceCallWindow').catch(console.error);
+    audio_window.loadURL(front_end_url + '/voiceCallWindow').catch(console.error);
 }
 
 const createVideoWin = () => {
     video_window = new BrowserWindow(videoWindow);
-    video_window.loadURL('http://localhost:5173/videoCallWindow').catch(console.error);
+    video_window.loadURL(front_end_url + '/videoCallWindow').catch(console.error);
+}
+
+const createWatchVideo = () => {
+    watch_video = new BrowserWindow(watchVideo);
+    watch_video.loadURL(front_end_url + '/watchVideoWindow').catch(console.error);
 }
 
 let tray;
@@ -34,9 +47,16 @@ app.whenReady()
         ipcMain.on('openVoiceCallWindow', () => {
             if (audio_window === null) createAudioWin();
         });
+
         ipcMain.on('openVideoWindow', () => {
             if (video_window === null) createVideoWin();
         });
+
+        ipcMain.on('watchVideo', (event, title) => {
+            if (watch_video === null) createWatchVideo();
+            console.log(title)
+            watch_video.webContents.send("videoLists")
+        })
 
         ipcMain.on('closeWindow', (event, title) => {
             if (title === "audio_window") {
@@ -51,11 +71,27 @@ app.whenReady()
                     video_window = null;
                 })
             }
+            if (title === "watch_video") {
+                watch_video.close();
+                watch_video.on('closed', () => {
+                    watch_video = null;
+                })
+            }
         })
+
         ipcMain.on('miniWindow', (event, title) => {
             if (title === "audio_window") audio_window.minimize();
             if (title === "video_window") video_window.minimize();
+            if (title === "watch_video") watch_video.minimize();
         })
+
+        ipcMain.on('maximizeWindow', (event, title) => {
+            if (title === "watch_video") {
+                if (watch_video.isMaximized()) watch_video.unmaximize();
+                else watch_video.maximize();
+            }
+        })
+
     })
 
 app.on("window-all-closed", () => {

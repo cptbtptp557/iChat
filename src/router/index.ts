@@ -4,6 +4,7 @@ import login from "../page/login/login.vue";
 import voiceCallWindow from "../page/voiceCallWindow/voiceCallWindow.vue";
 import videoCallWindow from "../page/videoCallWindow/videoCallWindow.vue";
 import forgotPassword from "../page/forgotPassword/forgotPassword.vue";
+import watchVideoWindow from "../page/watchVideoWindow/watchVideoWindow.vue";
 
 export const vueRouter = () => {
     const routes = [
@@ -27,6 +28,10 @@ export const vueRouter = () => {
             path: '/videoCallWindow',
             component: videoCallWindow,
         },
+        {
+            path: '/watchVideoWindow',
+            component: watchVideoWindow,
+        },
     ];
 
     const router = createRouter({
@@ -37,7 +42,7 @@ export const vueRouter = () => {
     router.beforeEach((to, from, next) => {
         let token = localStorage.getItem('token');
         console.log(from);
-        
+
         if (to.path !== '/login' && to.path !== '/forgotPassword') {
             if (token) {
                 next();

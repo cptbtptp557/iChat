@@ -170,9 +170,8 @@ export const homeChatBar = () => {
         the_file.click();
     }
 
-    const watchVideo = (src: string) => {
-        console.log(src);
-        window.electronAPI.watchVideo()
+    const watchVideo = (videoName: string | number, videoSrc: string) => {
+        window.electronAPI.watchVideo(videoName, videoSrc);
     }
 
     socket.on("sendFriendMessage", (message: any): void => {

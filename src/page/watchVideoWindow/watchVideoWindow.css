@@ -1,0 +1,26 @@
+.watchVideoWindow {
+  width: 100%;
+  min-height: 600px;
+  background-color: #efefef;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.watchVideoWindow header {
+  -webkit-app-region: drag;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background-color: transparent;
+}
+.watchVideoWindow header .el-icon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+.watchVideoWindow header .el-icon:hover {
+  background-color: #c7c7c7;
+  color: #505050;
+}
+/*# sourceMappingURL=watchVideoWindow.css.map */

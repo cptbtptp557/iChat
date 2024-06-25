@@ -7,13 +7,16 @@ contextBridge.exposeInMainWorld("electronAPI", {
     openVideoWindow: () => {
         ipcRenderer.send('openVideoWindow');
     },
-    watchVideo: () => {
-        ipcRenderer.send('watchVideo');
+    watchVideo: (videoName, videoSrc) => {
+        ipcRenderer.send('watchVideo', {videoName, videoSrc});
     },
     closeWindow: (window_name) => {
         ipcRenderer.send('closeWindow', window_name);
     },
     miniWindow: (window_name) => {
         ipcRenderer.send('miniWindow', window_name);
-    }
+    },
+    maximizeWindow: (window_name) => {
+        ipcRenderer.send('maximizeWindow', window_name);
+    },
 })

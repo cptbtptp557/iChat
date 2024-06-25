@@ -1,0 +1,36 @@
+@white: #f9f9f9;
+@neu-2: #d1d9e6;
+@gray: rgb(199, 199, 199);
+@light_gray: #efefef;
+@text_gray: #505050;
+@blue: #557ffc;
+@selection_green: #e5ffde;
+
+.watchVideoWindow {
+  width: 100%;
+  min-height: 600px;
+  background-color: @light_gray;
+  border-radius: 5px;
+  overflow: hidden;
+
+  & header {
+    -webkit-app-region: drag;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: transparent;
+
+    & .el-icon {
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+      cursor: pointer;
+      -webkit-app-region: no-drag;
+
+      &:hover {
+        background-color: @gray;
+        color: @text_gray;
+      }
+    }
+  }
+}

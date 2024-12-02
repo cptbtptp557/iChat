@@ -53,7 +53,7 @@ const window = () => {
         height: 600,
         frame: false,
         // resizable: false,
-        // transparent: true,
+        transparent: true,
         useContentSize: true,
         autoHideMenuBar: true,
         webPreferences: {

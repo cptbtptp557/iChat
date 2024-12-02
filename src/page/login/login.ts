@@ -1,4 +1,4 @@
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {ElMessageBox, ElNotification} from "element-plus";
 import {api} from "../../pinia/api.ts";
 
@@ -21,7 +21,7 @@ export const login = () => {
         const bContainer = document.querySelector("#b-container");
 
         switchCtn?.classList.add("is-gx");
-        setTimeout(function () {
+        setTimeout(() => {
             switchCtn?.classList.remove("is-gx");
         }, 1500);
 
@@ -45,7 +45,10 @@ export const login = () => {
         for (i = 0; i < switchBtn.length; i++) switchBtn[i].addEventListener("click", changeForm);
     }
 
-    window.addEventListener("load", mainF);
+    onMounted(() => {
+        mainF();
+    })
+
     // 登录
     const loginIn = () => {
         let token: string;

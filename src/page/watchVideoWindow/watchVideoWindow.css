@@ -12,6 +12,10 @@
   justify-content: flex-end;
   background-color: transparent;
 }
+.watchVideoWindow header p {
+  width: 80%;
+  text-align: center;
+}
 .watchVideoWindow header .el-icon {
   width: 30px;
   height: 30px;

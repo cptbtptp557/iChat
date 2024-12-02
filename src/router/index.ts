@@ -1,36 +1,30 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import home from "../page/home/home.vue";
-import login from "../page/login/login.vue";
-import voiceCallWindow from "../page/voiceCallWindow/voiceCallWindow.vue";
-import videoCallWindow from "../page/videoCallWindow/videoCallWindow.vue";
-import forgotPassword from "../page/forgotPassword/forgotPassword.vue";
-import watchVideoWindow from "../page/watchVideoWindow/watchVideoWindow.vue";
 
 export const vueRouter = () => {
     const routes = [
         {
             path: '/',
-            component: home,
+            component: () => import("../page/home/home.vue"),
         },
         {
             path: '/login',
-            component: login,
+            component: () => import("../page/login/login.vue"),
         },
         {
             path: '/forgotPassword',
-            component: forgotPassword,
+            component: () => import("../page/forgotPassword/forgotPassword.vue"),
         },
         {
             path: '/voiceCallWindow',
-            component: voiceCallWindow,
+            component: () => import("../page/voiceCallWindow/voiceCallWindow.vue"),
         },
         {
             path: '/videoCallWindow',
-            component: videoCallWindow,
+            component: () => import("../page/videoCallWindow/videoCallWindow.vue"),
         },
         {
             path: '/watchVideoWindow',
-            component: watchVideoWindow,
+            component: () => import("../page/watchVideoWindow/watchVideoWindow.vue"),
         },
     ];
 

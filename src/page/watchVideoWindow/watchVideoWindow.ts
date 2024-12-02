@@ -2,6 +2,7 @@ import {onMounted, ref} from "vue";
 
 export const watchVideoWindow = () => {
     const window_size = ref(true); // 窗口的大小
+    const video_lists = ref(); // 视频信息
 
     const miniVoice = () => {
         window.electronAPI.miniWindow("watch_video");
@@ -16,6 +17,10 @@ export const watchVideoWindow = () => {
         window.electronAPI.closeWindow("watch_video");
     }
 
+    window.electronAPI.sendVideoLists((_event: object, videoLists: object) => {
+        video_lists.value = videoLists;
+    })
+
     onMounted(() => {
 
     })
@@ -25,5 +30,6 @@ export const watchVideoWindow = () => {
         windowSize,
         closeVoice,
         window_size,
+        video_lists,
     }
 }

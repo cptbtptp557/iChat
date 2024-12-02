@@ -1,6 +1,8 @@
 const {contextBridge, ipcRenderer} = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
+    ipcRenderer,
+
     openVoiceCallWindow: () => {
         ipcRenderer.send('openVoiceCallWindow');
     },
@@ -19,4 +21,5 @@ contextBridge.exposeInMainWorld("electronAPI", {
     maximizeWindow: (window_name) => {
         ipcRenderer.send('maximizeWindow', window_name);
     },
-})
+    sendVideoLists: (video_lists) => ipcRenderer.on('videoLists', video_lists),
+});

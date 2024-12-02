@@ -1,7 +1,7 @@
 <template>
   <div class="watchVideoWindow">
     <header>
-
+      <p>{{ video_lists.videoName }}</p>
       <el-icon size="20" color="#a0a5a8" @click="miniVoice">
         <Minus/>
       </el-icon>
@@ -14,13 +14,16 @@
       </el-icon>
     </header>
     <main>
-      <p>1{{ watchVideoData().video_src}}</p>
+      <video controls autoplay height="500">
+        <source :src="video_lists.videoSrc" type="video/mp4"/>
+      </video>
+
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import {Close, CopyDocument, FullScreen, Minus} from "@element-plus/icons-vue";
+import {Close, CopyDocument, FullScreen, Minus, Soccer} from "@element-plus/icons-vue";
 import {watchVideoWindow} from "./watchVideoWindow.ts";
 
 const {
@@ -28,6 +31,7 @@ const {
   windowSize,
   closeVoice,
   window_size,
+  video_lists,
 } = watchVideoWindow();
 </script>
 

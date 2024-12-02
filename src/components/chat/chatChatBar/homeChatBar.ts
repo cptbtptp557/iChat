@@ -165,13 +165,14 @@ export const homeChatBar = () => {
         }
     }
 
-    const openOrDownloadFile = () => {
+    const openOrDownloadFile = (): void => {
         const the_file = document.getElementById("file") as HTMLElement;
         the_file.click();
     }
 
-    const watchVideo = (videoName: string | number, videoSrc: string) => {
+    const watchVideo = (videoName: string | number, videoSrc: string): void => {
         window.electronAPI.watchVideo(videoName, videoSrc);
+        // window.electronAPI.ipcRenderer.send("aaa", 1)
     }
 
     socket.on("sendFriendMessage", (message: any): void => {

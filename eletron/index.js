@@ -54,28 +54,33 @@ app.whenReady()
 
         ipcMain.on('watchVideo', (event, title) => {
             if (watch_video === null) createWatchVideo();
-            console.log(title)
-            watch_video.webContents.send("videoLists")
+
+            // console.log(title)
+            setTimeout(()=>{
+                watch_video.webContents.send("videoLists", title);
+            }, 1000);
         })
 
         ipcMain.on('closeWindow', (event, title) => {
-            if (title === "audio_window") {
-                audio_window.close();
-                audio_window.on('closed', () => {
-                    audio_window = null;
-                })
-            }
-            if (title === "video_window") {
-                video_window.close();
-                video_window.on('closed', () => {
-                    video_window = null;
-                })
-            }
-            if (title === "watch_video") {
-                watch_video.close();
-                watch_video.on('closed', () => {
-                    watch_video = null;
-                })
+            switch (title) {
+                case "audio_window":
+                    audio_window.close();
+                    audio_window.on('closed', () => {
+                        audio_window = null;
+                    })
+                    break;
+                case "video_window":
+                    video_window.close();
+                    video_window.on('closed', () => {
+                        video_window = null;
+                    })
+                    break;
+                case "watch_video":
+                    watch_video.close();
+                    watch_video.on('closed', () => {
+                        watch_video = null;
+                    })
+                    break;
             }
         })
 
@@ -86,9 +91,11 @@ app.whenReady()
         })
 
         ipcMain.on('maximizeWindow', (event, title) => {
-            if (title === "watch_video") {
-                if (watch_video.isMaximized()) watch_video.unmaximize();
-                else watch_video.maximize();
+            switch (title) {
+                case "watch_video":
+                    if (watch_video.isMaximized()) watch_video.unmaximize();
+                    else watch_video.maximize();
+                    break;
             }
         })
 

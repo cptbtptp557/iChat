@@ -7,6 +7,7 @@ export interface IElectronAPI {
     closeWindow: (windowName: string) => Promise<void>,
     miniWindow: (windowName: string) => Promise<void>,
     maximizeWindow: (windowName: string) => Promise<void>,
+    sendVideoLists: (_event: any) => Promise<void>,
 }
 
 declare global {

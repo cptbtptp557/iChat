@@ -12,7 +12,7 @@ const window = () => {
             sandbox: false,
             nodeIntegration: true,
             contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, './preload.js'),
         }
     }
 
@@ -28,7 +28,7 @@ const window = () => {
             sandbox: false,
             nodeIntegration: true,
             contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, './preload.js'),
         }
     }
 
@@ -44,7 +44,7 @@ const window = () => {
             sandbox: false,
             nodeIntegration: true,
             contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, './preload.js'),
         }
     }
 
@@ -52,7 +52,7 @@ const window = () => {
         width: 850,
         height: 600,
         frame: false,
-        resizable: false,
+        // resizable: false,
         // transparent: true,
         useContentSize: true,
         autoHideMenuBar: true,
@@ -60,7 +60,7 @@ const window = () => {
             sandbox: false,
             nodeIntegration: true,
             contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, './preload.js'),
         }
     }
 

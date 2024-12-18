@@ -118,11 +118,11 @@ export const homeChatBar = () => {
 
         socket.emit("sendFriendMessage", message);
         content.value = "";
-        allChatMessage.value.push(message);
+        // allChatMessage.value.push(message);
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
-        }, 100);
+        }, 150);
     }
 
     const enterSengMessage = (): void => {

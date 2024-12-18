@@ -14,16 +14,15 @@
       </el-icon>
     </header>
     <main>
-      <video controls autoplay height="500">
+      <video controls autoplay>
         <source :src="video_lists.videoSrc" type="video/mp4"/>
       </video>
-
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import {Close, CopyDocument, FullScreen, Minus, Soccer} from "@element-plus/icons-vue";
+import {Close, CopyDocument, FullScreen, Minus} from "@element-plus/icons-vue";
 import {watchVideoWindow} from "./watchVideoWindow.ts";
 
 const {

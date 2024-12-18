@@ -392,6 +392,7 @@ io.on('connection', socket => {
     socket.on("sendFriendMessage", (message) => {
         sqlFunction(add_friend_chat_message(message.from_iid, message.to_iid, message.message, message.reading_status, message.send_time))
             .then(() => {
+                console.log(socket_users)
                 socket_users[message.to_iid].emit("sendFriendMessage", message);
                 socket_users[message.from_iid].emit("sendFriendMessage", message);
                 socket_users[message.from_iid].emit("updateNewMessage", message.from_iid);

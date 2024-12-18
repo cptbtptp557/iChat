@@ -59,7 +59,11 @@ app.whenReady()
             setTimeout(()=>{
                 watch_video.webContents.send("videoLists", title);
             }, 1000);
-        })
+            watch_video.on('resize', () => {
+                const [w, h] = watch_video.getContentSize();
+                console.log(w, h);
+            })
+        });
 
         ipcMain.on('closeWindow', (event, title) => {
             switch (title) {

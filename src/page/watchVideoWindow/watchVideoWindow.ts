@@ -33,3 +33,12 @@ export const watchVideoWindow = () => {
         video_lists,
     }
 }
+
+//      _ooOoo_
+//     o8888888o
+//     88" . "88
+//     (| - - |)
+//     O\  =  /O
+//   ___/'---'\___
+// '  \\|     |//  '
+//'

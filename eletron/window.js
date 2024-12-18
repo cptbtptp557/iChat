@@ -50,7 +50,9 @@ const window = () => {
 
     const watchVideo = {
         width: 850,
-        height: 600,
+        // height: 688,
+        minWidth: 800,
+        minHeight: 688,
         frame: false,
         // resizable: false,
         transparent: true,

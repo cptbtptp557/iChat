@@ -9,7 +9,7 @@
 .watchVideoWindow {
   width: 100%;
   min-height: 600px;
-  background-color: @light_gray;
+  background-color: rgba(16, 16, 16, 0.97);
   border-radius: 5px;
   overflow: hidden;
 
@@ -23,6 +23,7 @@
     & p {
       width: 80%;
       text-align: center;
+      color: @gray;
     }
 
     & .el-icon {
@@ -36,6 +37,16 @@
         background-color: @gray;
         color: @text_gray;
       }
+    }
+  }
+
+  & main {
+    & video {
+      width: 40%;
+      max-height: 96vh;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }

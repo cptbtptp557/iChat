@@ -1,4 +1,4 @@
-import {h, ref, watch} from "vue";
+import {h, onMounted, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
 import {classLists} from "../../../class";
 import {ElNotification, ElMessage} from "element-plus";
@@ -29,6 +29,18 @@ export const homeChatBar = () => {
     const {group_state} = groupData();
     const {friend_chat_message} = classLists();
     const {getFriendChatMessage} = api();
+
+    onMounted(() => {
+        const connect: HTMLElement | null = document.getElementById("stop");
+        connect?.addEventListener("animationend", () => {
+            if (connect) {
+                console.log(1)
+                requestAnimationFrame(() => {
+                    connect.style.animation = "VVCanimation 0.5s infinite";
+                });
+            }
+        })
+    })
 
     // 打开语音通话界面
     const openVoiceCallWindow = (): void => {
@@ -92,6 +104,7 @@ export const homeChatBar = () => {
         paste_button.style.display = "inherit";
     }
 
+    // 粘贴
     const paste = async () => {
         const paste_button = document.getElementById("paste") as HTMLElement;
         const textarea = document.getElementById("textarea") as HTMLInputElement;
@@ -174,6 +187,7 @@ export const homeChatBar = () => {
         window.electronAPI.watchVideo(videoName, videoSrc);
         // window.electronAPI.ipcRenderer.send("aaa", 1)
     }
+
 
     socket.on("sendFriendMessage", (message: any): void => {
         console.log(message)

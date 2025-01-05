@@ -56,7 +56,7 @@ app.whenReady()
             if (watch_video === null) createWatchVideo();
 
             // console.log(title)
-            setTimeout(()=>{
+            setTimeout(() => {
                 watch_video.webContents.send("videoLists", title);
             }, 1000);
             watch_video.on('resize', () => {

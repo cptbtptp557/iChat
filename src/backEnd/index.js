@@ -353,11 +353,13 @@ app.post('/changeMessageStatus', (req) => {
 /*==================================   Socket.io   ==================================*/
 let socket_users = {};
 let chating_friend = {};
+let VAVCS = {};     // 语音视频通讯状态 0:空闲中，1:正在通话
 
 io.on('connection', socket => {
     socket.on("login", async (userId) => {
         socket.name = userId;
         socket_users[userId] = socket;
+        VAVCS[userId] = 0;
         socket.emit("login", socket.id);
         socket_users[userId].broadcast.emit("user_login", userId);
         socket_users[userId].emit("friendChatUserData", userId);
@@ -392,7 +394,6 @@ io.on('connection', socket => {
     socket.on("sendFriendMessage", (message) => {
         sqlFunction(add_friend_chat_message(message.from_iid, message.to_iid, message.message, message.reading_status, message.send_time))
             .then(() => {
-                console.log(socket_users)
                 socket_users[message.to_iid].emit("sendFriendMessage", message);
                 socket_users[message.from_iid].emit("sendFriendMessage", message);
                 socket_users[message.from_iid].emit("updateNewMessage", message.from_iid);
@@ -407,6 +408,7 @@ io.on('connection', socket => {
         sqlFunction(change_message_status(chatUsersIds.thisChatFriendId, chatUsersIds.thisUserId))
             .catch(console.error);
     })
+
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);
     socket.on("disconnect", () => {

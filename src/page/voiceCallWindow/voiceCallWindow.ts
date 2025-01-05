@@ -1,4 +1,4 @@
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 
 export const voiceCallWindow = () => {
     const microphone_state = ref(true);
@@ -23,6 +23,10 @@ export const voiceCallWindow = () => {
     const hornButton = () => {
         horn_state.value = !horn_state.value;
     }
+
+    onMounted(() => {
+        alert(1)
+    })
 
     return {
         closeVoice,

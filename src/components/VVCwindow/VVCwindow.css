@@ -1,0 +1,62 @@
+.VVCwindow {
+  margin-top: 10px;
+  position: fixed;
+  top: 5vh;
+  left: 50vw;
+  z-index: 100;
+  overflow: hidden;
+  border-radius: 15px;
+}
+.VVCwindow .VVCsubassembly {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: inset 0 0 3px #c7c7c7;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+.VVCwindow .VVCsubassembly * {
+  margin: 0 5px;
+}
+.VVCwindow .VVCsubassembly img:first-child {
+  width: 50px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #c7c7c7;
+}
+.VVCwindow .VVCsubassembly p {
+  transform: translateY(14px);
+}
+.VVCwindow .VVCsubassembly img:nth-child(3),
+.VVCwindow .VVCsubassembly img:nth-child(4) {
+  cursor: pointer;
+}
+.VVCwindow .VVCsubassembly img:nth-child(3):active,
+.VVCwindow .VVCsubassembly img:nth-child(4):active {
+  transform: translate(1px, 1px);
+}
+.VVCwindow #appear {
+  bottom: 0;
+  animation: VVCanimationappear 0.5s 1;
+}
+.VVCwindow #hide {
+  bottom: 75px;
+  animation: VVCanimationdisappear 0.5s 1;
+}
+@keyframes VVCanimationappear {
+  from {
+    bottom: 75px;
+  }
+  to {
+    bottom: 0;
+  }
+}
+@keyframes VVCanimationdisappear {
+  from {
+    bottom: 0;
+  }
+  to {
+    bottom: 75px;
+  }
+}
+/*# sourceMappingURL=VVCwindow.css.map */

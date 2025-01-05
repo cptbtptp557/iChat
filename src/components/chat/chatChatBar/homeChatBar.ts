@@ -43,9 +43,21 @@ export const homeChatBar = () => {
     })
 
     // 打开语音通话界面
-    const openVoiceCallWindow = (): void => {
-        window.electronAPI.openVoiceCallWindow();
+    const openVoiceCallWindow = async (): Promise<void> => {
+        // window.electronAPI.openVoiceCallWindow();
+
+        socket.emit("VCRoom", {
+            from: usersLists().thisUserAccount >>> 0,
+            to: this_chat_friend_data.value.iId
+        })
     }
+    socket.on("join-room-name", (data) => {
+        socket.emit("join-room", {"room_name": data[0], "user_id": data[1]});
+    })
+    socket.on("demo-room-message", (data) => {
+        console.log(data);
+    })
+
     // 打开视频通话界面
     const openVideoCallWindow = (): void => {
         window.electronAPI.openVideoWindow();
@@ -190,7 +202,6 @@ export const homeChatBar = () => {
 
 
     socket.on("sendFriendMessage", (message: any): void => {
-        console.log(message)
         allChatMessage.value.push(message);
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;

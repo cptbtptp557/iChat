@@ -6,6 +6,7 @@ const {createServer} = require("http");
 const {Server} = require("socket.io");
 const mySqlQueryStatements = require("./mySql/mySqlQueryStatements");
 const mySqlFunction = require("./mySql/mySqlFunction");
+const crypto = require('crypto');
 
 const node_port = 3000;
 const socket_io_port = 30000;
@@ -409,6 +410,31 @@ io.on('connection', socket => {
             .catch(console.error);
     })
 
+    socket.on("VCRoom", (data) => {
+        const room_name = crypto.createHash('sha256')
+            .update("from:" + data.from + "to:" + data.to)
+            .digest('hex');
+
+        if (VAVCS[data.from] === 0 && VAVCS[data.to] === 0) {
+            socket.join(room_name);
+            VAVCS[data.from] = 1;
+            VAVCS[data.to] = 1;
+            console.log(data.to)
+            socket_users[data.to].emit("join-room-name", [room_name, data.from]);
+
+            // A发给B的令信
+        } else {
+            console.log("在房间里");
+        }
+    })
+
+    socket.on("join-room", (data) => {
+        socket.join(data.room_name);
+        console.log(data.user_id);
+
+        // B发给A的令信
+        socket.broadcast.to(data.room_name).emit("demo-room-message", data.room_name + "房间的消息");
+    })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);
     socket.on("disconnect", () => {

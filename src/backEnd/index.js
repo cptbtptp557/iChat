@@ -419,10 +419,11 @@ io.on('connection', socket => {
             socket.join(room_name);
             VAVCS[data.from] = 1;
             VAVCS[data.to] = 1;
-            console.log(data.to)
+
             socket_users[data.to].emit("join-room-name", [room_name, data.from]);
 
             // A发给B的令信
+            socket_users[data.to].emit("openVVCwindow", [room_name, data.from, data.to]);
         } else {
             console.log("在房间里");
         }
@@ -430,10 +431,14 @@ io.on('connection', socket => {
 
     socket.on("join-room", (data) => {
         socket.join(data.room_name);
-        console.log(data.user_id);
 
         // B发给A的令信
         socket.broadcast.to(data.room_name).emit("demo-room-message", data.room_name + "房间的消息");
+    })
+
+    socket.on("hangUpVoice", (one_on_one_voice_list) => {
+        // socket.emit("voice_call_ended");
+        VAVCS[one_on_one_voice_list[2]] = 0;
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

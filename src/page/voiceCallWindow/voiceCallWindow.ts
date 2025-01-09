@@ -1,8 +1,12 @@
 import {onMounted, ref} from "vue";
+import {VoiceCalls} from "../../WebRTC/VoiceCalls.ts";
 
 export const voiceCallWindow = () => {
     const microphone_state = ref(true);
     const horn_state = ref(true);
+    const top_state = ref("拨通中");
+
+    const {} = VoiceCalls();
 
     // 关闭窗口
     const closeVoice = () => {
@@ -25,12 +29,12 @@ export const voiceCallWindow = () => {
     }
 
     onMounted(() => {
-        alert(1)
     })
 
     return {
         closeVoice,
         miniVoice,
+        top_state,
         microphone_state,
         microphoneButton,
         horn_state,

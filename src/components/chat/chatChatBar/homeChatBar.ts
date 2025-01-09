@@ -44,14 +44,18 @@ export const homeChatBar = () => {
 
     // 打开语音通话界面
     const openVoiceCallWindow = async (): Promise<void> => {
-        // window.electronAPI.openVoiceCallWindow();
-
         socket.emit("VCRoom", {
             from: usersLists().thisUserAccount >>> 0,
             to: this_chat_friend_data.value.iId
-        })
+        });
+        try {
+            window.electronAPI.openVoiceCallWindow();
+        } catch (err) {
+            window.open('http://localhost:5173/voiceCallWindow', '_blank');
+        }
     }
     socket.on("join-room-name", (data) => {
+        console.log(data)
         socket.emit("join-room", {"room_name": data[0], "user_id": data[1]});
     })
     socket.on("demo-room-message", (data) => {
@@ -60,7 +64,11 @@ export const homeChatBar = () => {
 
     // 打开视频通话界面
     const openVideoCallWindow = (): void => {
-        window.electronAPI.openVideoWindow();
+        try {
+            window.electronAPI.openVideoWindow();
+        } catch (err) {
+            window.open('http://localhost:5173/videoCallWindow', '_blank');
+        }
     }
     const openMoreWindow = (): void => {
         more_window.value = true;

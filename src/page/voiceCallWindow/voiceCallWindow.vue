@@ -2,7 +2,7 @@
   <div class="voice_background">
     <img src="../../../public/chat-avatar/from-user.png" class="voice-background-image" alt="聊天背景">
     <header class="move">
-      <p>00:00</p>
+      <p>{{ top_state }}</p>
       <el-icon size="20" color="#a0a5a8" @click="closeVoice">
         <Close/>
       </el-icon>
@@ -38,6 +38,7 @@ import {Close, Microphone, Minus, Mute, PhoneFilled} from "@element-plus/icons-v
 const {
   closeVoice,
   miniVoice,
+  top_state,
   microphone_state,
   microphoneButton,
   horn_state,

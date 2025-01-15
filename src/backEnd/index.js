@@ -432,8 +432,13 @@ io.on('connection', socket => {
     socket.on("join-room", (data) => {
         socket.join(data.room_name);
 
-        // B发给A的令信
-        socket.broadcast.to(data.room_name).emit("demo-room-message", data.room_name + "房间的消息");
+        // 接收方把房间号发给发送方
+        socket.broadcast.to(data.room_name).emit("roomNumberSender", data.room_name);
+    })
+
+    socket.on("fromUserJoinRoom", (data) => {
+        socket.join(data);
+        console.log(io.sockets.adapter.rooms.get(data))
     })
 
     socket.on("hangUpVoice", (one_on_one_voice_list) => {
@@ -445,6 +450,7 @@ io.on('connection', socket => {
     socket.on("disconnect", () => {
         console.log("有人离开了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);
     });
+
 });
 
 app.listen(node_port, () => {

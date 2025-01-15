@@ -57,9 +57,12 @@ export const homeChatBar = () => {
     socket.on("join-room-name", (data) => {
         console.log(data)
         socket.emit("join-room", {"room_name": data[0], "user_id": data[1]});
+
+
     })
-    socket.on("demo-room-message", (data) => {
+    socket.on("roomNumberSender", (data) => {
         console.log(data);
+        window.electronAPI.sendVoiceRoomName(data);
     })
 
     // 打开视频通话界面
@@ -205,7 +208,6 @@ export const homeChatBar = () => {
 
     const watchVideo = (videoName: string | number, videoSrc: string): void => {
         window.electronAPI.watchVideo(videoName, videoSrc);
-        // window.electronAPI.ipcRenderer.send("aaa", 1)
     }
 
 

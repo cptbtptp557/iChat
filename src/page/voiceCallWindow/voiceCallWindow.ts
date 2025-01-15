@@ -1,5 +1,6 @@
 import {onMounted, ref} from "vue";
 import {VoiceCalls} from "../../WebRTC/VoiceCalls.ts";
+import socket from "../../socket";
 
 export const voiceCallWindow = () => {
     const microphone_state = ref(true);
@@ -28,7 +29,17 @@ export const voiceCallWindow = () => {
         horn_state.value = !horn_state.value;
     }
 
+    try {
+        window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
+            console.log("房间号:" + voiceRoomName)
+            socket.emit("fromUserJoinRoom", voiceRoomName);
+        })
+    } catch (e) {
+        console.log(e)
+    }
+
     onMounted(() => {
+
     })
 
     return {

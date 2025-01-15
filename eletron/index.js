@@ -59,10 +59,6 @@ app.whenReady()
             setTimeout(() => {
                 watch_video.webContents.send("videoLists", title);
             }, 1000);
-            watch_video.on('resize', () => {
-                const [w, h] = watch_video.getContentSize();
-                console.log(w, h);
-            })
         });
 
         ipcMain.on('closeWindow', (event, title) => {
@@ -103,6 +99,16 @@ app.whenReady()
             }
         })
 
+        ipcMain.on('receptionVoiceRoomName', (event, title) => {
+            if (title) {
+                console.log("title:" + title);
+                setTimeout(() => {
+                    audio_window.webContents.send("sendVoiceRoomName", title);
+                }, 1000);
+            } else {
+                console.log("没收到")
+            }
+        })
     })
 
 app.on("window-all-closed", () => {

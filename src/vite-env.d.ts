@@ -8,6 +8,8 @@ export interface IElectronAPI {
     miniWindow: (windowName: string) => Promise<void>,
     maximizeWindow: (windowName: string) => Promise<void>,
     sendVideoLists: (_event: any) => Promise<void>,
+    sendVoiceRoomName: (roomName: string) => void,
+    receptionVoiceRoomName: (_event: any) => Promise<void>,
 }
 
 declare global {

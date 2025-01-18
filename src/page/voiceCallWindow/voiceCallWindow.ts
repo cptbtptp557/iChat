@@ -29,17 +29,40 @@ export const voiceCallWindow = () => {
         horn_state.value = !horn_state.value;
     }
 
-    try {
-        window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
-            console.log("房间号:" + voiceRoomName)
-            socket.emit("fromUserJoinRoom", voiceRoomName);
-        })
-    } catch (e) {
-        console.log(e)
+    let top_state_timer: any;
+    let top_state_boolean: boolean = true;
+    const aaa = () => {
+        top_state_timer = setTimeout(() => {
+            top_state.value = "拨通中.";
+
+            setTimeout(() => {
+                top_state.value = "拨通中..";
+                setTimeout(() => {
+                    top_state.value = "拨通中...";
+
+                    if (!top_state_boolean) return;
+                    aaa();
+                }, 700)
+            }, 700)
+        }, 700)
     }
 
-    onMounted(() => {
+    socket.on("changFromUserWindowState", (data: boolean) => {
+        if (!data) {
+            top_state_boolean = data;
+            console.log(data)
+            clearTimeout(top_state_timer);
+            top_state.value = "对方已挂断";
+        }
+    })
 
+    window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
+        socket.emit("fromUserJoinRoom", voiceRoomName);
+        console.log(voiceRoomName)
+    })
+
+    onMounted(() => {
+        aaa();
     })
 
     return {

@@ -6,6 +6,7 @@ export const voiceCallWindow = () => {
     const microphone_state = ref(true);
     const horn_state = ref(true);
     const top_state = ref("拨通中");
+    const voice_room = ref();
 
     const {} = VoiceCalls();
 
@@ -31,7 +32,7 @@ export const voiceCallWindow = () => {
 
     let top_state_timer: any;
     let top_state_boolean: boolean = true;
-    const aaa = () => {
+    const voiceLoading = () => {
         top_state_timer = setTimeout(() => {
             top_state.value = "拨通中.";
 
@@ -40,29 +41,39 @@ export const voiceCallWindow = () => {
                 setTimeout(() => {
                     top_state.value = "拨通中...";
 
-                    if (!top_state_boolean) return;
-                    aaa();
+                    if (!top_state_boolean) {
+                        top_state.value = "对方已挂断";
+                        return;
+                    }
+                    voiceLoading();
                 }, 700)
             }, 700)
         }, 700)
     }
 
-    socket.on("changFromUserWindowState", (data: boolean) => {
-        if (!data) {
-            top_state_boolean = data;
-            console.log(data)
+    let fromUserId: number;
+    const voiceHangUp = () => {
+        socket.emit("delete_voice_room", [voice_room.value, fromUserId]);
+        window.electronAPI.closeWindow("audio_window");
+    }
+
+    socket.on("changFromUserWindowState", (data: any) => {
+        if (!Boolean(data[0])) {
+            top_state_boolean = Boolean(data[0]);
             clearTimeout(top_state_timer);
-            top_state.value = "对方已挂断";
+            console.log(data[1])
+            fromUserId = data[1];
         }
     })
 
     window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
         socket.emit("fromUserJoinRoom", voiceRoomName);
         console.log(voiceRoomName)
+        voice_room.value = voiceRoomName;
     })
 
     onMounted(() => {
-        aaa();
+        voiceLoading();
     })
 
     return {
@@ -73,5 +84,6 @@ export const voiceCallWindow = () => {
         microphoneButton,
         horn_state,
         hornButton,
+        voiceHangUp,
     }
 }

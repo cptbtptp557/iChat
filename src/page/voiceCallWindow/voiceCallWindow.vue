@@ -19,7 +19,7 @@
         <Mute v-else/>
       </el-icon>
 
-      <el-icon size="50" color="#a0a5a8" class="hang-up">
+      <el-icon size="50" color="#a0a5a8" class="hang-up" @click="voiceHangUp">
         <PhoneFilled style="transform: rotate(135deg);"/>
       </el-icon>
 
@@ -43,6 +43,7 @@ const {
   microphoneButton,
   horn_state,
   hornButton,
+  voiceHangUp,
 } = voiceCallWindow();
 </script>
 

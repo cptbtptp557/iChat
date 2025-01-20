@@ -34,7 +34,6 @@ export const homeChatBar = () => {
         const connect: HTMLElement | null = document.getElementById("stop");
         connect?.addEventListener("animationend", () => {
             if (connect) {
-                console.log(1)
                 requestAnimationFrame(() => {
                     connect.style.animation = "VVCanimation 0.5s infinite";
                 });
@@ -54,16 +53,6 @@ export const homeChatBar = () => {
             window.open('http://localhost:5173/voiceCallWindow', '_blank');
         }
     }
-    socket.on("join-room-name", (data) => {
-        console.log(data)
-        socket.emit("join-room", {"room_name": data[0], "user_id": data[1]});
-
-
-    })
-    socket.on("roomNumberSender", (data) => {
-        console.log(data);
-        window.electronAPI.sendVoiceRoomName(data);
-    })
 
     // 打开视频通话界面
     const openVideoCallWindow = (): void => {

@@ -438,17 +438,21 @@ io.on('connection', socket => {
 
     socket.on("fromUserJoinRoom", (data) => {
         socket.join(data);
-        console.log(data)
     })
 
     socket.on("hangUpVoice", (one_on_one_voice_list) => {
         // socket.emit("voice_call_ended");
         VAVCS[one_on_one_voice_list[2]] = 0;
+        socket.leave(one_on_one_voice_list[0]);
 
-        console.log(one_on_one_voice_list[0])
+        // console.log(io.sockets.adapter.rooms.get(one_on_one_voice_list[0]));
+        socket.broadcast.to(one_on_one_voice_list[0]).emit("changFromUserWindowState", [false, one_on_one_voice_list[1]]);
+    })
 
-        console.log(io.sockets.adapter.rooms.get(one_on_one_voice_list[0]));
-        socket.broadcast.to(one_on_one_voice_list[0]).emit("changFromUserWindowState", false);
+    socket.on("delete_voice_room", (data) => {
+        VAVCS[data[1]] = 0;
+        socket_users[data[1]].leave(data[0]);
+        socket.leave(data[0]);
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

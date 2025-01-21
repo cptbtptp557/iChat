@@ -10,9 +10,12 @@
         <Minus/>
       </el-icon>
     </header>
-    <div class="voice-friends">
+    <main>
       <img src="../../../public/chat-avatar/from-user.png" alt="聊天对象">
-    </div>
+      <audio autoplay>
+        <source :src="audio_src"/>
+      </audio>
+    </main>
     <footer>
       <el-icon size="40" color="#a0a5a8" class="microphone" @click="microphoneButton">
         <Microphone v-if="microphone_state"/>
@@ -44,6 +47,7 @@ const {
   horn_state,
   hornButton,
   voiceHangUp,
+  audio_src,
 } = voiceCallWindow();
 </script>
 

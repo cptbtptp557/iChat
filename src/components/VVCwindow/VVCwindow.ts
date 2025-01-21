@@ -8,8 +8,14 @@ export const VVCwindow = () => {
 
     // 接通通话
     const connect = () => {
-        window.electronAPI.openVoiceCallWindow();
-        VVCW_status.value = 1;
+        try {
+            window.electronAPI.openVoiceCallWindow();
+            VVCW_status.value = 1;
+            socket.emit("toUserVVCwindowJoinRoom", one_on_one_voice_list.value);
+        } catch (err) {
+            window.open('http://localhost:5173/voiceCallWindow', '_blank');
+            socket.emit("toUserVVCwindowJoinRoom", one_on_one_voice_list.value);
+        }
     }
 
     // 结束通话

@@ -1,5 +1,5 @@
 import {onMounted, ref} from "vue";
-import {VoiceCalls} from "../../WebRTC/VoiceCalls.ts";
+
 import socket from "../../socket";
 
 export const voiceCallWindow = () => {
@@ -7,8 +7,7 @@ export const voiceCallWindow = () => {
     const horn_state = ref(true);
     const top_state = ref("拨通中");
     const voice_room = ref();
-
-    const {} = VoiceCalls();
+    const audio_src = ref();
 
     // 关闭窗口
     const closeVoice = () => {
@@ -61,16 +60,23 @@ export const voiceCallWindow = () => {
         if (!Boolean(data[0])) {
             top_state_boolean = Boolean(data[0]);
             clearTimeout(top_state_timer);
-            console.log(data[1])
             fromUserId = data[1];
         }
     })
 
-    window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
-        socket.emit("fromUserJoinRoom", voiceRoomName);
-        console.log(voiceRoomName)
-        voice_room.value = voiceRoomName;
+    socket.on("offer", (offer) => {
+        console.log(offer);
     })
+
+    try {
+        window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
+            socket.emit("fromUserJoinRoom", voiceRoomName);
+            voice_room.value = voiceRoomName;
+        })
+    } catch (e) {
+        socket.emit("fromUserJoinRoom", "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570");
+        voice_room.value = "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570";
+    }
 
     onMounted(() => {
         voiceLoading();
@@ -85,5 +91,6 @@ export const voiceCallWindow = () => {
         horn_state,
         hornButton,
         voiceHangUp,
+        audio_src,
     }
 }

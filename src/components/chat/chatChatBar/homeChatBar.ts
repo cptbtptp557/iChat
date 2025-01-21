@@ -4,6 +4,7 @@ import {classLists} from "../../../class";
 import {ElNotification, ElMessage} from "element-plus";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
+import {VoiceCalls} from "../../../WebRTC/VoiceCalls.ts";
 import socket from "../../../socket";
 
 export const homeChatBar = () => {
@@ -47,6 +48,7 @@ export const homeChatBar = () => {
             from: usersLists().thisUserAccount >>> 0,
             to: this_chat_friend_data.value.iId
         });
+
         try {
             window.electronAPI.openVoiceCallWindow();
         } catch (err) {
@@ -217,6 +219,14 @@ export const homeChatBar = () => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
         }, 50)
+    })
+
+    socket.on("voiceToUserJoinOver", (roomName) => {
+        console.log(roomName)
+        VoiceCalls()
+            .then(({getScreenLists}) => {
+                getScreenLists(roomName);
+            }).catch(console.error);
     })
 
     watch(content, (): void => {

@@ -101,7 +101,6 @@ app.whenReady()
 
         ipcMain.on('receptionVoiceRoomName', (event, title) => {
             if (title) {
-                console.log("title:" + title);
                 setTimeout(() => {
                     audio_window.webContents.send("sendVoiceRoomName", title);
                 }, 1000);

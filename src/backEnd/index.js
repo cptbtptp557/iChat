@@ -421,8 +421,6 @@ io.on('connection', socket => {
             VAVCS[data.to] = 1;
 
             socket_users[data.to].emit("join-room-name", [room_name, data.from]);
-
-            // A发给B的令信
             socket_users[data.to].emit("openVVCwindow", [room_name, data.from, data.to]);
         } else {
             console.log("在房间里");
@@ -438,10 +436,10 @@ io.on('connection', socket => {
 
     socket.on("fromUserJoinRoom", (data) => {
         socket.join(data);
+        io.to(data).emit("voiceToUserJoinOver", data);
     })
 
     socket.on("hangUpVoice", (one_on_one_voice_list) => {
-        // socket.emit("voice_call_ended");
         VAVCS[one_on_one_voice_list[2]] = 0;
         socket.leave(one_on_one_voice_list[0]);
 
@@ -453,6 +451,23 @@ io.on('connection', socket => {
         VAVCS[data[1]] = 0;
         socket_users[data[1]].leave(data[0]);
         socket.leave(data[0]);
+    })
+
+    socket.on("toUserVVCwindowJoinRoom", (data) => {
+        socket.join(data[0]);
+    })
+
+    // WebRTC
+    socket.on("iceCandidate", (iceCandidate) => {
+        socket.broadcast.to(iceCandidate[1]).emit("iceCandidate", iceCandidate[0]);
+    })
+
+    socket.on("offer", (offer) => {
+        socket.broadcast.to(offer[1]).emit("offer", offer[0]);
+    })
+
+    socket.on("answer", (answer) => {
+
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

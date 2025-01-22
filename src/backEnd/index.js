@@ -463,7 +463,7 @@ io.on('connection', socket => {
     })
 
     socket.on("offer", (offer) => {
-        socket.broadcast.to(offer[1]).emit("offer", offer[0]);
+        socket.broadcast.to(offer[1]).emit("offer", offer);
     })
 
     socket.on("answer", (answer) => {

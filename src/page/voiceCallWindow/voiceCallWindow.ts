@@ -1,4 +1,5 @@
 import {onMounted, ref} from "vue";
+import {VoiceCalls} from "../../WebRTC/VoiceCalls.ts";
 
 import socket from "../../socket";
 
@@ -65,7 +66,10 @@ export const voiceCallWindow = () => {
     })
 
     socket.on("offer", (offer) => {
-        console.log(offer);
+        VoiceCalls()
+            .then(({getScreenLists}) => {
+                getScreenLists(offer, "answer")
+            }).catch(console.error);
     })
 
     try {

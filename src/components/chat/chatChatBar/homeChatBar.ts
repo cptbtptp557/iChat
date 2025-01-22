@@ -222,10 +222,9 @@ export const homeChatBar = () => {
     })
 
     socket.on("voiceToUserJoinOver", (roomName) => {
-        console.log(roomName)
         VoiceCalls()
             .then(({getScreenLists}) => {
-                getScreenLists(roomName);
+                getScreenLists(roomName, "offer")
             }).catch(console.error);
     })
 

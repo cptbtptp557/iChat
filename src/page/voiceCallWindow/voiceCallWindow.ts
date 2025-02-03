@@ -78,7 +78,7 @@ export const voiceCallWindow = () => {
 
     // 处理远程流
     const handleRemoteStream = (event: any, audioElementId: string) => {
-        const audioElement: HTMLElement | null = document.getElementById(audioElementId);
+        const audioElement = document.getElementById(audioElementId) as HTMLMediaElement;
         if (audioElement) {
             audioElement.srcObject = event.streams[0];
             audioElement.play().catch(console.error);

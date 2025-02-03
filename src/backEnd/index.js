@@ -459,7 +459,7 @@ io.on('connection', socket => {
 
     // WebRTC
     socket.on("iceCandidate", (iceCandidate) => {
-        socket.broadcast.to(iceCandidate[1]).emit("iceCandidate", iceCandidate[0]);
+        socket.broadcast.to(iceCandidate[1]).emit("iceCandidate", iceCandidate);
     })
 
     socket.on("offer", (offer) => {
@@ -467,7 +467,7 @@ io.on('connection', socket => {
     })
 
     socket.on("answer", (answer) => {
-
+        socket.broadcast.to(answer[1]).emit("answer", answer);
     })
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);

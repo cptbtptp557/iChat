@@ -12,8 +12,8 @@
     </header>
     <main>
       <img src="../../../public/chat-avatar/from-user.png" alt="聊天对象">
-      <audio autoplay>
-        <source id="receiverAudioStream" :src="audio_src"/>
+      <audio id="receiverAudioStream" autoplay>
+        <source :src="audio_src"/>
       </audio>
     </main>
     <footer>

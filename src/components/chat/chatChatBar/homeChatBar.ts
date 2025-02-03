@@ -4,7 +4,7 @@ import {classLists} from "../../../class";
 import {ElNotification, ElMessage} from "element-plus";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
-import {VoiceCalls} from "../../../WebRTC/VoiceCalls.ts";
+// import {VoiceCalls} from "../../../WebRTC/VoiceCalls.ts";
 import socket from "../../../socket";
 
 export const homeChatBar = () => {
@@ -221,49 +221,66 @@ export const homeChatBar = () => {
         }, 50)
     })
 
-    socket.on("voiceToUserJoinOver", (roomName) => {
-        VoiceCalls()
-            .then(({getScreenLists}) => {
-                getScreenLists(roomName, "offer")
-            }).catch(console.error);
-    })
+    // socket.on("voiceToUserJoinOver", (roomName) => {
+    //     // VoiceCalls()
+    //     //     .then(({getScreenLists}) => {
+    //     //         getScreenLists(roomName, "offer")
+    //     //     }).catch(console.error);
+    //
+    //     let voice_peerConnection = new RTCPeerConnection();
+    //
+    //     voice_peerConnection.onicecandidate = (event) => {
+    //         if (event.candidate) socket.emit("iceCandidate", [event.candidate, roomName]);
+    //     };
+    //
+    //     navigator.mediaDevices.getUserMedia({audio: true})
+    //         .then((screenStream) => {
+    //             console.log(screenStream);
+    //
+    //             screenStream.getTracks().forEach((track) => {
+    //                 voice_peerConnection.addTrack(track, screenStream);
+    //             })
+    //
+    //             voice_peerConnection.setLocalDescription(await voice_peerConnection.createOffer()).catch(console.error);
+    //             socket.emit("offer", [voice_peerConnection.createOffer(), roomName]);
+    //         })
 
-    watch(content, (): void => {
-        button_disabled.value = content.value !== "";
-    });
+        watch(content, (): void => {
+            button_disabled.value = content.value !== "";
+        });
 
-    return {
-        content,
-        button_disabled,
-        openVoiceCallWindow,
-        openVideoCallWindow,
-        more_window,
-        openMoreWindow,
-        group_name,
-        group_permissions,
-        changeGroupName,
-        group_announcement,
-        changeGroupAnnouncement,
-        openGroupAnnouncements,
-        group_state,
-        group_add_users,
-        group_add_users_inquire,
-        invite_users,
-        selected_users,
-        inviteUsersLists,
-        look_more_group_users,
-        look_more_group_users_inquire,
-        copyText,
-        pasteText,
-        paste,
-        copy_success,
-        sendMessage,
-        scroll_top_height,
-        scrollTopHeight,
-        this_chat_friend_data,
-        allChatMessage,
-        enterSengMessage,
-        openOrDownloadFile,
-        watchVideo,
+        return {
+            content,
+            button_disabled,
+            openVoiceCallWindow,
+            openVideoCallWindow,
+            more_window,
+            openMoreWindow,
+            group_name,
+            group_permissions,
+            changeGroupName,
+            group_announcement,
+            changeGroupAnnouncement,
+            openGroupAnnouncements,
+            group_state,
+            group_add_users,
+            group_add_users_inquire,
+            invite_users,
+            selected_users,
+            inviteUsersLists,
+            look_more_group_users,
+            look_more_group_users_inquire,
+            copyText,
+            pasteText,
+            paste,
+            copy_success,
+            sendMessage,
+            scroll_top_height,
+            scrollTopHeight,
+            this_chat_friend_data,
+            allChatMessage,
+            enterSengMessage,
+            openOrDownloadFile,
+            watchVideo,
+        }
     }
-}

@@ -30,13 +30,14 @@ export const VoiceCalls = async () => {
                     };
 
                     return voice_peerConnection.createAnswer();
+
                 }
             })
             .then((stream) => {
                 console.log(stream)
 
-                socket.emit(`${correspondentPerson}`, [stream, roomName]);
                 voice_peerConnection.setLocalDescription(stream).catch(console.error);
+                socket.emit(`${correspondentPerson}`, [stream, roomName]);
             }).catch(console.error);
 
     }

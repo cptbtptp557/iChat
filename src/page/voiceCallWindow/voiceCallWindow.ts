@@ -72,21 +72,20 @@ export const voiceCallWindow = () => {
 
     // 处理 ICE 候选者
     const handleIceCandidate = (candidate: any, roomName: string, socket: any) => {
-        console.log(typeof socket);
         if (candidate) socket.emit("iceCandidate", [candidate, roomName]);
     };
 
     // 处理远程流
     const handleRemoteStream = (event: any, audioElementId: string) => {
         const audioElement = document.getElementById(audioElementId) as HTMLMediaElement;
-        if (audioElement) {
+        if (audioElement && event.streams && event.streams[0]) {
             audioElement.srcObject = event.streams[0];
             audioElement.play().catch(console.error);
         }
     };
 
     // 创建 RTCPeerConnection
-    const createPeerConnection = (roomName: string, socket: any, isOffer: any) => {
+    const createPeerConnection = (roomName: string, socket: any, isOffer: boolean) => {
         const peerConnection = new RTCPeerConnection({
             iceServers: [{urls: 'stun:stun.l.google.com:19302'}]
         });
@@ -98,6 +97,7 @@ export const voiceCallWindow = () => {
         if (isOffer) {
             navigator.mediaDevices.getUserMedia({audio: true})
                 .then((stream) => {
+                    // 发送方将音频轨道添加到连接中
                     stream.getTracks().forEach((track) => {
                         peerConnection.addTrack(track, stream);
                     });
@@ -111,6 +111,7 @@ export const voiceCallWindow = () => {
                 .catch(console.error);
         } else {
             peerConnection.ontrack = (event) => {
+                // 接收方处理远程音频流
                 handleRemoteStream(event, "receiverAudioStream");
             };
         }
@@ -129,33 +130,50 @@ export const voiceCallWindow = () => {
         const [offerDescription, roomName] = offer;
         const peerConnection = createPeerConnection(roomName, socket, false);
 
+        navigator.mediaDevices.getUserMedia({audio: true})
+            .then((stream) => {
+                stream.getTracks().forEach((track) => {
+                    peerConnection.addTrack(track, stream);
+                })
+            })
+
         peerConnection.setRemoteDescription(new RTCSessionDescription(offerDescription))
-            .then(() => peerConnection.createAnswer())
+            .then(() => peerConnection.createAnswer()
+            )
             .then((answer) => {
                 peerConnection.setLocalDescription(answer);
                 socket.emit("answer", [answer, roomName]);
             }).catch(console.error);
 
         peerConnections.set(roomName, peerConnection);
+
+
+        console.log(peerConnections)
     });
 
     // 处理收到的 Answer
-    socket.on("answer", (answer) => {
+    socket.on("answer", async (answer) => {
         const [answerDescription, roomName] = answer;
-        const peerConnection = peerConnections.get(roomName);
+        const peerConnection = peerConnections.get(roomName);  // 获取之前创建的 peerConnection 实例
 
-        if (peerConnection) peerConnection.setRemoteDescription(new RTCSessionDescription(answerDescription)).catch(console.error);
+        // 设置远程描述
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(answerDescription));
 
+        peerConnection.ontrack = (event: any) => {
+            // 接收方处理远程音频流
+            handleRemoteStream(event, "receiverAudioStream");
+
+            console.log(event)
+        };
     });
 
     // 处理收到的 ICE 候选者
-    socket.on("iceCandidate", (candidateData) => {
+    socket.on("iceCandidate", async (candidateData) => {
         const [candidate, roomName] = candidateData;
         const peerConnection = peerConnections.get(roomName);
 
-        if (peerConnection) peerConnection.addIceCandidate(new RTCIceCandidate(candidate)).catch(console.error);
+        await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     });
-
 
     try {
         window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
@@ -163,8 +181,11 @@ export const voiceCallWindow = () => {
             voice_room.value = voiceRoomName;
         })
     } catch (e) {
-        socket.emit("fromUserJoinRoom", "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570");
-        voice_room.value = "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570";
+        // const room: string = "54476622c79519ddfb8b41b6256b9d75af4a081557faa415b9585cee6a46eb9c";
+        const room: string = "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570";
+
+        socket.emit("fromUserJoinRoom", room);
+        voice_room.value = room;
     }
 
     onMounted(() => {

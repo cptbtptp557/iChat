@@ -436,7 +436,7 @@ io.on('connection', socket => {
 
     socket.on("fromUserJoinRoom", (data) => {
         socket.join(data);
-        io.to(data).emit("voiceToUserJoinOver", data);
+        socket.broadcast.to(data).emit("voiceToUserJoinOver", data);
     })
 
     socket.on("hangUpVoice", (one_on_one_voice_list) => {
@@ -457,18 +457,17 @@ io.on('connection', socket => {
         socket.join(data[0]);
     })
 
-    // WebRTC
     socket.on("iceCandidate", (iceCandidate) => {
         socket.broadcast.to(iceCandidate[1]).emit("iceCandidate", iceCandidate);
-    })
+    });
 
     socket.on("offer", (offer) => {
         socket.broadcast.to(offer[1]).emit("offer", offer);
-    })
+    });
 
     socket.on("answer", (answer) => {
         socket.broadcast.to(answer[1]).emit("answer", answer);
-    })
+    });
 
     console.log("有人进入了聊天室!!! 当前已连接客户端数量: " + io.engine.clientsCount);
     socket.on("disconnect", () => {

@@ -12,7 +12,7 @@
     </header>
     <main>
       <img src="../../../public/chat-avatar/from-user.png" alt="聊天对象">
-      <audio id="receiverAudioStream" autoplay>
+      <audio id="receiverAudioStream" controls autoplay>
         <source :src="audio_src"/>
       </audio>
     </main>

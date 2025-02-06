@@ -4,7 +4,6 @@ import {classLists} from "../../../class";
 import {ElNotification, ElMessage} from "element-plus";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
-// import {VoiceCalls} from "../../../WebRTC/VoiceCalls.ts";
 import socket from "../../../socket";
 
 export const homeChatBar = () => {
@@ -220,30 +219,6 @@ export const homeChatBar = () => {
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
         }, 50)
     })
-
-    // socket.on("voiceToUserJoinOver", (roomName) => {
-    //     // VoiceCalls()
-    //     //     .then(({getScreenLists}) => {
-    //     //         getScreenLists(roomName, "offer")
-    //     //     }).catch(console.error);
-    //
-    //     let voice_peerConnection = new RTCPeerConnection();
-    //
-    //     voice_peerConnection.onicecandidate = (event) => {
-    //         if (event.candidate) socket.emit("iceCandidate", [event.candidate, roomName]);
-    //     };
-    //
-    //     navigator.mediaDevices.getUserMedia({audio: true})
-    //         .then((screenStream) => {
-    //             console.log(screenStream);
-    //
-    //             screenStream.getTracks().forEach((track) => {
-    //                 voice_peerConnection.addTrack(track, screenStream);
-    //             })
-    //
-    //             voice_peerConnection.setLocalDescription(await voice_peerConnection.createOffer()).catch(console.error);
-    //             socket.emit("offer", [voice_peerConnection.createOffer(), roomName]);
-    //         })
 
         watch(content, (): void => {
             button_disabled.value = content.value !== "";

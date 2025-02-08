@@ -1,4 +1,5 @@
-const {app, BrowserWindow, Tray, nativeImage, ipcMain} = require("electron");
+const {app, BrowserWindow, Tray, ipcMain} = require("electron");
+const path = require("path");
 const window = require("./window");
 
 const {
@@ -38,9 +39,8 @@ const createWatchVideo = () => {
 let tray;
 app.whenReady()
     .then(() => {
-        const icon = nativeImage.createFromPath("public/image-32x32.ico");
-        tray = new Tray(icon);
-        tray.setToolTip('electron托盘');
+        tray = new Tray(path.resolve(__dirname, '../public/image-32x32.ico'));
+        tray.setToolTip('iChat');
 
         createWin();
 

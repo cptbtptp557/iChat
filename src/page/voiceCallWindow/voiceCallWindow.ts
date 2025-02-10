@@ -1,4 +1,4 @@
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import socket from "../../socket";
 
 export const voiceCallWindow = () => {
@@ -181,11 +181,8 @@ export const voiceCallWindow = () => {
             voice_room.value = voiceRoomName;
         })
     } catch (e) {
-        // const room: string = "54476622c79519ddfb8b41b6256b9d75af4a081557faa415b9585cee6a46eb9c";
-        const room: string = "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570";
-
-        socket.emit("fromUserJoinRoom", room);
-        voice_room.value = room;
+        socket.emit("fromUserJoinRoom", "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570");
+        voice_room.value = "0a1b35768075a49cbe252d8a086f30d235debd2a7c4934f2063a977f91da4570";
     }
 
     onMounted(() => {

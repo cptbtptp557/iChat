@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import socket from "../../socket";
 
 export const voiceCallWindow = () => {
@@ -26,6 +26,8 @@ export const voiceCallWindow = () => {
     // 扬声器按钮
     const hornButton = () => {
         horn_state.value = !horn_state.value;
+
+        audioElement.muted = !horn_state.value;
     }
 
     let top_state_timer: any;
@@ -49,21 +51,25 @@ export const voiceCallWindow = () => {
         }, 700)
     }
 
-    let fromUserId: number;
+    const fromUserId = ref();
+    const time = ref('00:00');
+    let intervalName: any;
     const voiceHangUp = () => {
-        socket.emit("delete_voice_room", [voice_room.value, fromUserId]);
+        socket.emit("delete_voice_room", [voice_room.value, fromUserId.value]);
         peerConnections.forEach((peerConnection, roomName) => {
             peerConnection.close();
             peerConnections.delete(roomName);
         })
         window.electronAPI.closeWindow("audio_window");
+
+        clearInterval(intervalName);
     }
 
     socket.on("changFromUserWindowState", (data: any) => {
         if (!Boolean(data[0])) {
             top_state_boolean = Boolean(data[0]);
             clearTimeout(top_state_timer);
-            fromUserId = data[1];
+            fromUserId.value = data[1];
         }
     })
 
@@ -75,10 +81,10 @@ export const voiceCallWindow = () => {
         if (candidate) socket.emit("iceCandidate", [candidate, roomName]);
     };
 
+    let audioElement: HTMLMediaElement;
     // 处理远程流
-    const handleRemoteStream = (event: any, audioElementId: string) => {
-        const audioElement = document.getElementById(audioElementId) as HTMLMediaElement;
-        if (audioElement && event.streams && event.streams[0]) {
+    const handleRemoteStream = (event: any) => {
+        if (audioElement) {
             audioElement.srcObject = event.streams[0];
             audioElement.play().catch(console.error);
         }
@@ -97,10 +103,17 @@ export const voiceCallWindow = () => {
         if (isOffer) {
             navigator.mediaDevices.getUserMedia({audio: true})
                 .then((stream) => {
-                    // 发送方将音频轨道添加到连接中
                     stream.getTracks().forEach((track) => {
+                        track.enabled = microphone_state.value;
+
                         peerConnection.addTrack(track, stream);
                     });
+
+                    const audioElement = document.getElementById("receiverAudioStream") as HTMLMediaElement;
+                    if (audioElement) {
+                        audioElement.srcObject = stream;
+                        audioElement.play().catch(console.error);
+                    }
 
                     return peerConnection.createOffer();
                 })
@@ -111,69 +124,102 @@ export const voiceCallWindow = () => {
                 .catch(console.error);
         } else {
             peerConnection.ontrack = (event) => {
-                // 接收方处理远程音频流
-                handleRemoteStream(event, "receiverAudioStream");
+                handleRemoteStream(event);
             };
         }
 
         return peerConnection;
     };
 
+    // 开始计时
+    const startTimer = () => {
+        let sec: number = 0;
+        let min: number = 0;
+
+        top_state.value = "00:00";
+        top_state_boolean = false;
+
+        intervalName = setInterval(() => {
+            sec++;
+
+            if (sec === 60) {
+                min++;
+                sec = 0;
+                time.value = min.toString().padStart(2, "0") + ":" + sec.toString().padStart(2, "0");
+            } else {
+                time.value = min.toString().padStart(2, "0") + ":" + sec.toString().padStart(2, "0");
+            }
+
+            top_state.value = time.value;
+        }, 1000);
+    }
+
     // 处理用户加入房间
     socket.on("voiceToUserJoinOver", (roomName) => {
         const peerConnection = createPeerConnection(roomName, socket, true);
         peerConnections.set(roomName, peerConnection);
+
+        startTimer()
     });
 
     // 处理收到的 Offer
     socket.on("offer", (offer) => {
+        startTimer()
+
         const [offerDescription, roomName] = offer;
         const peerConnection = createPeerConnection(roomName, socket, false);
 
-        navigator.mediaDevices.getUserMedia({audio: true})
-            .then((stream) => {
-                stream.getTracks().forEach((track) => {
-                    peerConnection.addTrack(track, stream);
-                })
-            })
-
         peerConnection.setRemoteDescription(new RTCSessionDescription(offerDescription))
-            .then(() => peerConnection.createAnswer()
-            )
+            .then(() => peerConnection.createAnswer())
             .then((answer) => {
                 peerConnection.setLocalDescription(answer);
                 socket.emit("answer", [answer, roomName]);
             }).catch(console.error);
 
         peerConnections.set(roomName, peerConnection);
-
-
-        console.log(peerConnections)
     });
 
     // 处理收到的 Answer
     socket.on("answer", async (answer) => {
         const [answerDescription, roomName] = answer;
-        const peerConnection = peerConnections.get(roomName);  // 获取之前创建的 peerConnection 实例
+        const peerConnection = peerConnections.get(roomName);
 
-        // 设置远程描述
-        await peerConnection.setRemoteDescription(new RTCSessionDescription(answerDescription));
-
-        peerConnection.ontrack = (event: any) => {
-            // 接收方处理远程音频流
-            handleRemoteStream(event, "receiverAudioStream");
-
-            console.log(event)
-        };
+        if (peerConnection) {
+            try {
+                if (peerConnection.signalingState === "have-local-offer" || peerConnection.signalingState === "have-remote-offer") {
+                    await peerConnection.setRemoteDescription(new RTCSessionDescription(answerDescription));
+                } else {
+                    console.error("Invalid signaling state:", peerConnection.signalingState);
+                }
+            } catch (error) {
+                console.error("Error handling answer:", error);
+            }
+        }
     });
+
 
     // 处理收到的 ICE 候选者
     socket.on("iceCandidate", async (candidateData) => {
         const [candidate, roomName] = candidateData;
         const peerConnection = peerConnections.get(roomName);
 
-        await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+        if (peerConnection && peerConnection.remoteDescription) {
+            try {
+                await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+            } catch (error) {
+                console.error("Error adding ICE candidate:", error);
+            }
+        } else {
+            console.error("Remote description not set yet, cannot add ICE candidate.");
+        }
     });
+
+    socket.on("deleteRoom", () => {
+        clearInterval(intervalName);
+        top_state_boolean = false;
+        top_state.value = "对方已挂断";
+    })
+
 
     try {
         window.electronAPI.receptionVoiceRoomName((_event: object, voiceRoomName: any) => {
@@ -186,6 +232,8 @@ export const voiceCallWindow = () => {
     }
 
     onMounted(() => {
+        audioElement = document.getElementById("receiverAudioStream") as HTMLMediaElement;
+
         voiceLoading();
     })
 

@@ -31,6 +31,10 @@ export const VVCwindow = () => {
         }
     })
 
+    socket.on("deleteRoom", (room) => {
+        socket.emit("deleteRoom", room);
+    })
+
     return {
         VVCW_status,
         connect,

@@ -60,6 +60,8 @@ export const allFriends = () => {
             }
             changeAllFriendsShowComponents(friendsList);
         })
+
+        console.log("当前好友所有信息", lists)
     };
 
     const groupLists = (lists: any, index: number) => {
@@ -84,6 +86,8 @@ export const allFriends = () => {
                             friends_lists.value[i] = lists.data.result;
                         })
                 }
+
+                console.log("获取好友列表所有好友信息", friends_number.value)
             })
     }
 

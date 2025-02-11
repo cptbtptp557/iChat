@@ -449,8 +449,12 @@ io.on('connection', socket => {
 
     socket.on("delete_voice_room", (data) => {
         VAVCS[data[1]] = 0;
-        socket_users[data[1]].leave(data[0]);
         socket.leave(data[0]);
+        socket.broadcast.to(data[0]).emit("deleteRoom", data[0]);
+    })
+
+    socket.on("deleteRoom", (room) => {
+        socket.leave(room);
     })
 
     socket.on("toUserVVCwindowJoinRoom", (data) => {

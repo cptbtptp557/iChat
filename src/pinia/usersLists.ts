@@ -17,6 +17,8 @@ export const usersLists = defineStore('usersLists', () => {
         new_chat_friend_iId.value = lists;
         current.value = message;
         all_friends_show_components.value = raidenShogun;
+
+        console.log("点击发消息")
     };
 
     const changeAllFriendsShowComponents = (components: any) => {

@@ -78,7 +78,7 @@ export const homeFriendsBar = () => {
         introduce_yourself.value = usersLists().thisUserNickname;
     }
 
-    // 申请添加---添加人类
+    // 申请添加---添加用户
     const addFriend = (userLists: any): void => {
         const add_user = new addUser_mankind(usersLists().thisUserAccount, userLists.iId, introduce_yourself.value, receiver_remarks.value, 0);
         socket.emit("add", add_user);
@@ -192,6 +192,9 @@ export const homeFriendsBar = () => {
                     }
                 });
                 unreadNum.value = unReadCount;
+
+
+                console.log(friendsChatUserData.value)
             })
     }
 

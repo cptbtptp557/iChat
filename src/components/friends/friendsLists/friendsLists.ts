@@ -16,25 +16,40 @@ export const friendsList = () => {
     }
     // 打开语音通话界面
     const openVoiceCallWindow = (): void => {
-        window.electronAPI.openVoiceCallWindow();
+        socket.emit("VCRoom", {
+            from: usersLists().thisUserAccount >>> 0,
+            to: friends_lists.value.iId
+        });
+
+        try {
+            window.electronAPI.openVoiceCallWindow();
+        } catch (err) {
+            window.open('http://localhost:5173/voiceCallWindow', '_blank');
+        }
     }
+
     // 打开视频通话界面
     const openVideoCallWindow = (): void => {
-        window.electronAPI.openVideoWindow();
+        try {
+            window.electronAPI.openVideoWindow();
+        } catch (err) {
+            window.open('http://localhost:5173/videoCallWindow', '_blank');
+        }
     }
+
     // 打开聊天界面
     const openChatWindow = (): void => {
         homeActionBar().goMessageHref();
     };
 
     const getFriendsLists = () => {
-        let now = new Date();
-        let year = now.getFullYear();
-        let month = now.getMonth() + 1;
-        let date = now.getDate();
-        let birthDate = new Date(usersLists().thisUserFriendsLists[0].birthday.replace(/-/g, '/'));
-        let age = year - birthDate.getFullYear();
-        let m = month - birthDate.getMonth();
+        let now: Date = new Date();
+        let year: number = now.getFullYear();
+        let month: number = now.getMonth() + 1;
+        let date: number = now.getDate();
+        let birthDate: Date = new Date(usersLists().thisUserFriendsLists[0].birthday.replace(/-/g, '/'));
+        let age: number = year - birthDate.getFullYear();
+        let m: number = month - birthDate.getMonth();
         if (m < 0 || (m === 0 && date < birthDate.getDate())) {
             age--;
         }

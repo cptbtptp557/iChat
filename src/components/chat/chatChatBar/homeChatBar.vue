@@ -105,7 +105,7 @@
         <div class="from_user" v-else>
           <div>
             <div>
-              <p>{{ this_chat_friend_data?.nickname }}</p>
+              <p>{{ usersLists().thisUserNickname }}</p>
               <img :src="message.message.split('|')[1]"
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">

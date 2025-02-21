@@ -144,7 +144,7 @@ export const homeChatBar = () => {
 
         socket.emit("sendFriendMessage", message);
         content.value = "";
-        // allChatMessage.value.push(message);
+        allChatMessage.value.push(message);
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
@@ -202,7 +202,7 @@ export const homeChatBar = () => {
 
 
     socket.on("sendFriendMessage", (message: any): void => {
-        allChatMessage.value.push(message);
+        if (usersLists().thisUserAccount === message.from_iid)allChatMessage.value.push(message);
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
@@ -214,48 +214,49 @@ export const homeChatBar = () => {
         chatMessageNum = 1;
         getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 30);
         this_chat_friend_data.value = groupData().this_chat_friend_lists.value;
+
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
-        }, 50)
+        }, 50);
     })
 
-        watch(content, (): void => {
-            button_disabled.value = content.value !== "";
-        });
+    watch(content, (): void => {
+        button_disabled.value = content.value !== "";
+    });
 
-        return {
-            content,
-            button_disabled,
-            openVoiceCallWindow,
-            openVideoCallWindow,
-            more_window,
-            openMoreWindow,
-            group_name,
-            group_permissions,
-            changeGroupName,
-            group_announcement,
-            changeGroupAnnouncement,
-            openGroupAnnouncements,
-            group_state,
-            group_add_users,
-            group_add_users_inquire,
-            invite_users,
-            selected_users,
-            inviteUsersLists,
-            look_more_group_users,
-            look_more_group_users_inquire,
-            copyText,
-            pasteText,
-            paste,
-            copy_success,
-            sendMessage,
-            scroll_top_height,
-            scrollTopHeight,
-            this_chat_friend_data,
-            allChatMessage,
-            enterSengMessage,
-            openOrDownloadFile,
-            watchVideo,
-        }
+    return {
+        content,
+        button_disabled,
+        openVoiceCallWindow,
+        openVideoCallWindow,
+        more_window,
+        openMoreWindow,
+        group_name,
+        group_permissions,
+        changeGroupName,
+        group_announcement,
+        changeGroupAnnouncement,
+        openGroupAnnouncements,
+        group_state,
+        group_add_users,
+        group_add_users_inquire,
+        invite_users,
+        selected_users,
+        inviteUsersLists,
+        look_more_group_users,
+        look_more_group_users_inquire,
+        copyText,
+        pasteText,
+        paste,
+        copy_success,
+        sendMessage,
+        scroll_top_height,
+        scrollTopHeight,
+        this_chat_friend_data,
+        allChatMessage,
+        enterSengMessage,
+        openOrDownloadFile,
+        watchVideo,
     }
+}

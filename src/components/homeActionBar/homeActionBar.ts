@@ -53,7 +53,8 @@ export const homeActionBar = () => {
         selected_one.style.backgroundColor = "rgb(220, 220, 220)";
         selected_two.style.backgroundColor = "transparent";
         selected_one.style.borderRadius = "10px";
-        inData(10001);
+
+        inData();
     };
 
     const commit = () => {

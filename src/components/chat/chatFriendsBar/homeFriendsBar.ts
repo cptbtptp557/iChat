@@ -192,9 +192,6 @@ export const homeFriendsBar = () => {
                     }
                 });
                 unreadNum.value = unReadCount;
-
-
-                console.log(friendsChatUserData.value)
             })
     }
 

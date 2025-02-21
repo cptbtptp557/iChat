@@ -2,6 +2,7 @@ import {homeActionBar} from "../../homeActionBar/homeActionBar.ts";
 import {onActivated, ref} from "vue";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import socket from "../../../socket";
+import {groupData} from "../../../pinia/groupData.ts";
 
 export const friendsList = () => {
     const friends_lists = ref(); // 好友详细信息
@@ -40,6 +41,11 @@ export const friendsList = () => {
     // 打开聊天界面
     const openChatWindow = (): void => {
         homeActionBar().goMessageHref();
+        groupData().this_chat_friend_lists.value = friends_lists.value;
+        socket.emit("chatUsersIds", {
+            thisUserId: usersLists().thisUserAccount >>> 0,
+            thisChatFriendId: friends_lists.value.iId
+        });
     };
 
     const getFriendsLists = () => {

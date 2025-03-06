@@ -163,12 +163,26 @@ export const homeFriendsBar = () => {
             })
     }
 
-    const getAllMessage = (thisAccountId: number, to_iid: number, friends_lists: any, index: number) => {
+    const getAllMessage = (thisAccountId: number, to_iid: number, friends_lists: any, index: number, chat_partner: boolean) => {
         const thisUserId: number = (usersLists().thisUserAccount >>> 0);
-        const thisChatFriendId: number = thisUserId === thisAccountId ? to_iid : thisAccountId;
+        const thisChatFriendId: number = thisUserId == thisAccountId ? to_iid : thisAccountId;
 
         user_background.value = index;
-        socket.emit("chatUsersIds", {thisUserId, thisChatFriendId})
+
+        console.log(thisChatFriendId)
+        if (!chat_partner) {
+            socket.emit("chatUsersIds", {
+                type: 'friend',
+                thisUserId: thisUserId,
+                thisChatFriendId: thisChatFriendId,
+            });
+        }else {
+            socket.emit("chatUsersIds", {
+                type: 'group' ,
+                thisUserId: thisUserId,
+                thisChatFriendId: to_iid,
+            });
+        }
         groupData().chat_page.value = chatChatBar;
         groupData().this_chat_friend_lists.value = friends_lists;
 
@@ -180,7 +194,7 @@ export const homeFriendsBar = () => {
         getFriendChatUserData(account_iId)
             .then((friendChatUserData_one) => {
                 const unReadCount = new Map();
-
+console.log(friendChatUserData_one)
                 friendsChatUserData.value = friendChatUserData_one.data;
                 friendsChatUserData.value.unreadNum.forEach((message: any) => {
                     if (!unReadCount.has(message.from_iid)) {
@@ -192,6 +206,8 @@ export const homeFriendsBar = () => {
                     }
                 });
                 unreadNum.value = unReadCount;
+
+                console.log(friendsChatUserData.value)
             })
     }
 

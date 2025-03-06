@@ -71,7 +71,7 @@
       </div>
     </main>
     <footer>
-      <el-button type="primary">发消息</el-button>
+      <el-button type="primary" @click="sendGroupMessage">发消息</el-button>
     </footer>
   </div>
 </template>
@@ -87,6 +87,7 @@ const {
   man_percentage,
   online_percentage,
   year_percentage,
+  sendGroupMessage,
 } = groupLists();
 
 </script>

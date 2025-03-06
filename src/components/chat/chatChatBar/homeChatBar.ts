@@ -25,9 +25,10 @@ export const homeChatBar = () => {
     const thisChatUsersIds = ref(); // 当前聊天双方iId
     const allChatMessage = ref(); // 聊天记录
     const this_chat_friend_data = ref(); // 当前聊天好友的信息
+    const chat_partner = ref(true); // 当前聊天对象。 true: 私聊; false: 群聊
 
     const {group_state} = groupData();
-    const {friend_chat_message} = classLists();
+    const {friend_chat_message, group_chat_message} = classLists();
     const {getFriendChatMessage} = api();
 
     onMounted(() => {
@@ -140,9 +141,16 @@ export const homeChatBar = () => {
     })
 
     const sendMessage = (): void => {
-        const message = new friend_chat_message(usersLists().thisUserAccount, this_chat_friend_data.value.iId, content.value)
+        let message: any;
 
-        socket.emit("sendFriendMessage", message);
+        if (chat_partner.value) {
+            message = new friend_chat_message(usersLists().thisUserAccount, this_chat_friend_data.value.iId, content.value);
+            socket.emit("sendFriendMessage", message);
+        } else {
+            message = new group_chat_message(usersLists().thisUserAccount, this_chat_friend_data.value.gId, content.value, usersLists().thisUserNickname)
+            socket.emit("sendGroupMessage", message);
+        }
+
         content.value = "";
         allChatMessage.value.push(message);
         setTimeout(() => {
@@ -160,8 +168,8 @@ export const homeChatBar = () => {
         });
     }
 
-    const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number): void => {
-        getFriendChatMessage(from_iid, to_iid, chatMessageNum)
+    const getFriendChatAllMessage = (from_iid: number, to_iid: number, chatMessageNum: number, getPartner: string): void => {
+        getFriendChatMessage(from_iid, to_iid, chatMessageNum, getPartner)
             .then((allMessage) => {
                 allChatMessage.value = allMessage.data.reverse();
             })
@@ -182,7 +190,13 @@ export const homeChatBar = () => {
             const scrollButton_first: number = scroll_top_height.value.scrollHeight - scroll_top_height.value.scrollTop;
 
             chatMessageNum++;
-            getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 30)
+
+            if (!chat_partner.value) {
+                getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 30, "getGroupChatMessage");
+            } else {
+                getFriendChatAllMessage(thisChatUsersIds.value.thisUserId, thisChatUsersIds.value.thisChatFriendId, chatMessageNum * 30, "getFriendChatMessage");
+            }
+
             setTimeout((): void => {
                 const scrollButton_second: number = scroll_top_height.value.scrollHeight - scrollButton_first;
 
@@ -202,7 +216,7 @@ export const homeChatBar = () => {
 
 
     socket.on("sendFriendMessage", (message: any): void => {
-        if (usersLists().thisUserAccount === message.from_iid)allChatMessage.value.push(message);
+        if (usersLists().thisUserAccount === message.from_iid) allChatMessage.value.push(message);
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;
             dialogBox.scrollTo({top: dialogBox.scrollHeight, behavior: 'instant'});
@@ -212,8 +226,16 @@ export const homeChatBar = () => {
     socket.on("chatUsersIds", (chatUsersIds: any): void => {
         thisChatUsersIds.value = chatUsersIds;
         chatMessageNum = 1;
-        getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 30);
         this_chat_friend_data.value = groupData().this_chat_friend_lists.value;
+
+        if (this_chat_friend_data.value.group_name) {
+            group_name.value = this_chat_friend_data.value.group_name;
+            group_announcement.value = this_chat_friend_data.value.group_announcement;
+            chat_partner.value = false;
+            getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 30, "getGroupChatMessage");
+        } else {
+            getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 30, "getFriendChatMessage");
+        }
 
         setTimeout(() => {
             const dialogBox = document.getElementById("dialogBox") as HTMLElement;

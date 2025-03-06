@@ -131,10 +131,10 @@
            v-for="(friends,index) in friendsChatUserData?.friendChatUserData"
            :key="index"
            :style="{background : user_background === index? '#e8e8e8': '' }"
-           @click="getAllMessage(friends.from_iid, friends.to_iid, friendsChatUserData.flattenedUserLists[index], index)">
+           @click="getAllMessage(friends.from_iid, friends.to_iid || friends.gid, friendsChatUserData.flattenedUserLists[index], index, !!friendsChatUserData.flattenedUserLists[index].group_name)">
         <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
         <div class="information">
-          <p>{{ friendsChatUserData.flattenedUserLists[index].nickname }}</p>
+          <p>{{ friendsChatUserData.flattenedUserLists[index].nickname || friendsChatUserData.flattenedUserLists[index].group_name }}</p>
           <p>{{
               (new Date(friends.send_time) >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) &&
                   new Date(friends.send_time) <= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 999)) ?

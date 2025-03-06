@@ -1,13 +1,14 @@
 <template>
   <div class="thisOutside">
     <header>
-      <h4>{{ this_chat_friend_data?.nickname }}</h4>
+      <h4>{{ this_chat_friend_data?.group_name || this_chat_friend_data?.nickname }}</h4>
       <div class="shat_control">
         <el-tooltip
             class="box-item"
             effect="dark"
             content="群公告"
             placement="bottom"
+            v-if="!!this_chat_friend_data?.gId"
         >
           <el-icon size="23" @click="openGroupAnnouncements" v-show="group_state">
             <DataBoard/>
@@ -38,6 +39,7 @@
             effect="dark"
             content="更多"
             placement="bottom-end"
+            v-if="!!this_chat_friend_data?.gId"
         >
           <el-icon size="25">
             <More @click="openMoreWindow"/>
@@ -50,11 +52,11 @@
     <el-divider style="position: absolute; top: 15px"/>
     <div id="dialogBox" class="dialog_box" ref="scroll_top_height" @scroll="scrollTopHeight">
       <div v-for="(message, index) in allChatMessage" :key="index">
-        <div class="to_user" v-if="message.to_iid == usersLists().thisUserAccount">
+        <div class="to_user" v-if="message.from_iid != usersLists().thisUserAccount">
           <div>
             <img class="user_image" src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
             <div>
-              <p>{{ this_chat_friend_data?.nickname }}</p>
+              <p>{{ this_chat_friend_data?.nickname || message?.from_name }}</p>
               <img :src="message.message.split('|')[1]"
                    alt="imageMessage"
                    v-if="message.message.startsWith('image')">

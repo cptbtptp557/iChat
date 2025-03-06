@@ -95,10 +95,30 @@ export const classLists = () => {
         }
     }
 
+    // 群聊消息信息
+    class group_chat_message {
+        from_iid: number;
+        gId: number;
+        message: any;
+        reading_status: number;
+        send_time: string;
+        from_name: string;
+
+        constructor(from_iid: number, gId: number, message: any, from_name: string) {
+            this.from_iid = from_iid;
+            this.gId = gId;
+            this.message = message;
+            this.reading_status = 0;
+            this.send_time = get_create_new_group_time();
+            this.from_name = from_name;
+        }
+    }
+
     return {
         addUser_mankind,
         addUser_group,
         create_new_group,
         friend_chat_message,
+        group_chat_message,
     }
 }

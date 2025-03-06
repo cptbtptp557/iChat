@@ -1,6 +1,9 @@
 import {onActivated, ref} from "vue";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {ElMessageBox} from 'element-plus';
+import {homeActionBar} from "../../homeActionBar/homeActionBar.ts";
+import {groupData} from "../../../pinia/groupData.ts";
+import socket from "../../../socket";
 
 export const groupLists = () => {
     const group_lists = ref(usersLists().thisUserGroupLists[0]); // 当前点击群聊数据
@@ -28,6 +31,17 @@ export const groupLists = () => {
         year_percentage.value = Math.floor((year_mun / group_user_lists.value.length) * 100);
     }
 
+    const sendGroupMessage = () => {
+        console.log(group_lists.value);
+        homeActionBar().goMessageHref();
+        groupData().this_chat_friend_lists.value = group_lists.value;
+        socket.emit("chatUsersIds", {
+            type: "group",
+            thisUserId: usersLists().thisUserAccount >>> 0,
+            thisChatFriendId: group_lists.value.gId
+        });
+    }
+
     document.addEventListener('click', () => {
         setTimeout(() => {
             getGroupLists();
@@ -45,5 +59,6 @@ export const groupLists = () => {
         man_percentage,
         online_percentage,
         year_percentage,
+        sendGroupMessage,
     }
 }

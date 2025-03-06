@@ -38,10 +38,14 @@ const {
     get_group_data,
     get_group_user_data,
     add_friend_chat_message,
+    add_group_chat_message,
     get_friend_chat_user_data,
     get_friend_chat_message,
+    get_group_chat_message,
     get_reading_status_lists,
     change_message_status,
+    get_add_group,
+    get_group_chat_user_data,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -305,6 +309,26 @@ app.get('/groupUserData', (req, res) => {
 app.get('/getFriendChatUserData', (req, res) => {
     const data = req.query;
     const userLists = [];
+    let groupMessage = [];
+    let grounpLists = [];
+
+    sqlFunction(get_add_group(data.account_iid))
+        .then((addGId) => {
+            const promises = addGId.map((gId) => {
+                return sqlFunction(get_group_chat_user_data(gId.gid))
+                    .then((data) => {
+                        groupMessage.push(data[0]);
+
+                        data.forEach((gid) => {
+                            sqlFunction(get_group_data(gId.gid))
+                                .then((groupList) => {
+                                    grounpLists.push(groupList[0])
+                                })
+                        })
+                    })
+            });
+            return Promise.all(promises);
+        })
 
     sqlFunction(get_friend_chat_user_data(data.account_iid))
         .then((friendChatUserData) => {
@@ -327,6 +351,8 @@ app.get('/getFriendChatUserData', (req, res) => {
                     Promise.all(userLists)
                         .then((thisUserLists) => {
                             const flattenedUserLists = thisUserLists.map(lists => lists[0]);
+                            friendChatUserData.push(...groupMessage.filter(item => item !== undefined));
+                            flattenedUserLists.push(...grounpLists.filter(item => item !== undefined));
                             res.status(200).json({friendChatUserData, flattenedUserLists, unreadNum});
                         })
                 }).catch(console.error);
@@ -339,6 +365,17 @@ app.get('/getFriendChatMessage', (req, res) => {
 
     sqlFunction(get_friend_chat_message(data.from_iid, data.to_iid, data.chatMessageNum))
         .then((allMessage) => {
+            res.status(200).json(allMessage);
+        }).catch(console.error);
+})
+
+// 获取群聊聊天记录
+app.get('/getGroupChatMessage', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(get_group_chat_message(data.from_iid, data.to_iid, data.chatMessageNum))
+        .then((allMessage) => {
+            console.log(allMessage)
             res.status(200).json(allMessage);
         }).catch(console.error);
 })
@@ -399,6 +436,13 @@ io.on('connection', socket => {
                     .catch(console.error);
                 socket_users[message.from_iid].emit("sendFriendMessage", message);
                 socket_users[message.from_iid].emit("updateNewMessage", message.from_iid);
+            }).catch(console.error);
+    })
+
+    socket.on("sendGroupMessage", (message) => {
+        sqlFunction(add_group_chat_message(message.from_iid, message.gId, message.message, message.reading_status, message.send_time, message.from_name))
+            .then(() => {
+                console.log("上传成功!!!");
             }).catch(console.error);
     })
 

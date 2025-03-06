@@ -28,10 +28,14 @@ const mySqlQueryStatements = () => {
     const get_group_data = (gid) => "select * from grouplists where gId = " + gid;
     const get_group_user_data = (gid) => "select iid from groupmembers where gid = " + gid;
     const add_friend_chat_message = (from_iid, to_iid, message, reading_status, send_time) => "insert into friendchatmessage(from_iid, to_iid, message, reading_status, send_time) values (" + from_iid + "," + to_iid + ",'" + message + "', " + reading_status + ",'" + send_time + "' )";
+    const add_group_chat_message = (from_iid, gId, message, reading_status, send_time, from_name) => "insert into groupchatmessage(from_iid, gId, message, reading_status, send_time, from_name) values (" + from_iid + "," + gId + ",'" + message + "', " + reading_status + ",'" + send_time + "','" + from_name + "' )";
     const get_friend_chat_user_data = (account_iid) => "with RankedMessages as ( select *, row_number() over(partition by to_iid order by send_time desc) as rn from friendchatmessage where from_iid = " + account_iid + " or to_iid = " + account_iid + ") select * from RankedMessages where rn = 1 order by send_time desc;";
     const get_friend_chat_message = (from_iid, to_iid, records_num) => "select * from friendchatmessage where (from_iid = " + from_iid + " and to_iid = " + to_iid + ") or (from_iid = " + to_iid + " and to_iid = " + from_iid + ") order by send_time desc limit " + records_num;
+    const get_group_chat_message = (from_iid, to_iid, records_num) => "select * from groupchatmessage where gId = " + to_iid + " order by send_time desc limit " + records_num;
     const get_reading_status_lists = (from_iid) => "select * from friendchatmessage where reading_status = 0 and to_iid = " + from_iid;
     const change_message_status = (from_iid, to_iid) => "update friendchatmessage set reading_status = 1 where from_iid = " + from_iid + " and to_iid = " + to_iid;
+    const get_add_group = (iId) => "select gid from groupmembers where iid = " + iId;
+    const get_group_chat_user_data = (gId) => "with RankedMessages as ( select *, row_number() over(partition by gid order by send_time desc) as rn from groupchatmessage where gid = " + gId + ") select * from RankedMessages where rn = 1 order by send_time desc;";
 
     return {
         getUserListsToiId_sql,
@@ -56,10 +60,14 @@ const mySqlQueryStatements = () => {
         get_group_data,
         get_group_user_data,
         add_friend_chat_message,
+        add_group_chat_message,
         get_friend_chat_user_data,
         get_friend_chat_message,
+        get_group_chat_message,
         get_reading_status_lists,
         change_message_status,
+        get_add_group,
+        get_group_chat_user_data,
     }
 };
 

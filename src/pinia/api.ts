@@ -194,8 +194,8 @@ export const api = defineStore('api', () => {
     }
 
     // 获取好友聊天记录
-    const getFriendChatMessage = async (from_iid: number, to_iid: number, chatMessageNum: number) => {
-        return await axios.get('http://127.0.0.1:3000/getFriendChatMessage', {
+    const getFriendChatMessage = async (from_iid: number, to_iid: number, chatMessageNum: number, getPartner:string) => {
+        return await axios.get(`http://127.0.0.1:3000/${getPartner}`, {
             params: {
                 'from_iid': from_iid,
                 'to_iid': to_iid,
@@ -213,6 +213,17 @@ export const api = defineStore('api', () => {
             }
         })
     }
+
+    // 获取群聊聊天记录
+    // const getGroupChatMessage = async (from_iid: number, gId: number, chatMessageNum: number, asd:string) => {
+    //     return await axios.get(`http://127.0.0.1:3000/${asd}`, {
+    //         params: {
+    //             'from_iid': from_iid,
+    //             'gId': gId,
+    //             'chatMessageNum': chatMessageNum,
+    //         }
+    //     })
+    // }
 
     return {
         login,
@@ -235,5 +246,6 @@ export const api = defineStore('api', () => {
         getFriendChatUserData,
         getFriendChatMessage,
         changeMessageStatus,
+        // getGroupChatMessage,
     }
 })

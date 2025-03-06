@@ -41,8 +41,10 @@ export const friendsList = () => {
     // 打开聊天界面
     const openChatWindow = (): void => {
         homeActionBar().goMessageHref();
+        console.log(friends_lists.value)
         groupData().this_chat_friend_lists.value = friends_lists.value;
         socket.emit("chatUsersIds", {
+            type: "friend",
             thisUserId: usersLists().thisUserAccount >>> 0,
             thisChatFriendId: friends_lists.value.iId
         });

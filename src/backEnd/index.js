@@ -46,6 +46,7 @@ const {
     change_message_status,
     get_add_group,
     get_group_chat_user_data,
+    change_group_lists,
 } = mySqlQueryStatements;
 
 // 跨域
@@ -319,7 +320,7 @@ app.get('/getFriendChatUserData', (req, res) => {
                     .then((data) => {
                         groupMessage.push(data[0]);
 
-                        data.forEach((gid) => {
+                        data.forEach(() => {
                             sqlFunction(get_group_data(gId.gid))
                                 .then((groupList) => {
                                     grounpLists.push(groupList[0])
@@ -375,17 +376,26 @@ app.get('/getGroupChatMessage', (req, res) => {
 
     sqlFunction(get_group_chat_message(data.from_iid, data.to_iid, data.chatMessageNum))
         .then((allMessage) => {
-            console.log(allMessage)
             res.status(200).json(allMessage);
         }).catch(console.error);
 })
 
-// // 更改消息读取状态
+// 更改消息读取状态
 app.post('/changeMessageStatus', (req) => {
     const data = req.query;
 
     sqlFunction(change_message_status(data.to_iid, data.from_iid))
         .catch(console.error);
+})
+
+// 获修改群聊名称或公告
+app.post('/changeGroupLists', (req, res) => {
+    const data = req.query;
+
+    sqlFunction(change_group_lists(data.gId, data.object_modified, data.change_data))
+        .then(() => {
+            res.status(200).json("修改成功!!!");
+        }).catch(console.error);
 })
 
 /*==================================   Socket.io   ==================================*/

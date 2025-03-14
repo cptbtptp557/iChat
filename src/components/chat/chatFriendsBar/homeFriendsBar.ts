@@ -137,8 +137,8 @@ export const homeFriendsBar = () => {
     const createGroupSure = () => {
         let group_name: string = "";
         let add_user_iid: number[] = [];
-        for (let i = 0; i < selected_users.value.length; i++) {
-            if (i < selected_users.value.length - 1) group_name += selected_users.value[i].friend_notes + ",";
+        for (let i = 0; i < 3; i++) {
+            if (i < 2) group_name += selected_users.value[i].friend_notes + ",";
             else group_name += selected_users.value[i].friend_notes + "的群聊";
         }
         selected_users.value.forEach((proxy: any) => {
@@ -194,7 +194,7 @@ export const homeFriendsBar = () => {
         getFriendChatUserData(account_iId)
             .then((friendChatUserData_one) => {
                 const unReadCount = new Map();
-console.log(friendChatUserData_one)
+
                 friendsChatUserData.value = friendChatUserData_one.data;
                 friendsChatUserData.value.unreadNum.forEach((message: any) => {
                     if (!unReadCount.has(message.from_iid)) {
@@ -206,8 +206,6 @@ console.log(friendChatUserData_one)
                     }
                 });
                 unreadNum.value = unReadCount;
-
-                console.log(friendsChatUserData.value)
             })
     }
 

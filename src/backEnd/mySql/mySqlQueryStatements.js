@@ -36,6 +36,7 @@ const mySqlQueryStatements = () => {
     const change_message_status = (from_iid, to_iid) => "update friendchatmessage set reading_status = 1 where from_iid = " + from_iid + " and to_iid = " + to_iid;
     const get_add_group = (iId) => "select gid from groupmembers where iid = " + iId;
     const get_group_chat_user_data = (gId) => "with RankedMessages as ( select *, row_number() over(partition by gid order by send_time desc) as rn from groupchatmessage where gid = " + gId + ") select * from RankedMessages where rn = 1 order by send_time desc;";
+    const change_group_lists = (gId, object_modified, change_data) => "UPDATE grouplists SET " + object_modified + " = " + "'" + change_data + "'" + "WHERE gId = " + gId;
 
     return {
         getUserListsToiId_sql,
@@ -68,6 +69,7 @@ const mySqlQueryStatements = () => {
         change_message_status,
         get_add_group,
         get_group_chat_user_data,
+        change_group_lists,
     }
 };
 

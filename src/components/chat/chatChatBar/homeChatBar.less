@@ -516,7 +516,6 @@ footer {
         border-radius: 10px;
         background-color: @white;
 
-
         & img {
           width: 60px;
           height: 60px;
@@ -565,7 +564,7 @@ footer {
             color: @text_gray;
             position: relative;
             top: 2px;
-            left: 100px;
+            margin-left: auto;
             cursor: pointer;
 
             & .el-icon {
@@ -608,6 +607,7 @@ footer {
               text-overflow: ellipsis;
               white-space: nowrap;
               font-size: 10px;
+              text-align: center;
             }
           }
 
@@ -641,6 +641,10 @@ footer {
       }
 
       & footer {
+        position: relative;
+        top: 100px;
+        left: -5px;
+
         & .group_name {
           position: relative;
           left: 5px;
@@ -692,6 +696,7 @@ footer {
 
     & .all_more {
       position: relative;
+      top: -80px;
 
       & [value = "删除聊天记录"] {
         width: 310px;
@@ -959,12 +964,6 @@ footer {
           background-color: @light_gray;
           border-radius: 3px;
           text-align: center;
-        }
-      }
-
-      & li:first-child {
-        & p:nth-child(3) {
-          background-color: rgba(255, 0, 0, 0.25);
         }
       }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="thisOutside">
     <header>
-      <h4>{{ this_chat_friend_data?.group_name || this_chat_friend_data?.nickname }}</h4>
+      <h4>{{ this_chat_friend_data?.group_name ? group_name : this_chat_friend_data?.nickname }}</h4>
       <div class="shat_control">
         <el-tooltip
             class="box-item"
@@ -224,23 +224,23 @@
             <img src="../../../../public/chat-avatar/from-user.png" alt="群头像">
             <div>
               <p>{{ group_name }}</p>
-              <p>群Id</p>
+              <p>群Id: {{ this_chat_friend_data.gId }}</p>
             </div>
           </header>
           <main>
             <div class="group_main_top">
               <p>群聊成员</p>
               <p @click="look_more_group_users = true">
-                查看114514名群成员
+                查看{{ group_users_lists.length }}名群成员
                 <el-icon size="15">
                   <ArrowRight/>
                 </el-icon>
               </p>
             </div>
             <div class="group_users">
-              <div class="group_user" v-for="group_user in 9" :key="group_user">
+              <div class="group_user" v-for="group_user in group_users_lists" :key="group_user">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>群成员昵称</p>
+                <p>{{ group_user.nickname }}</p>
               </div>
               <div class="invite">
                 <el-icon size="40" @click="group_add_users = true">
@@ -257,7 +257,7 @@
                   type="text"
                   :disabled="group_permissions"
                   v-model="group_name"
-                  maxlength="15"
+                  maxlength="20"
                   show-word-limit
                   @change="changeGroupName"/>
             </div>
@@ -330,7 +330,7 @@
         <el-icon>
           <ArrowLeft/>
         </el-icon>
-        <p>群聊成员 114514</p>
+        <p>群聊成员 {{ group_users_lists.length }}</p>
       </header>
       <el-input
           v-model="look_more_group_users_inquire"
@@ -341,10 +341,13 @@
       />
       <main>
         <ul>
-          <li v-for="a in 30" :key="a">
+          <li v-for="group_user in
+    [group_users_lists.find((item:any) => item.iId === this_chat_friend_data.group_leader_iid),
+    ...group_users_lists.filter((item:any) => item.iId !== this_chat_friend_data.group_leader_iid)].filter(Boolean)
+  " :key="group_user.iId">
             <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-            <p>群成员昵称</p>
-            <p>群成员权限</p>
+            <p>{{ group_user.nickname }}</p>
+            <p v-if="group_user.iId === this_chat_friend_data.group_leader_iid">群主</p>
           </li>
         </ul>
       </main>
@@ -405,7 +408,9 @@ const {
   enterSengMessage,
   openOrDownloadFile,
   watchVideo,
+  group_users_lists,
 } = homeChatBar();
+
 </script>
 
 <style scoped>

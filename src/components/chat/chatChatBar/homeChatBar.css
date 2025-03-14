@@ -482,7 +482,7 @@ footer .send_box:active {
   color: #505050;
   position: relative;
   top: 2px;
-  left: 100px;
+  margin-left: auto;
   cursor: pointer;
 }
 .drawer main .group_chats_more main .group_main_top p:nth-child(2) .el-icon {
@@ -519,6 +519,7 @@ footer .send_box:active {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 10px;
+  text-align: center;
 }
 .drawer main .group_chats_more main .group_users .group_user:last-child {
   margin-right: 0;
@@ -540,6 +541,11 @@ footer .send_box:active {
   position: relative;
   left: 12px;
   letter-spacing: 2px;
+}
+.drawer main .group_chats_more footer {
+  position: relative;
+  top: 100px;
+  left: -5px;
 }
 .drawer main .group_chats_more footer .group_name {
   position: relative;
@@ -584,6 +590,7 @@ footer .send_box:active {
 }
 .drawer main .all_more {
   position: relative;
+  top: -80px;
 }
 .drawer main .all_more [value="删除聊天记录"] {
   width: 310px;
@@ -807,9 +814,6 @@ footer .send_box:active {
   background-color: #efefef;
   border-radius: 3px;
   text-align: center;
-}
-.look_more_group_users main ul li:first-child p:nth-child(3) {
-  background-color: rgba(255, 0, 0, 0.25);
 }
 .look_more_group_users main ul li:last-child {
   margin-bottom: 0;

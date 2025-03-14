@@ -194,7 +194,7 @@ export const api = defineStore('api', () => {
     }
 
     // 获取好友聊天记录
-    const getFriendChatMessage = async (from_iid: number, to_iid: number, chatMessageNum: number, getPartner:string) => {
+    const getFriendChatMessage = async (from_iid: number, to_iid: number, chatMessageNum: number, getPartner: string) => {
         return await axios.get(`http://127.0.0.1:3000/${getPartner}`, {
             params: {
                 'from_iid': from_iid,
@@ -214,16 +214,25 @@ export const api = defineStore('api', () => {
         })
     }
 
-    // 获取群聊聊天记录
-    // const getGroupChatMessage = async (from_iid: number, gId: number, chatMessageNum: number, asd:string) => {
-    //     return await axios.get(`http://127.0.0.1:3000/${asd}`, {
-    //         params: {
-    //             'from_iid': from_iid,
-    //             'gId': gId,
-    //             'chatMessageNum': chatMessageNum,
-    //         }
-    //     })
-    // }
+    // 获取群聊成员信息
+    const getGroupUsersLists = async (gId: number) => {
+        return await axios.get('http://127.0.0.1:3000/getGroupUsersLists', {
+            params: {
+                'gId': gId,
+            }
+        })
+    }
+
+    // 修改群聊名称或公告
+    const changeGroupLists = async (gId: number, object_modified: string, change_data: string | number) => {
+        return await axios.post('http://127.0.0.1:3000/changeGroupLists', '', {
+            params: {
+                'gId': gId,
+                'object_modified': object_modified,
+                'change_data': change_data,
+            }
+        })
+    }
 
     return {
         login,
@@ -246,6 +255,7 @@ export const api = defineStore('api', () => {
         getFriendChatUserData,
         getFriendChatMessage,
         changeMessageStatus,
-        // getGroupChatMessage,
+        getGroupUsersLists,
+        changeGroupLists,
     }
 })

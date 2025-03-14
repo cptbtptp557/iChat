@@ -26,10 +26,11 @@ export const homeChatBar = () => {
     const allChatMessage = ref(); // 聊天记录
     const this_chat_friend_data = ref(); // 当前聊天好友的信息
     const chat_partner = ref(true); // 当前聊天对象。 true: 私聊; false: 群聊
+    const group_users_lists = ref(); // 群成员列表
 
     const {group_state} = groupData();
     const {friend_chat_message, group_chat_message} = classLists();
-    const {getFriendChatMessage} = api();
+    const {getFriendChatMessage, changeGroupLists} = api();
 
     onMounted(() => {
         const connect: HTMLElement | null = document.getElementById("stop");
@@ -69,10 +70,24 @@ export const homeChatBar = () => {
     }
 
     const changeGroupName = (): void => {
-        console.log(group_name.value);
+        changeGroupLists(thisChatUsersIds.value.thisChatFriendId, "group_name", group_name.value)
+            .then(() => {
+                ElMessage({
+                    message: '修改成功!',
+                    type: 'success',
+                    duration: 2000,
+                })
+            })
     }
     const changeGroupAnnouncement = (): void => {
-        console.log(group_announcement.value);
+        changeGroupLists(thisChatUsersIds.value.thisChatFriendId, "group_announcement", group_announcement.value)
+            .then(() => {
+                ElMessage({
+                    message: '修改成功!',
+                    type: 'success',
+                    duration: 2000,
+                })
+            })
     }
     const openGroupAnnouncements = (): void => {
         ElNotification({
@@ -232,6 +247,13 @@ export const homeChatBar = () => {
             group_name.value = this_chat_friend_data.value.group_name;
             group_announcement.value = this_chat_friend_data.value.group_announcement;
             chat_partner.value = false;
+            group_permissions.value = this_chat_friend_data.value.group_leader_iid != usersLists().thisUserAccount;
+
+            api().groupUserData(this_chat_friend_data.value.gId)
+                .then(data => {
+                    group_users_lists.value = data.data.flattenedUserLists;
+                });
+
             getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 30, "getGroupChatMessage");
         } else {
             getFriendChatAllMessage(chatUsersIds.thisUserId, chatUsersIds.thisChatFriendId, chatMessageNum * 30, "getFriendChatMessage");
@@ -280,5 +302,6 @@ export const homeChatBar = () => {
         enterSengMessage,
         openOrDownloadFile,
         watchVideo,
+        group_users_lists,
     }
 }

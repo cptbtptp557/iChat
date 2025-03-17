@@ -1,7 +1,7 @@
 import {h, onMounted, ref, watch} from "vue";
 import {groupData} from "../../../pinia/groupData.ts";
 import {classLists} from "../../../class";
-import {ElNotification, ElMessage} from "element-plus";
+import {ElMessage, ElNotification} from "element-plus";
 import {usersLists} from "../../../pinia/usersLists.ts";
 import {api} from "../../../pinia/api.ts";
 import socket from "../../../socket";
@@ -16,7 +16,6 @@ export const homeChatBar = () => {
     const group_add_users = ref(false);
     const group_add_users_inquire = ref(); // 邀请好友加入群聊时的查询输入字段
     const selected_users = ref([]);
-    const invite_users = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]); // 邀请加入群聊的好友
     const look_more_group_users = ref(false);
     const look_more_group_users_inquire = ref(); // 更多群成员查询
     const copy_success = ref(false); // 复制成功告示
@@ -27,10 +26,11 @@ export const homeChatBar = () => {
     const this_chat_friend_data = ref(); // 当前聊天好友的信息
     const chat_partner = ref(true); // 当前聊天对象。 true: 私聊; false: 群聊
     const group_users_lists = ref(); // 群成员列表
+    const can_invited_add_group_users = ref([]); // 可邀请加入群聊好友
 
     const {group_state} = groupData();
     const {friend_chat_message, group_chat_message} = classLists();
-    const {getFriendChatMessage, changeGroupLists} = api();
+    const {getFriendChatMessage, changeGroupLists, getFriendsLists, agreeGroupAdd} = api();
 
     onMounted(() => {
         const connect: HTMLElement | null = document.getElementById("stop");
@@ -229,6 +229,49 @@ export const homeChatBar = () => {
         window.electronAPI.watchVideo(videoName, videoSrc);
     }
 
+    const groupAddUsers = () => {
+        group_add_users.value = true;
+        getFriendsLists(usersLists().thisUserAccount)
+            .then((data) => {
+                const a = new Set(group_users_lists.value.map((item: any) => item.iId));
+
+                can_invited_add_group_users.value = data.data.result.filter((item: any) => !a.has(item.friend_iId));
+            })
+    }
+
+    const inquireFriendsCanInvitedJoinGroup = () => {
+        if (!group_add_users_inquire.value) groupAddUsers();
+        else {
+            can_invited_add_group_users.value = can_invited_add_group_users.value.filter((item: any) => {
+                const friend_iIdStr = item.friend_iId.toString();
+
+                return friend_iIdStr.includes(group_add_users_inquire.value) || item.friend_notes.includes(group_add_users_inquire.value);
+            });
+        }
+    }
+
+    const decideInviteYourFriends = async () => {
+        group_add_users.value = false;
+        for (let i: number = 0; i < selected_users.value.length; i++) {
+            console.log(selected_users.value[i].friend_iId)
+
+            await agreeGroupAdd(selected_users.value[i].friend_iId, this_chat_friend_data.value.gId)
+                .then(() => {
+                    group_users_lists.value.push(selected_users.value)
+                }).catch(console.error);
+        }
+    }
+
+    const queryGroupUser = () => {
+        if (look_more_group_users_inquire.value)
+            group_users_lists.value = group_users_lists.value.filter((item: any) => item.nickname.includes(look_more_group_users_inquire.value));
+        else {
+            api().groupUserData(this_chat_friend_data.value.gId)
+                .then(data => {
+                    group_users_lists.value = data.data.flattenedUserLists;
+                });
+        }
+    }
 
     socket.on("sendFriendMessage", (message: any): void => {
         if (usersLists().thisUserAccount === message.from_iid) allChatMessage.value.push(message);
@@ -285,7 +328,6 @@ export const homeChatBar = () => {
         group_state,
         group_add_users,
         group_add_users_inquire,
-        invite_users,
         selected_users,
         inviteUsersLists,
         look_more_group_users,
@@ -303,5 +345,10 @@ export const homeChatBar = () => {
         openOrDownloadFile,
         watchVideo,
         group_users_lists,
+        groupAddUsers,
+        decideInviteYourFriends,
+        can_invited_add_group_users,
+        inquireFriendsCanInvitedJoinGroup,
+        queryGroupUser,
     }
 }

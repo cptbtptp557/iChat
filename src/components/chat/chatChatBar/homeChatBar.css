@@ -680,6 +680,13 @@ footer .send_box:active {
   position: relative;
   top: 8px;
 }
+.group_add_users_outside .group_add_users_left div:nth-child(2) .no_friends_invite {
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 3px;
+}
 .group_add_users_outside .group_add_users_right {
   width: 50%;
   height: 400px;

@@ -240,10 +240,10 @@
             <div class="group_users">
               <div class="group_user" v-for="group_user in group_users_lists" :key="group_user">
                 <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
-                <p>{{ group_user.nickname }}</p>
+                <p>{{ group_user.nickname || group_user.friend_notes }}</p>
               </div>
               <div class="invite">
-                <el-icon size="40" @click="group_add_users = true">
+                <el-icon size="40" @click="groupAddUsers">
                   <Plus/>
                 </el-icon>
                 <p>邀请</p>
@@ -288,9 +288,12 @@
               v-model="group_add_users_inquire"
               :prefix-icon="Search"
               placeholder="查询"
-              clearable/>
+              clearable
+              @change="inquireFriendsCanInvitedJoinGroup"/>
           <div>
-            <label v-for="(value, index) in invite_users" :key="index">
+            <label v-for="(value, index) in can_invited_add_group_users"
+                   :key="index"
+                   v-if="can_invited_add_group_users.length != 0">
               <input
                   type="checkbox"
                   :name="'invite_users' + value"
@@ -299,8 +302,9 @@
                   @change="inviteUsersLists"
               >
               <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
-              邀请用户 {{ value }}
+              {{ value.friend_notes }}
             </label>
+            <label class="no_friends_invite" v-else>无可邀请好友</label>
           </div>
         </div>
         <div class="group_add_users_right">
@@ -311,12 +315,12 @@
           <div class="selected_users">
             <div v-for="(value, index) in selected_users" :key="index">
               <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
-              <p>邀请用户 {{ value }}</p>
+              <p>{{ value.friend_notes }}</p>
             </div>
           </div>
           <div class="button">
-            <el-button type="primary" size="default">确定</el-button>
-            <el-button size="default">取消</el-button>
+            <el-button type="primary" size="default" @click="decideInviteYourFriends">确定</el-button>
+            <el-button size="default" @click="group_add_users = false;">取消</el-button>
           </div>
         </div>
       </div>
@@ -338,6 +342,7 @@
           placeholder="搜索"
           clearable
           :prefix-icon="Search"
+          @change="queryGroupUser"
       />
       <main>
         <ul>
@@ -391,7 +396,6 @@ const {
   group_state,
   group_add_users,
   group_add_users_inquire,
-  invite_users,
   selected_users,
   inviteUsersLists,
   look_more_group_users,
@@ -409,6 +413,11 @@ const {
   openOrDownloadFile,
   watchVideo,
   group_users_lists,
+  groupAddUsers,
+  decideInviteYourFriends,
+  can_invited_add_group_users,
+  inquireFriendsCanInvitedJoinGroup,
+  queryGroupUser,
 } = homeChatBar();
 
 </script>

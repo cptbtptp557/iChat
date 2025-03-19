@@ -25,6 +25,7 @@ export const homeFriendsBar = () => {
     const user_background = ref(); // 被聊天对象背景颜色
     const unreadNum = ref(); // 未读消息数目
     const this_chat_user_iId = ref(); // 当前聊天对象iId
+    const search_friends_chatted = ref() // 搜索已聊天好友
 
     const {addUser_mankind, addUser_group, create_new_group} = classLists();
     const {getUserLists, getFriendsLists, createGroup, getFriendChatUserData, changeMessageStatus} = api();
@@ -168,17 +169,15 @@ export const homeFriendsBar = () => {
         const thisChatFriendId: number = thisUserId == thisAccountId ? to_iid : thisAccountId;
 
         user_background.value = index;
-
-        console.log(thisChatFriendId)
         if (!chat_partner) {
             socket.emit("chatUsersIds", {
                 type: 'friend',
                 thisUserId: thisUserId,
                 thisChatFriendId: thisChatFriendId,
             });
-        }else {
+        } else {
             socket.emit("chatUsersIds", {
-                type: 'group' ,
+                type: 'group',
                 thisUserId: thisUserId,
                 thisChatFriendId: to_iid,
             });
@@ -207,6 +206,29 @@ export const homeFriendsBar = () => {
                 });
                 unreadNum.value = unReadCount;
             })
+    }
+
+    const searchFriendsChatted = () => {
+        if (search_friends_chatted.value) {
+            friendsChatUserData.value.flattenedUserLists = friendsChatUserData.value.flattenedUserLists.filter((item: any) => {
+                return (
+                    item.nickname?.includes(search_friends_chatted.value) || // 检查nickname是否包含c
+                    item.group_name?.includes(search_friends_chatted.value) || // 检查group_name是否包含c
+                    item.iId?.toString().includes(search_friends_chatted.value) || // 检查iId是否包含c
+                    item.gId?.toString().includes(search_friends_chatted.value) // 检查gId是否包含c
+                );
+            })
+
+            let chang_massage: any[] = [];
+
+            friendsChatUserData.value.flattenedUserLists.forEach((item1: any) => {
+                friendsChatUserData.value.friendChatUserData.forEach((item2: any) => {
+                    if (item1.iId && !item2.gid && (item1.iId === item2.from_iid || item1.iId === item2.to_iid)) chang_massage.push(item2);
+                    else if (item1.gId && item1.gId === item2.gid) chang_massage.push(item2);
+                });
+            })
+            friendsChatUserData.value.friendChatUserData = chang_massage;
+        } else getAboutMessageData(usersLists().thisUserAccount);
     }
 
     watch(find_logotype, () => {
@@ -267,5 +289,7 @@ export const homeFriendsBar = () => {
         getAllMessage,
         user_background,
         unreadNum,
+        search_friends_chatted,
+        searchFriendsChatted,
     }
 }

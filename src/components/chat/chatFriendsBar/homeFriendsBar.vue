@@ -5,7 +5,7 @@
         <el-icon class="search">
           <Search/>
         </el-icon>
-        <input type="text" placeholder="搜索">
+        <input v-model="search_friends_chatted" type="text" placeholder="搜索" @change="searchFriendsChatted">
       </label>
       <el-popover
           placement="bottom-start"
@@ -230,6 +230,8 @@ const {
   getAllMessage,
   user_background,
   unreadNum,
+  search_friends_chatted,
+  searchFriendsChatted,
 } = homeFriendsBar();
 </script>
 

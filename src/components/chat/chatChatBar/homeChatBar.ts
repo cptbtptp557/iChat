@@ -253,8 +253,6 @@ export const homeChatBar = () => {
     const decideInviteYourFriends = async () => {
         group_add_users.value = false;
         for (let i: number = 0; i < selected_users.value.length; i++) {
-            console.log(selected_users.value[i].friend_iId)
-
             await agreeGroupAdd(selected_users.value[i].friend_iId, this_chat_friend_data.value.gId)
                 .then(() => {
                     group_users_lists.value.push(selected_users.value)

@@ -19,6 +19,7 @@
             effect="dark"
             content="语音通话"
             placement="bottom"
+            v-if="!this_chat_friend_data?.gId"
         >
           <el-icon size="25">
             <Microphone @click="openVoiceCallWindow"/>
@@ -29,6 +30,7 @@
             effect="dark"
             content="视频通话"
             placement="bottom"
+            v-if="!this_chat_friend_data?.gId"
         >
           <el-icon size="25">
             <VideoCamera @click="openVideoCallWindow"/>

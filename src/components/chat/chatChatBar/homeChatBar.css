@@ -429,7 +429,7 @@ footer .send_box:active {
   overflow: hidden auto;
 }
 .drawer main .group_chats_more {
-  height: 490px;
+  min-height: 400px;
   margin-bottom: 10px;
 }
 .drawer main .group_chats_more header {
@@ -572,7 +572,7 @@ footer .send_box:active {
   position: relative;
   left: 5px;
   bottom: 110px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .drawer main .group_chats_more footer .group_announcement p {
   position: relative;
@@ -590,7 +590,6 @@ footer .send_box:active {
 }
 .drawer main .all_more {
   position: relative;
-  top: -80px;
 }
 .drawer main .all_more [value="删除聊天记录"] {
   width: 310px;

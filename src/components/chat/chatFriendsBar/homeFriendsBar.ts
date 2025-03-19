@@ -209,6 +209,8 @@ export const homeFriendsBar = () => {
     }
 
     const searchFriendsChatted = () => {
+        let chang_massage: any[] = [];
+        
         if (search_friends_chatted.value) {
             friendsChatUserData.value.flattenedUserLists = friendsChatUserData.value.flattenedUserLists.filter((item: any) => {
                 return (
@@ -218,8 +220,6 @@ export const homeFriendsBar = () => {
                     item.gId?.toString().includes(search_friends_chatted.value) // 检查gId是否包含c
                 );
             })
-
-            let chang_massage: any[] = [];
 
             friendsChatUserData.value.flattenedUserLists.forEach((item1: any) => {
                 friendsChatUserData.value.friendChatUserData.forEach((item2: any) => {

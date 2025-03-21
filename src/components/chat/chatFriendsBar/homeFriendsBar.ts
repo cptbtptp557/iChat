@@ -210,14 +210,14 @@ export const homeFriendsBar = () => {
 
     const searchFriendsChatted = () => {
         let chang_massage: any[] = [];
-        
+
         if (search_friends_chatted.value) {
             friendsChatUserData.value.flattenedUserLists = friendsChatUserData.value.flattenedUserLists.filter((item: any) => {
                 return (
-                    item.nickname?.includes(search_friends_chatted.value) || // 检查nickname是否包含c
-                    item.group_name?.includes(search_friends_chatted.value) || // 检查group_name是否包含c
-                    item.iId?.toString().includes(search_friends_chatted.value) || // 检查iId是否包含c
-                    item.gId?.toString().includes(search_friends_chatted.value) // 检查gId是否包含c
+                    item.nickname?.includes(search_friends_chatted.value) ||
+                    item.group_name?.includes(search_friends_chatted.value) ||
+                    item.iId?.toString().includes(search_friends_chatted.value) ||
+                    item.gId?.toString().includes(search_friends_chatted.value)
                 );
             })
 

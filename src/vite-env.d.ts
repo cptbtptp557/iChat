@@ -10,6 +10,8 @@ export interface IElectronAPI {
     sendVideoLists: (_event: any) => Promise<void>,
     sendVoiceRoomName: (roomName: string) => void,
     receptionVoiceRoomName: (_event: any) => Promise<void>,
+    sendVideoRoomName: (roomName: string) => void,
+    receptionVideoRoomName: (_event: any) => Promise<void>,
 }
 
 declare global {

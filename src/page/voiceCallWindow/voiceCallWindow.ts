@@ -7,6 +7,7 @@ export const voiceCallWindow = () => {
     const top_state = ref("拨通中");
     const voice_room = ref();
     const audio_src = ref();
+    const fromUserId = ref();
 
     // 关闭窗口
     const closeVoice = () => {
@@ -51,10 +52,10 @@ export const voiceCallWindow = () => {
         }, 700)
     }
 
-    const fromUserId = ref();
     const time = ref('00:00');
     let intervalName: any;
     const voiceHangUp = () => {
+        console.log()
         socket.emit("delete_voice_room", [voice_room.value, fromUserId.value]);
         peerConnections.forEach((peerConnection, roomName) => {
             peerConnection.close();
@@ -155,7 +156,7 @@ export const voiceCallWindow = () => {
     }
 
     // 处理用户加入房间
-    socket.on("voiceToUserJoinOver", (roomName) => {
+    socket.on("toUserJoinOver", (roomName) => {
         const peerConnection = createPeerConnection(roomName, socket, true);
         peerConnections.set(roomName, peerConnection);
 
@@ -196,7 +197,6 @@ export const voiceCallWindow = () => {
             }
         }
     });
-
 
     // 处理收到的 ICE 候选者
     socket.on("iceCandidate", async (candidateData) => {

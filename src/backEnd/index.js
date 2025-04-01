@@ -469,13 +469,16 @@ io.on('connection', socket => {
             .update("from:" + data.from + "to:" + data.to)
             .digest('hex');
 
+        console.log(room_name)
+
         if (VAVCS[data.from] === 0 && VAVCS[data.to] === 0) {
             socket.join(room_name);
             VAVCS[data.from] = 1;
             VAVCS[data.to] = 1;
 
-            socket_users[data.to].emit("join-room-name", [room_name, data.from]);
+            socket_users[data.to].emit("join-room-name", [room_name, data.from, data.type]);
             socket_users[data.to].emit("openVVCwindow", [room_name, data.from, data.to]);
+            socket_users[data.to].emit("call_type", data.type);
         } else {
             console.log("在房间里");
         }
@@ -485,12 +488,12 @@ io.on('connection', socket => {
         socket.join(data.room_name);
 
         // 接收方把房间号发给发送方
-        socket.broadcast.to(data.room_name).emit("roomNumberSender", data.room_name);
+        socket.broadcast.to(data.room_name).emit("roomNumberSender", [data.room_name, data.data_type]);
     })
 
     socket.on("fromUserJoinRoom", (data) => {
         socket.join(data);
-        socket.broadcast.to(data).emit("voiceToUserJoinOver", data);
+        socket.broadcast.to(data).emit("toUserJoinOver", data);
     })
 
     socket.on("hangUpVoice", (one_on_one_voice_list) => {

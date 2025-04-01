@@ -1,7 +1,7 @@
 <template>
   <div class="video_background">
     <header class="move">
-      <p>00:00</p>
+      <p>{{ top_state }}</p>
       <el-icon size="20" color="#a0a5a8" @click="closeVoice">
         <Close/>
       </el-icon>
@@ -10,15 +10,15 @@
       </el-icon>
     </header>
     <div class="video_show">
-      <video id="to_video"/>
-      <video id="from_video"/>
+      <video id="to_video" controls/>
+      <video id="from_video" controls/>
     </div>
     <footer>
       <el-icon size="40" color="#a0a5a8" class="microphone" @click="changeMicrophone">
         <Microphone v-if="audio_show"/>
         <Mute v-else/>
       </el-icon>
-      <el-icon size="50" color="#a0a5a8" class="hang-up">
+      <el-icon size="50" color="#a0a5a8" class="hang-up" @click="hangUp">
         <PhoneFilled style="transform: rotate(135deg);"/>
       </el-icon>
       <div class="camera" @click="changeCamera">
@@ -40,6 +40,8 @@ const {
   miniVoice,
   changeMicrophone,
   changeCamera,
+  top_state,
+  hangUp,
 } = videoCallWindow();
 </script>
 

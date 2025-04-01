@@ -108,6 +108,16 @@ app.whenReady()
                 console.log("没收到")
             }
         })
+
+        ipcMain.on('receptionVideoRoomName', (event, title) => {
+            if (title) {
+                setTimeout(() => {
+                    video_window.webContents.send("sendVideoRoomName", title);
+                }, 1000);
+            } else {
+                console.log("没收到")
+            }
+        })
     })
 
 app.on("window-all-closed", () => {

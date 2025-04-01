@@ -26,4 +26,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
         ipcRenderer.send('receptionVoiceRoomName', voice_room_name);
     },
     receptionVoiceRoomName: (voice_room_name) => ipcRenderer.on('sendVoiceRoomName', voice_room_name),
+    sendVideoRoomName: (video_room_name) => {
+        ipcRenderer.send('receptionVideoRoomName', video_room_name);
+    },
+    receptionVideoRoomName: (video_room_name) => ipcRenderer.on('sendVideoRoomName', video_room_name),
 });

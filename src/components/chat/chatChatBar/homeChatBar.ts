@@ -47,7 +47,8 @@ export const homeChatBar = () => {
     const openVoiceCallWindow = async (): Promise<void> => {
         socket.emit("VCRoom", {
             from: usersLists().thisUserAccount >>> 0,
-            to: this_chat_friend_data.value.iId
+            to: this_chat_friend_data.value.iId,
+            type: 0
         });
 
         try {
@@ -59,6 +60,12 @@ export const homeChatBar = () => {
 
     // 打开视频通话界面
     const openVideoCallWindow = (): void => {
+        socket.emit("VCRoom", {
+            from: usersLists().thisUserAccount >>> 0,
+            to: this_chat_friend_data.value.iId,
+            type: 1
+        });
+
         try {
             window.electronAPI.openVideoWindow();
         } catch (err) {

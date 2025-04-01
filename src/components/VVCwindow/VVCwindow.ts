@@ -4,16 +4,19 @@ import socket from "../../socket";
 export const VVCwindow = () => {
     const VVCW_status = ref(1);
     const one_on_one_voice_list = ref();
+    const call_type = ref();
 
 
     // 接通通话
     const connect = () => {
         try {
-            window.electronAPI.openVoiceCallWindow();
+            if (call_type.value == 0) window.electronAPI.openVoiceCallWindow();
+            else if (call_type.value == 1) window.electronAPI.openVideoWindow();
             VVCW_status.value = 1;
             socket.emit("toUserVVCwindowJoinRoom", one_on_one_voice_list.value);
         } catch (err) {
-            window.open('http://localhost:5173/voiceCallWindow', '_blank');
+            if (call_type.value == 0) window.open('http://localhost:5173/voiceCallWindow', '_blank');
+            else if (call_type.value == 1) window.open('http://localhost:5173/videoCallWindow', '_blank');
             socket.emit("toUserVVCwindowJoinRoom", one_on_one_voice_list.value);
         }
     }
@@ -35,9 +38,13 @@ export const VVCwindow = () => {
         socket.emit("deleteRoom", room);
     })
 
+    socket.on("call_type", (type: number) => {
+        call_type.value = type;
+    })
     return {
         VVCW_status,
         connect,
         hangUp,
+        call_type,
     }
 }

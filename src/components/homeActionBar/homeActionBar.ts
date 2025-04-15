@@ -6,6 +6,7 @@ import {usersLists} from "../../pinia/usersLists.ts";
 import {api} from "../../pinia/api.ts";
 import {ElNotification} from "element-plus";
 import socket from "../../socket";
+import {oss} from "../../alibabaCloud/oss.ts";
 
 export const homeActionBar = () => {
     const userLists = ref(); // 登录账户信息
@@ -80,6 +81,10 @@ export const homeActionBar = () => {
             }).catch(console.error);
     };
 
+    const replacementProfilePicture = async (event: any) => {
+        await oss().uploadProfilePicture(usersLists().thisUserAccount, event.target.files[0]);
+    }
+
     onMounted(() => {
         let token = localStorage.getItem('token') as string;
         getLoginUserLists(token)
@@ -109,5 +114,6 @@ export const homeActionBar = () => {
         gender,
         commit,
         signOutAccount,
+        replacementProfilePicture,
     }
 }

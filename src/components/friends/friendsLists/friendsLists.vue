@@ -1,7 +1,7 @@
 <template>
   <div class="friendsListsBody">
     <div class="friendsLists">
-      <img src="../../../../public/chat-avatar/from-user.png" draggable="false" alt="朋友头像">
+      <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+friends_lists.iId" draggable="false" alt="朋友头像">
       <div class="name_id">
         <p>{{ friends_lists.nickname }}</p>
         <p>Iid: {{ friends_lists.iId }}</p>

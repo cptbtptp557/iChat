@@ -166,16 +166,19 @@ header .add {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.search_results .show_search_outcome .search_user div p:first-child {
-  font-size: 15px;
-  margin-bottom: 5px;
-}
 .search_results .show_search_outcome .search_user div p:nth-child(2) {
-  font-size: 10px;
+  font-size: 20px;
   margin-bottom: 5px;
 }
 .search_results .show_search_outcome .search_user div p:nth-child(3) {
   font-size: 13px;
+  margin-bottom: 5px;
+}
+.search_results .show_search_outcome .search_user div p:nth-child(4) {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .chat_friends {
   height: 610px;
@@ -208,9 +211,11 @@ header .add {
 }
 .chat_friends .friends img {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   position: relative;
   left: 5px;
+  box-shadow: 0 1px 2px 2px #dadada;
 }
 .chat_friends .friends .information {
   display: flex;
@@ -259,26 +264,36 @@ header .add {
 .confirm_add_friend .el-form-item:nth-child(1) {
   padding: 5px;
 }
-.confirm_add_friend .el-form-item:nth-child(1) img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  box-shadow: 0 0 5px 3px #c7c7c7;
-  margin-right: 15px;
-}
 .confirm_add_friend .el-form-item:nth-child(1) div {
   width: 250px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.confirm_add_friend .el-form-item:nth-child(1) div p:nth-child(1) {
-  font-size: 20px;
-  color: #000;
+.confirm_add_friend .el-form-item:nth-child(1) div img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 3px #c7c7c7;
+  margin-right: 15px;
 }
 .confirm_add_friend .el-form-item:nth-child(1) div p:nth-child(2) {
+  width: 260px;
+  font-size: 20px;
+  color: #000;
+  position: absolute;
+  left: 100px;
+  top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.confirm_add_friend .el-form-item:nth-child(1) div p:nth-child(3) {
   font-size: 13px;
   color: #737373;
+  position: absolute;
+  left: 100px;
+  top: 40px;
 }
 .group_add_users_outside {
   height: 400px;

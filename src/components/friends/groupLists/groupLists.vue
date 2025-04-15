@@ -1,7 +1,7 @@
 <template>
   <div class="groupLists">
     <header>
-      <img src="../../../../public/chat-avatar/from-user.png" alt="群聊头像">
+      <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/g'+group_lists.gId" alt="群聊头像">
       <div>
         <p>{{ group_lists.group_name }}</p>
         <p>gId: {{ group_lists.gId }}</p>
@@ -31,7 +31,8 @@
           <p>群成员({{ group_user_lists.length }}人)</p>
         </div>
         <div>
-          <img v-for="group_user in group_user_lists" src="../../../../public/chat-avatar/from-user.png"
+          <img v-for="group_user in group_user_lists"
+               :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+group_user.iId"
                alt="群成员头像">
         </div>
       </div>

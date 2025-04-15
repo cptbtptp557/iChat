@@ -10,8 +10,8 @@
       </el-icon>
     </header>
     <div class="video_show">
-      <video id="to_video" controls/>
-      <video id="from_video" controls/>
+      <video id="to_video" autoplay controls/>
+      <video id="from_video" autoplay controls/>
     </div>
     <footer>
       <el-icon size="40" color="#a0a5a8" class="microphone" @click="changeMicrophone">

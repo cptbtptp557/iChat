@@ -47,8 +47,18 @@ export const oss = () => {
         socket.emit("sendFriendMessage", message);
     }
 
+    const uploadProfilePicture = async (pictureName: string, file: File) => {
+        await client.put(pictureName, file)
+            .then((result) => {
+                console.log('图片上传成功', result);
+            }).catch((err) => {
+                console.error('图片上传失败', err);
+            })
+    }
+
     return {
         getFile,
         upload_progress,
+        uploadProfilePicture,
     }
 }

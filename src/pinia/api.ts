@@ -234,6 +234,20 @@ export const api = defineStore('api', () => {
         })
     }
 
+    // 获取初始头像file
+    const getInitialAvatarFile = async () => {
+        let defaultImageInformation;
+
+        await axios.get('https://cptbtptp2557.oss-cn-shenzhen.aliyuncs.com/InitialAvatar', {
+            responseType: 'blob'
+        })
+            .then((response) => {
+                const blob = new Blob([response.data], {type: 'image/png'});
+                defaultImageInformation = new File([blob], 'ikun.png');
+            })
+        return defaultImageInformation;
+    }
+
     return {
         login,
         createAccount,
@@ -257,5 +271,6 @@ export const api = defineStore('api', () => {
         changeMessageStatus,
         getGroupUsersLists,
         changeGroupLists,
+        getInitialAvatarFile,
     }
 })

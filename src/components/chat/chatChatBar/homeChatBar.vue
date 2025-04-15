@@ -56,7 +56,8 @@
       <div v-for="(message, index) in allChatMessage" :key="index">
         <div class="to_user" v-if="message.from_iid != usersLists().thisUserAccount">
           <div>
-            <img class="user_image" src="../../../../public/chat-avatar/from-user.png" alt="接收方用户">
+            <img class="user_image" :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+ message.from_iid"
+                 alt="接收方用户">
             <div>
               <p>{{ this_chat_friend_data?.nickname || message?.from_name }}</p>
               <img :src="message.message.split('|')[1]"
@@ -155,7 +156,9 @@
               </div>
               <p @contextmenu.prevent="copyText" v-else>{{ message.message }}</p>
             </div>
-            <img class="user_image" src="../../../../public/chat-avatar/to-user.jpg" alt="发出方用户">
+            <img class="user_image"
+                 :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+usersLists().thisUserAccount"
+                 alt="发出方用户">
           </div>
         </div>
       </div>
@@ -223,7 +226,7 @@
       <main>
         <div class="group_chats_more" v-show="group_state">
           <header>
-            <img src="../../../../public/chat-avatar/from-user.png" alt="群头像">
+            <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/g'+this_chat_friend_data.gId" alt="群头像">
             <div>
               <p>{{ group_name }}</p>
               <p>群Id: {{ this_chat_friend_data.gId }}</p>
@@ -241,7 +244,7 @@
             </div>
             <div class="group_users">
               <div class="group_user" v-for="group_user in group_users_lists" :key="group_user">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+                <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+group_user.iId" alt="群成员头像">
                 <p>{{ group_user.nickname || group_user.friend_notes }}</p>
               </div>
               <div class="invite">
@@ -303,7 +306,7 @@
                   v-model="selected_users"
                   @change="inviteUsersLists"
               >
-              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+value.friend_iId" alt="好友头像">
               {{ value.friend_notes }}
             </label>
             <label class="no_friends_invite" v-else>无可邀请好友</label>
@@ -316,7 +319,7 @@
           </div>
           <div class="selected_users">
             <div v-for="(value, index) in selected_users" :key="index">
-              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+value.friend_iId" alt="好友头像">
               <p>{{ value.friend_notes }}</p>
             </div>
           </div>
@@ -352,7 +355,7 @@
     [group_users_lists.find((item:any) => item.iId === this_chat_friend_data.group_leader_iid),
     ...group_users_lists.filter((item:any) => item.iId !== this_chat_friend_data.group_leader_iid)].filter(Boolean)
   " :key="group_user.iId">
-            <img src="../../../../public/chat-avatar/from-user.png" alt="群成员头像">
+            <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+group_user.iId" alt="群成员头像">
             <p>{{ group_user.nickname }}</p>
             <p v-if="group_user.iId === this_chat_friend_data.group_leader_iid">群主</p>
           </li>

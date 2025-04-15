@@ -8,6 +8,7 @@ import socket from "../../../socket";
 import chatChatBar from "../chatChatBar/homeChatBar.vue";
 
 export const homeFriendsBar = () => {
+    const thisUserAccountIid = ref(); //当前用户iID
     const add_friend = ref(false); // 添加好友框
     const find_logotype = ref(); // 添加好友内输入的内容
     const query_results = ref(); // 查询出的好友、群聊
@@ -245,6 +246,7 @@ export const homeFriendsBar = () => {
 
     socket.on("friendChatUserData", (thisAccountId) => {
         getAboutMessageData(thisAccountId);
+        thisUserAccountIid.value = usersLists().thisUserAccount;
     })
 
     socket.on("updateNewMessage", (thisAccountId) => {
@@ -263,6 +265,7 @@ export const homeFriendsBar = () => {
     })
 
     return {
+        thisUserAccountIid,
         add_friend,
         find,
         find_logotype,

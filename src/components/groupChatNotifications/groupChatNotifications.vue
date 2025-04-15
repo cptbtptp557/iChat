@@ -5,7 +5,7 @@
     </div>
     <main>
       <div v-for="(lists, index) in group_notice" :key="index" class="apply_friends">
-        <img src="../../../public/chat-avatar/from-user.png" alt="申请好友方头像">
+        <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+lists.from_iid" alt="申请好友方头像">
         <div class="left">
           <div>
             <p>{{ lists.group_user_name }}</p>

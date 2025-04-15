@@ -65,13 +65,14 @@
             <div class="show_search_outcome" v-else>
               <div class="search_user" v-for="(search_user, index) in query_results" :key="index"
                    @click="confirmAddFriend(search_user)">
-                <img src="../../../../public/chat-avatar/from-user.png" alt="用户头像">
                 <div v-if="search_user.iId">
+                  <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+search_user.iId" alt="用户头像">
                   <p>{{ search_user.nickname }}</p>
-                  <p>{{ search_user.iId }}</p>
+                  <p>iId: {{ search_user.iId }}</p>
                   <p>{{ search_user.signature }}</p>
                 </div>
                 <div v-else-if="search_user.gId">
+                  <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/g'+search_user.gId" alt="用户头像">
                   <p>{{ search_user.group_name }}</p>
                   <p>{{ search_user.gId }}</p>
                 </div>
@@ -88,12 +89,15 @@
           width="400">
         <el-form label-position="top" class="confirm_add_friend">
           <el-form-item>
-            <img src="../../../../public/chat-avatar/from-user.png" alt="被添加方头像">
             <div v-if="confirm_add_friend_lists.iId">
+              <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+confirm_add_friend_lists.iId"
+                   alt="被添加方头像">
               <p>{{ confirm_add_friend_lists.nickname }}</p>
               <p>iId: {{ confirm_add_friend_lists.iId }}</p>
             </div>
             <div v-else>
+              <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/g'+confirm_add_friend_lists.gId"
+                   alt="被添加方头像">
               <p>{{ confirm_add_friend_lists.group_name }}</p>
               <p>gId: {{ confirm_add_friend_lists.gId }}</p>
             </div>
@@ -132,9 +136,15 @@
            :key="index"
            :style="{background : user_background === index? '#e8e8e8': '' }"
            @click="getAllMessage(friends.from_iid, friends.to_iid || friends.gid, friendsChatUserData.flattenedUserLists[index], index, !!friendsChatUserData.flattenedUserLists[index].group_name)">
-        <img src="../../../../public/chat-avatar/from-user.png" alt="朋友头像">
+        <img
+            :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+ (thisUserAccountIid == friends.to_iid ? friends.from_iid:friends.to_iid)"
+            alt="朋友头像"
+            v-if="friends.to_iid">
+        <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/g'+friends.gid" alt="朋友头像" v-else>
         <div class="information">
-          <p>{{ friendsChatUserData.flattenedUserLists[index].nickname || friendsChatUserData.flattenedUserLists[index].group_name }}</p>
+          <p>{{
+              friendsChatUserData.flattenedUserLists[index].nickname || friendsChatUserData.flattenedUserLists[index].group_name
+            }}</p>
           <p>{{
               (new Date(friends.send_time) >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) &&
                   new Date(friends.send_time) <= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 999)) ?
@@ -144,7 +154,8 @@
                       '昨天' :
                       friends.send_time.match(/^\d{4}\/\d{2}\/\d{2}/)[0]
             }}</p>
-          <p v-if="friends.message.includes('http://ichatimage.oss-cn-shenzhen.aliyuncs.com/')">[文件] {{friends.message.split('|')[0]}}</p>
+          <p v-if="friends.message.includes('http://ichatimage.oss-cn-shenzhen.aliyuncs.com/')">[文件]
+            {{ friends.message.split('|')[0] }}</p>
           <p v-else>{{ friends.message }}</p>
           <el-badge
               :value="unreadNum.get(friends.to_iid == usersLists().thisUserAccount ? friends.from_iid : friends.to_iid)"
@@ -172,7 +183,7 @@
                   :value="value"
                   v-model="selected_users"
               >
-              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+value.friend_iId" alt="好友头像">
               {{ value.friend_notes }}
             </label>
           </div>
@@ -184,7 +195,7 @@
           </div>
           <div class="selected_users">
             <div v-for="(value, index) in selected_users" :key="index">
-              <img src="../../../../public/chat-avatar/from-user.png" alt="好友头像">
+              <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+value.friend_iId" alt="好友头像">
               <p>{{ value.friend_notes }}</p>
             </div>
           </div>
@@ -204,6 +215,7 @@ import {homeFriendsBar} from "./homeFriendsBar.ts";
 import {usersLists} from "../../../pinia/usersLists.ts";
 
 const {
+  thisUserAccountIid,
   add_friend,
   find,
   find_logotype,

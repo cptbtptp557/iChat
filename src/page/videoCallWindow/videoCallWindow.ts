@@ -119,7 +119,6 @@ export const videoCallWindow = () => {
                     fromVideoElement.srcObject = stream;
                     fromVideoElement.play().catch(console.error);
                     videoElement.srcObject = stream;
-                    videoElement.play().catch(console.error);
                 }
 
                 return peerConnection.createOffer();

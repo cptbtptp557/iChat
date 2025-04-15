@@ -799,6 +799,7 @@ footer .send_box:active {
 }
 .look_more_group_users main ul li img {
   width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-right: 5px;
 }

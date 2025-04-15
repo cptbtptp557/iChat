@@ -5,7 +5,7 @@
     </div>
     <main>
       <div v-for="(recording, index) in friend_add_recording" :key="index" class="apply_friends">
-        <img src="../../../public/chat-avatar/from-user.png" alt="申请好友方头像">
+        <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+recording.from_iid" alt="申请好友方头像">
         <div class="left">
           <div>
             <p><span>{{ recording.from_name }}</span>请求加为好友</p>

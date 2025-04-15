@@ -10,7 +10,7 @@
       >
         <template #reference>
           <button>
-            <img src="../../../public/chat-avatar/to-user.jpg" class="avatar_image" alt="头像">
+            <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+userAccount" class="avatar_image" alt="头像">
           </button>
         </template>
         <div class="personal_information_column">
@@ -64,9 +64,9 @@
       <Close class="close" onclick="dialog.close()"/>
       <div>
         <label class="change_image">
-          <img src="../../../public/chat-avatar/to-user.jpg" alt="头像">
+          <img :src="'https://ichatimage.oss-cn-shenzhen.aliyuncs.com/i'+userAccount" alt="头像">
           <Camera class="camera"/>
-          <input type="file" style="display: none">
+          <input type="file" style="display: none" @change="replacementProfilePicture">
         </label>
         <label class="change_nickname">
           昵称
@@ -108,6 +108,7 @@ const {
   gender,
   commit,
   signOutAccount,
+  replacementProfilePicture,
 } = homeActionBar();
 </script>
 

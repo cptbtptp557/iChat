@@ -195,18 +195,21 @@ header {
           text-overflow: ellipsis;
         }
 
-        & p:first-child {
-          font-size: 15px;
-          margin-bottom: 5px;
-        }
-
         & p:nth-child(2) {
-          font-size: 10px;
+          font-size: 20px;
           margin-bottom: 5px;
         }
 
         & p:nth-child(3) {
           font-size: 13px;
+          margin-bottom: 5px;
+        }
+
+        & p:nth-child(4) {
+          font-size: 13px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -249,9 +252,11 @@ header {
 
     & img {
       width: 50px;
+      height: 50px;
       border-radius: 50%;
       position: relative;
       left: 5px;
+      box-shadow: 0 1px 2px 2px #dadada;
     }
 
     & .information {
@@ -308,28 +313,38 @@ header {
   & .el-form-item:nth-child(1) {
     padding: 5px;
 
-    & img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      box-shadow: 0 0 5px 3px @gray;
-      margin-right: 15px;
-    }
-
     & div {
       width: 250px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
 
-      & p:nth-child(1) {
-        font-size: 20px;
-        color: #000;
+      & img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        box-shadow: 0 0 5px 3px @gray;
+        margin-right: 15px;
       }
 
       & p:nth-child(2) {
+        width: 260px;
+        font-size: 20px;
+        color: #000;
+        position: absolute;
+        left: 100px;
+        top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      & p:nth-child(3) {
         font-size: 13px;
         color: #737373;
+        position: absolute;
+        left: 100px;
+        top: 40px;
       }
     }
   }
